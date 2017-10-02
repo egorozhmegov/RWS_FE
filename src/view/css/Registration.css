@@ -1,0 +1,46 @@
+.registerForm {
+    padding-top: 1%;
+    width: 300px;
+    margin: 0 auto;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.registerInput {
+    width: 250px;
+    padding: 7px 20px;
+    margin: 2px 0;
+    display: block;
+    border: 2px solid gray;
+    box-sizing: border-box;
+}
+
+.registerBtn {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    margin: 12px 0;
+    border: none;
+    cursor: pointer;
+    width: 250px;
+    display: block;
+}
+
+.registerBtn:hover {
+    background-color: gray;
+    color: black;
+}
+
+.registerBtn:active {
+    background-color: black;
+    color: white;
+    transform: translateY(3px);
+}
+
+.sss {
+    background-color: yellow;
+}
+
+.formErrors{
+    color: red;
+}

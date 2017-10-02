@@ -1,0 +1,52 @@
+.empHeaderUl {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    font-family: sans-serif;
+
+}
+
+.empHeaderLi {
+    float: left;
+}
+
+.rightLink {
+    float: right;
+}
+
+.empHeaderLink {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.empHeaderLink:hover {
+    color: gray;
+}
+
+.trainLogo {
+    padding-top: 4px;
+    height: 40px;
+}
+
+.loginLogo {
+    padding-top: 13px;
+}
+
+.registerLogo {
+    padding-top: 11px;
+}
+
+.empHeaderLabel {
+    float: left;
+    color: white;
+    font-size: 33px;
+    font-family: Comic Sans Ms;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+

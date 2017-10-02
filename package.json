@@ -1,0 +1,35 @@
+{
+  "name": "rws",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.2",
+    "connected-react-router": "latest",
+    "history": "latest",
+    "native-base": "^2.3.1",
+    "react": "^15.6.1",
+    "react-cookies": "latest",
+    "react-dom": "^15.6.1",
+    "react-modal": "latest",
+    "react-native": "latest",
+    "react-redux": "latest",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "react-router-redux": "latest",
+    "react-transition-group": "^2.2.0",
+    "redux": "latest",
+    "redux-devtools-extension": "latest",
+    "redux-thunk": "latest"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.10",
+    "react-router": "latest",
+    "native-base": "latest"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

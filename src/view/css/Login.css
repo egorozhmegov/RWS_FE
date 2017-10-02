@@ -1,0 +1,47 @@
+.loginForm {
+    padding-top: 12%;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.loginInput {
+    width: 250px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 2px solid gray;
+    box-sizing: border-box;
+
+}
+
+.loginBtn {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 250px;
+    display: block;
+}
+
+.loginBtn:hover {
+    background-color: gray;
+    color: black;
+}
+
+.loginBtn:active {
+    background-color: black;
+    color: white;
+    transform: translateY(3px);
+}
+
+.errorMessage{
+    color: red;
+    font-family: sans-serif;
+}
+
+.successMessage{
+    color: gray;
+    font-family: sans-serif;
+}

@@ -1,0 +1,28 @@
+.headerLink {
+    font-size: x-large;
+    font-family: sans-serif;
+    border: solid black;
+    width: 200px;
+    background-color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-text-fill-color: black;
+    display: inline-block;
+}
+
+.headerLi {
+    padding: 8px;
+}
+
+.headerNav {
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 15%;
+}
+
+.headerLink:hover, .headerLink:active {
+    background-color: gray;
+    -webkit-text-fill-color: white;
+}

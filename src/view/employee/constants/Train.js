@@ -1,0 +1,6 @@
+export const GET_TRAINS = 'GET_TRAINS';
+export const DELETE_TRAIN = 'DELETE_TRAIN';
+export const ADD_TRAIN = 'ADD_TRAIN';
+export const SET_ADD_TRAIN_MESSAGE = 'SET_ADD_TRAIN_MESSAGE';
+export const SET_ADD_ROUTE_POINT_MESSAGE = 'SET_ADD_ROUTE_POINT_MESSAGE';
+export const GET_ROUTE = 'GET_ROUTE';
