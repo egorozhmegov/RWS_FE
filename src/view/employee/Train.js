@@ -23,9 +23,11 @@ export default class Train extends Component{
             departPeriod: '',
             arrivePeriod: '',
 
-            disabled: false,
-            stayOpen: false,
-            value: []
+            select: {
+                disabled: false,
+                stayOpen: false,
+                value: []
+            }
         };
     }
 
@@ -59,7 +61,8 @@ export default class Train extends Component{
             showRouteModal: false,
             train: {
                 id: ''
-            }
+            },
+            departPeriod: ''
         });
     }
 
@@ -83,75 +86,58 @@ export default class Train extends Component{
     }
 
     addRoutePoint(event){
-        event.preventDefault();
+
         this.props.trainActions.addRoutePoint({
             departureTime: {
-                hour:'',
-                minute: ''
+                hour: 11,
+                minute: 30,
+                second: 0,
+                nano: 0
             },
             arrivalTime: {
-                hour:'',
-                minute: ''
+                hour: 11,
+                minute: 30,
+                second: 0,
+                nano: 0
             },
-            departPeriod: this.departPeriodInput.value,
-            arrivePeriod: this.arrivePeriodInput.value,
-            train: this.state.train,
+            departPeriod: 'sun',
+            arrivePeriod: 'sun',
+            train: {
+                number: "123A"
+            },
             station: {
-                title: this.stationInput.value
+                title: "Znamensk"
             }
         });
-        this.stationInput.value = '';
-        this.departPeriodInput.value = '';
-        this.arrivePeriodInput.value = '';
-    }
-
-    handleChangeDepartPeriod(event){
         this.setState({
-            departPeriod: event.target.value
+            departPeriod: '',
+            arrivePeriod: ''
         });
-        console.log(this.state.departPeriod)
+        this.stationInput.value = '';
     }
 
     handleSelectChange (value) {
-        console.log('You\'ve selected:', value);
         this.setState({
-            value: value
+            select:{
+                value: value
+            },
+            departPeriod: value
         });
     }
 
     render() {
-        const options = [
-            { label: 'Chocolate', value: 'chocolate' },
-            { label: 'Vanilla', value: 'vanilla' },
-            { label: 'Strawberry', value: 'strawberry' },
-            { label: 'Caramel', value: 'caramel' },
-            { label: 'Cookies and Cream', value: 'cookiescream' },
-            { label: 'Peppermint', value: 'peppermint' },
+        const days = [
+            { label: 'SUN', value: 'sun' },
+            { label: 'MON', value: 'mon' },
+            { label: 'TUE', value: 'tue' },
+            { label: 'WED', value: 'wed' },
+            { label: 'THU', value: 'thu' },
+            { label: 'FRI', value: 'fri' },
+            { label: 'SAT', value: 'sat' }
         ];
 
         return (
             <div>
-                <Select
-                    closeOnSelect={!this.state.stayOpen}
-                    disabled={this.state.disabled}
-                    multi
-                    onChange={this.handleSelectChange.bind(this)}
-                    options={options}
-                    placeholder="Select your favourite(s)"
-                    simpleValue
-                    value={this.state.value}
-                />
-
-                <select style={{width: 55}} value={this.state.departPeriod} onChange={this.handleChangeDepartPeriod.bind(this)}>
-                    <option value="sun">SUN</option>
-                    <option value="mon">MON</option>
-                    <option value="tue">TUE</option>
-                    <option value="wed">WED</option>
-                    <option value="thu">THU</option>
-                    <option value="fri">FRI</option>
-                    <option value="sat">SAT</option>
-
-                </select>
 
                 <table>
                     <thead>
@@ -196,7 +182,16 @@ export default class Train extends Component{
                 >
                     <form onSubmit={this.addRoutePoint.bind(this)}>
                         <input type="text" placeholder="Station" ref={(input) => {this.stationInput = input}}/>
-                        <input type="text" placeholder="Departure period" ref={(input) => {this.departPeriodInput = input}}/>
+                        <Select
+                            closeOnSelect={!this.state.select.stayOpen}
+                            disabled={this.state.select.disabled}
+                            multi
+                            onChange={this.handleSelectChange.bind(this)}
+                            options={days}
+                            placeholder="Departure days"
+                            simpleValue
+                            value={this.state.select.value}
+                        />
                         <TimePicker style={{ width: 50 }} defaultValue={null} showSecond={false}/>
                         <input type="text" placeholder="Arrival period" ref={(input) => {this.arrivePeriodInput = input}}/>
                         <TimePicker style={{ width: 50 }} defaultValue={null} showSecond={false}/>
