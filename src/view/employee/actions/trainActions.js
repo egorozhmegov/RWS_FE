@@ -1,7 +1,13 @@
 import store from '../store/configStore';
 import axios from 'axios';
 import { push } from 'connected-react-router';
-import {GET_TRAINS, DELETE_TRAIN, ADD_TRAIN, SET_ADD_TRAIN_MESSAGE, GET_ROUTE, SET_ADD_ROUTE_POINT_MESSAGE} from '../constants/Train';
+import {GET_TRAINS,
+    DELETE_TRAIN,
+    ADD_TRAIN,
+    SET_ADD_TRAIN_MESSAGE,
+    GET_ROUTE,
+    ADD_ROUTE_POINT,
+    SET_ADD_ROUTE_POINT_MESSAGE} from '../constants/Train';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListTrains(){
@@ -59,7 +65,7 @@ export function addTrain(train){
                     });
                     setAddTrainMessage('')
                 } else {
-                    setAddTrainMessage('Train exist already')
+                    setAddTrainMessage('Train exist already or incorrect data')
                 }
             })
     }
@@ -93,7 +99,15 @@ export function addRoutePoint(routePoint){
             withCredentials: true
         })
             .then((response) => {
-                console.log("OK")
+                if(response.status === 201){
+                    store.dispatch({
+                        type: ADD_ROUTE_POINT,
+                        payload: response.data
+                    });
+                    setAddRoutePointMessage('')
+                } else {
+                    setAddTrainMessage('Route point exist already or incorrect data')
+                }
             })
     }
 }

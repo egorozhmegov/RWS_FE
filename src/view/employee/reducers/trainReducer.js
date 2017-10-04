@@ -1,4 +1,12 @@
-import {GET_TRAINS, DELETE_TRAIN, ADD_TRAIN, SET_ADD_TRAIN_MESSAGE, GET_ROUTE, SET_ADD_ROUTE_POINT_MESSAGE} from '../constants/Train';
+import {
+    GET_TRAINS,
+    DELETE_TRAIN,
+    ADD_TRAIN,
+    SET_ADD_TRAIN_MESSAGE,
+    GET_ROUTE,
+    SET_ADD_ROUTE_POINT_MESSAGE,
+    ADD_ROUTE_POINT
+} from '../constants/Train';
 
 const initialState = {
     trains: [],
@@ -7,7 +15,7 @@ const initialState = {
     addRoutePointMessage: ''
 };
 
-export default function trainReducer(state = initialState, action){
+export default function trainReducer(state = initialState, action) {
     switch (action.type) {
 
         case GET_TRAINS:
@@ -20,7 +28,7 @@ export default function trainReducer(state = initialState, action){
             let id = action.payload;
             return {
                 ...state,
-                trains: state.trains.filter(train => train.trainId !== id)
+                trains: state.trains.filter(train => train.id !== id)
             };
 
         case ADD_TRAIN:
@@ -36,6 +44,15 @@ export default function trainReducer(state = initialState, action){
             return {
                 ...state,
                 route: action.payload
+            };
+
+        case ADD_ROUTE_POINT:
+            return {
+                ...state,
+                route: [
+                    ...state.route,
+                    action.payload
+                ]
             };
 
         case SET_ADD_TRAIN_MESSAGE:

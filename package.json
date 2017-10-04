@@ -21,6 +21,7 @@
     "react-router-dom": "latest",
     "react-router-redux": "latest",
     "react-select": "latest",
+    "react-sort": "0.0.0",
     "react-transition-group": "^2.2.0",
     "redux": "latest",
     "redux-devtools-extension": "latest",
