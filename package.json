@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "bootstrap": "^3.3.7",
     "connected-react-router": "latest",
     "history": "latest",
     "material-ui": "^0.19.3",
@@ -12,8 +13,10 @@
     "rc-time-picker": "^2.4.1",
     "rc-timepicker": "0.0.10",
     "react": "^15.6.1",
+    "react-bootstrap": "latest",
     "react-cookies": "latest",
     "react-dom": "^15.6.1",
+    "react-grid-system": "^2.9.6",
     "react-modal": "latest",
     "react-native": "latest",
     "react-redux": "latest",

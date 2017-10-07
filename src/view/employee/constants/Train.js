@@ -1,4 +1,5 @@
 export const GET_TRAINS = 'GET_TRAINS';
+export const GET_TRAIN = 'GET_TRAIN';
 export const DELETE_TRAIN = 'DELETE_TRAIN';
 export const ADD_TRAIN = 'ADD_TRAIN';
 export const SET_ADD_TRAIN_MESSAGE = 'SET_ADD_TRAIN_MESSAGE';

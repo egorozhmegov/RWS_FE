@@ -26,6 +26,7 @@
 
 .empHeaderLink:hover {
     color: gray;
+    text-decoration: none;
 }
 
 .trainLogo {

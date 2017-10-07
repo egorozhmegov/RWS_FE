@@ -1,0 +1,61 @@
+.station-input{
+    height: 26px;
+    width: 76%;
+    border: 2px solid lightgray;
+    margin: 5px 0;
+    font-size: 85%;
+    font-family: sans-serif;
+    padding: 0px 9px;
+}
+
+.route-point-form{
+    font-family: sans-serif;
+}
+
+.route-point-btn{
+    background-color: green;
+    color: white;
+    padding: 7px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    width: 85%;
+    display: block;
+}
+
+.route-point-btn:active {
+    background-color: white;
+    color: green;
+    transform: translateY(3px);
+}
+
+.route{
+    font-family: sans-serif;
+}
+
+table {
+    width: 100%;
+    font-family: sans-serif;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px;
+}
+
+th {
+    background-color: dimgray;
+    color: white;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2}
+
+.close-btn{
+    text-align: right;
+    opacity: 0.5;
+}

@@ -2,6 +2,7 @@ import store from '../store/configStore';
 import axios from 'axios';
 import { push } from 'connected-react-router';
 import {GET_TRAINS,
+    GET_TRAIN,
     DELETE_TRAIN,
     ADD_TRAIN,
     SET_ADD_TRAIN_MESSAGE,
@@ -124,4 +125,14 @@ export function setAddRoutePointMessage(message){
         type: SET_ADD_ROUTE_POINT_MESSAGE,
         payload: message
     })
+}
+
+export function getTrain(id){
+    console.log(id)
+    return () => {
+        store.dispatch({
+            type: GET_TRAIN,
+            payload: id
+        })
+    }
 }

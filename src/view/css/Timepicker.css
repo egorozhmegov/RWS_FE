@@ -6,19 +6,20 @@
     box-sizing: border-box;
 }
 .rc-time-picker-input {
+    margin: 5px 0;
     width: 100%;
     position: relative;
     display: inline-block;
     padding: 4px 7px;
-    height: 28px;
+    height: 26px;
     cursor: text;
     font-size: 12px;
     line-height: 1.5;
     color: #666;
     background-color: #fff;
     background-image: none;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
+    border: 2px solid #d9d9d9;
+    border-radius: 0px;
     transition: border 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .rc-time-picker-panel {
@@ -38,7 +39,7 @@
     font-size: 12px;
     text-align: left;
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 0px;
     box-shadow: 0 1px 5px #ccc;
     background-clip: padding-box;
     border: 1px solid #ccc;

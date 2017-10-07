@@ -1,5 +1,6 @@
 import {
     GET_TRAINS,
+    GET_TRAIN,
     DELETE_TRAIN,
     ADD_TRAIN,
     SET_ADD_TRAIN_MESSAGE,
@@ -11,6 +12,9 @@ import {
 const initialState = {
     trains: [],
     route: [],
+    train:{
+        number: ''
+    },
     addTrainMessage: '',
     addRoutePointMessage: ''
 };
@@ -22,6 +26,12 @@ export default function trainReducer(state = initialState, action) {
             return {
                 ...state,
                 trains: action.payload
+            };
+
+        case GET_TRAIN:
+            return {
+                ...state,
+                train: state.trains.filter(train => train.id === action.payload)
             };
 
         case DELETE_TRAIN:
