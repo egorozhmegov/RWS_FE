@@ -5,10 +5,13 @@ import {GET_TRAINS,
     GET_TRAIN,
     DELETE_TRAIN,
     ADD_TRAIN,
-    SET_ADD_TRAIN_MESSAGE,
+    SET_ADD_TRAIN_SUCCESS_MESSAGE,
+    SET_ADD_TRAIN_ERROR_MESSAGE,
     GET_ROUTE,
     ADD_ROUTE_POINT,
-    SET_ADD_ROUTE_POINT_MESSAGE} from '../constants/Train';
+    SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
+    SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
+    DELETE_ROUTE_POINT} from '../constants/Train';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListTrains(){
@@ -29,7 +32,7 @@ export function getListTrains(){
 }
 
 export function deleteTrain(id){
-    return (dispatch) => {
+    return () => {
         axios({
             method: 'DELETE',
             url: LOCAL_HOST + 'deleteTrain/'+id,
@@ -64,9 +67,9 @@ export function addTrain(train){
                         type: ADD_TRAIN,
                         payload: response.data
                     });
-                    setAddTrainMessage('')
+                    setAddTrainSuccessMessage('Train successfully created')
                 } else {
-                    setAddTrainMessage('Train exist already or incorrect data')
+                    setAddTrainErrorMessage('Train exist already or incorrect data')
                 }
             })
     }
@@ -105,30 +108,86 @@ export function addRoutePoint(routePoint){
                         type: ADD_ROUTE_POINT,
                         payload: response.data
                     });
-                    setAddRoutePointMessage('')
+                    setAddRoutePointSuccessMessage('Route point successfully created')
                 } else {
-                    setAddTrainMessage('Route point exist already or incorrect data')
+                    setAddRoutePointErrorMessage('Route point exist already or incorrect data')
                 }
             })
     }
 }
 
-export function setAddTrainMessage(message){
-    store.dispatch({
-        type: SET_ADD_TRAIN_MESSAGE,
-        payload: message
-    })
+export function deleteRoutePoint(id){
+    return () => {
+        axios({
+            method: 'DELETE',
+            url: LOCAL_HOST + 'deleteRoutePoint/'+id,
+            withCredentials: true
+        })
+            .then((response) => {
+                store.dispatch({
+                    type: DELETE_ROUTE_POINT,
+                    payload: response.data
+                })
+            })
+            .catch(() => {
+                store.dispatch(push('/rws/employee/train'));
+            })
+    }
 }
 
-export function setAddRoutePointMessage(message){
+export function setAddTrainSuccessMessage(message){
     store.dispatch({
-        type: SET_ADD_ROUTE_POINT_MESSAGE,
+        type: SET_ADD_TRAIN_SUCCESS_MESSAGE,
         payload: message
-    })
+    });
+    setTimeout(() => {
+        store.dispatch({
+            type: SET_ADD_TRAIN_SUCCESS_MESSAGE,
+            payload: ''
+        });
+    }, 4000);
+}
+
+export function setAddTrainErrorMessage(message){
+    store.dispatch({
+        type: SET_ADD_TRAIN_ERROR_MESSAGE,
+        payload: message
+    });
+    setTimeout(() => {
+        store.dispatch({
+            type: SET_ADD_TRAIN_ERROR_MESSAGE,
+            payload: ''
+        });
+    }, 4000);
+}
+
+export function setAddRoutePointSuccessMessage(message){
+    store.dispatch({
+        type: SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
+        payload: message
+    });
+    setTimeout(() => {
+        store.dispatch({
+            type: SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
+            payload: ''
+        });
+    }, 4000);
+}
+
+export function setAddRoutePointErrorMessage(message){
+    store.dispatch({
+        type: SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
+        payload: message
+    });
+    setTimeout(() => {
+        store.dispatch({
+            type: SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
+            payload: ''
+        });
+    }, 4000);
 }
 
 export function getTrain(id){
-    console.log(id)
     return () => {
         store.dispatch({
             type: GET_TRAIN,

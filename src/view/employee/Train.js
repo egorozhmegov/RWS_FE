@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ReactModal from 'react-modal';
-import *as trainActions from './actions/trainActions';
 import '../css/Timepicker.css';
 import '../css/SelectInput.css';
 import '../css/RoutePointModal.css';
@@ -23,7 +22,6 @@ export default class Train extends Component {
     constructor() {
         super();
         this.state = {
-            showAddTrainModal: false,
             showRouteModal: false,
             train: {
                 id: '',
@@ -57,22 +55,6 @@ export default class Train extends Component {
             timeArrPicker: null,
             timeDepPicker: null
         };
-    }
-
-
-    handleOpenAddTrainModal() {
-        this.setState({
-            showAddTrainModal: true,
-            train: {}
-        });
-        trainActions.setAddTrainMessage('');
-    }
-
-    handleCloseAddTrainModal() {
-        this.setState({
-            showAddTrainModal: false
-        });
-        trainActions.setAddTrainMessage('');
     }
 
     handleOpenRouteModal(id, number) {
@@ -121,6 +103,10 @@ export default class Train extends Component {
 
     deleteTrain(id) {
         this.props.trainActions.deleteTrain(id);
+    }
+
+    deleteRoutePoint(id){
+        this.props.trainActions.deleteRoutePoint(id);
     }
 
     getRoute(id, number) {
@@ -231,7 +217,7 @@ export default class Train extends Component {
                 <Row>
                     <Col sm={6}>
                         <div>
-                            <h1>Trains</h1>
+                            <h2>Trains</h2>
                             <table>
                                 <thead>
                                 <tr>
@@ -239,7 +225,8 @@ export default class Train extends Component {
                                     <th>Number</th>
                                     <th>Tariff ($)</th>
                                     <th>
-                                        <button onClick={this.handleOpenAddTrainModal.bind(this)}>+</button>
+                                    </th>
+                                    <th>
                                     </th>
                                 </tr>
                                 </thead>
@@ -251,22 +238,15 @@ export default class Train extends Component {
                                         <td>{train.number}</td>
                                         <td>{train.tariff}</td>
                                         <td>
-                                            <button onClick={this.deleteTrain.bind(this, train.id)}>Remove</button>
+                                            <button className="remove-train-btn" onClick={this.deleteTrain.bind(this, train.id)}>Remove</button>
                                         </td>
                                         <td>
-                                            <button onClick={this.getRoute.bind(this, train.id, train.number)}>Route</button>
+                                            <button className="get-route-btn" onClick={this.getRoute.bind(this, train.id, train.number)}>Route</button>
                                         </td>
                                     </tr>
                                 )}
                                 </tbody>
                             </table>
-
-                            <ReactModal
-                                isOpen={this.state.showAddTrainModal}
-                                contentLabel="showAddTrainModal"
-                            >
-
-                            </ReactModal>
 
                             <ReactModal
                                 isOpen={this.state.showRouteModal}
@@ -285,6 +265,7 @@ export default class Train extends Component {
                                                     <th>Arrival time</th>
                                                     <th>Departure days</th>
                                                     <th>Departure time</th>
+                                                    <th></th>
                                                 </tr>
                                                 </thead>
 
@@ -294,7 +275,7 @@ export default class Train extends Component {
                                                         let dayA = this.weekDaysNumber(a.arrivePeriod.split(',')[0]);
                                                         let dayB = this.weekDaysNumber(b.arrivePeriod.split(',')[0]);
                                                         if (dayA === dayB) {
-                                                            return a.departureTime > b.departureTime;
+                                                            return a.arrivalTime > b.arrivalTime;
                                                         } else {
                                                             return dayA > dayB;
                                                         }
@@ -330,6 +311,10 @@ export default class Train extends Component {
                                                                 <td>{arrHour} {arrHour === '' ? '' : ':'} {arrMinute}</td>
                                                                 <td>{route.departPeriod}</td>
                                                                 <td>{depHour} {depHour === '' ? '' : ':'} {depMinute}</td>
+                                                                <td>
+                                                                    <button className="remove-route-point-btn"
+                                                                            onClick={this.deleteRoutePoint.bind(this, route.id)}>Remove</button>
+                                                                </td>
                                                             </tr>
                                                         }
                                                     )}
@@ -394,6 +379,8 @@ export default class Train extends Component {
 
                                                     <div><button className="route-point-btn" type="submit">Save</button></div>
                                                 </form>
+                                                <h4 className="route-success-message">{this.props.trainReducer.addRoutePointSuccessMessage}</h4>
+                                                <h4 className="route-error-message">{this.props.trainReducer.addRoutePointErrorMessage}</h4>
                                             </div>
                                         </Col>
                                     </Row>
@@ -402,21 +389,24 @@ export default class Train extends Component {
                             </ReactModal>
                         </div>
                     </Col>
-                    <Col sm={6}>
-                        <div><h1>New train</h1></div>
 
-                        <form onSubmit={this.addTrain.bind(this)}>
-                            <input type="text" placeholder="trainNumber" ref={(input) => {
+                    <Col sm={1}></Col>
+
+                    <Col sm={5}>
+                        <div><h2>New train</h2></div>
+
+                        <form className="add-train-form" onSubmit={this.addTrain.bind(this)}>
+                            <input className="add-train-input" type="text" placeholder="Number" ref={(input) => {
                                 this.trainNumberInput = input
                             }}/>
-                            <input type="text" placeholder="tariff" ref={(input) => {
+                            <input className="add-train-input" type="text" placeholder="Tariff" ref={(input) => {
                                 this.tariffInput = input
                             }}/>
 
-                            <button type="button" onClick={this.handleCloseAddTrainModal.bind(this)}>Cancel</button>
-                            <button type="submit">Save</button>
+                            <button className="add-train-btn" type="submit">Save</button>
                         </form>
-                        <h4>{this.props.trainReducer.addTrainMessage}</h4>
+                        <h4 className="train-success-message">{this.props.trainReducer.addTrainSuccessMessage}</h4>
+                        <h4 className="train-error-message">{this.props.trainReducer.addTrainErrorMessage}</h4>
                     </Col>
                 </Row>
             </Container>

@@ -3,10 +3,13 @@ import {
     GET_TRAIN,
     DELETE_TRAIN,
     ADD_TRAIN,
-    SET_ADD_TRAIN_MESSAGE,
+    SET_ADD_TRAIN_SUCCESS_MESSAGE,
+    SET_ADD_TRAIN_ERROR_MESSAGE,
     GET_ROUTE,
-    SET_ADD_ROUTE_POINT_MESSAGE,
-    ADD_ROUTE_POINT
+    SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
+    SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
+    ADD_ROUTE_POINT,
+    DELETE_ROUTE_POINT
 } from '../constants/Train';
 
 const initialState = {
@@ -15,8 +18,10 @@ const initialState = {
     train:{
         number: ''
     },
-    addTrainMessage: '',
-    addRoutePointMessage: ''
+    addTrainSuccessMessage: '',
+    addTrainErrorMessage: '',
+    addRoutePointSuccessMessage: '',
+    addRoutePointErrorMessage: ''
 };
 
 export default function trainReducer(state = initialState, action) {
@@ -34,11 +39,16 @@ export default function trainReducer(state = initialState, action) {
                 train: state.trains.filter(train => train.id === action.payload)
             };
 
-        case DELETE_TRAIN:
-            let id = action.payload;
+        case DELETE_ROUTE_POINT:
             return {
                 ...state,
-                trains: state.trains.filter(train => train.id !== id)
+                route: state.route.filter(route => route.id !== action.payload)
+            };
+
+        case DELETE_TRAIN:
+            return {
+                ...state,
+                trains: state.trains.filter(train => train.id !== action.payload)
             };
 
         case ADD_TRAIN:
@@ -65,16 +75,28 @@ export default function trainReducer(state = initialState, action) {
                 ]
             };
 
-        case SET_ADD_TRAIN_MESSAGE:
+        case SET_ADD_TRAIN_SUCCESS_MESSAGE:
             return {
                 ...state,
-                addTrainMessage: action.payload
+                addTrainSuccessMessage: action.payload
             };
 
-        case SET_ADD_ROUTE_POINT_MESSAGE:
+        case SET_ADD_TRAIN_ERROR_MESSAGE:
             return {
                 ...state,
-                addRoutePointMessage: action.payload
+                addTrainErrorMessage: action.payload
+            };
+
+        case SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE:
+            return {
+                ...state,
+                addRoutePointSuccessMessage: action.payload
+            };
+
+        case SET_ADD_ROUTE_POINT_ERROR_MESSAGE:
+            return {
+                ...state,
+                addRoutePointErrorMessage: action.payload
             };
 
         default:
