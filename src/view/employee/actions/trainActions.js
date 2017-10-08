@@ -195,3 +195,12 @@ export function getTrain(id){
         })
     }
 }
+
+export function setEmptyTrains(){
+    return () => {
+        store.dispatch({
+            type: GET_TRAIN,
+            payload: []
+        })
+    }
+}

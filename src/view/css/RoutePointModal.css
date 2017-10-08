@@ -1,6 +1,6 @@
 .station-input{
     height: 26px;
-    width: 76%;
+    width: 89%;
     border: 2px solid lightgray;
     margin: 5px 0;
     font-size: 85%;
@@ -9,6 +9,8 @@
 }
 
 .route-point-form{
+    margin-top: 15%;
+    margin-left: 20%;
     font-family: sans-serif;
 }
 

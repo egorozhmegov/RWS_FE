@@ -40,6 +40,8 @@ export default class Station extends Component {
                                 }
                                 if (a.title.toUpperCase() > b.title.toUpperCase()) {
                                     return 1;
+                                } else {
+                                    return 0;
                                 }
                             })
                             .map((station, index) =>

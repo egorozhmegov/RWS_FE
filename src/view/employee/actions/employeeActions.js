@@ -1,7 +1,9 @@
 import axios from 'axios';
 import store from '../store/configStore';
 import {push} from 'connected-react-router';
-import {SET_ERROR_LOGIN_MESSAGE, SET_ERROR_REGISTER_MESSAGE, SET_SUCCESS_MESSAGE} from '../constants/Employee';
+import {SET_ERROR_LOGIN_MESSAGE,
+    SET_ERROR_REGISTER_MESSAGE,
+    SET_SUCCESS_MESSAGE} from '../constants/Employee';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function loginEmployee(employee) {
@@ -54,7 +56,7 @@ export function registerEmployee(employee){
             .then((response) => {
                 if(response.data === true){
                     setErrorRegisterMessage('');
-                    setSuccessMessage(employee.employeeFirstName + ' ' + employee.employeeLastName + ' successfully registered');
+                    setSuccessMessage(employee.firstName + ' ' + employee.lastName + ' successfully registered');
                 } else {
                     setSuccessMessage('');
                     setErrorRegisterMessage('Such employee does not exist');
@@ -74,7 +76,7 @@ export function setErrorLoginMessage(message){
             type: SET_ERROR_LOGIN_MESSAGE,
             payload: ''
         });
-    }, 3000);
+    }, 4000);
 }
 
 export function setErrorRegisterMessage(message){
@@ -87,7 +89,7 @@ export function setErrorRegisterMessage(message){
             type: SET_ERROR_REGISTER_MESSAGE,
             payload: ''
         });
-    }, 10000);
+    }, 4000);
 }
 
 export function setSuccessMessage(message) {
@@ -100,5 +102,5 @@ export function setSuccessMessage(message) {
             type: SET_SUCCESS_MESSAGE,
             payload: ''
         });
-    }, 10000);
+    }, 4000);
 }

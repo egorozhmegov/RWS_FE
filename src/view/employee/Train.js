@@ -89,6 +89,7 @@ export default class Train extends Component {
             timeArrPicker: null,
             timeDepPicker: null
         });
+        this.props.trainReducer.route = [];
     }
 
     addTrain(event) {
@@ -254,7 +255,7 @@ export default class Train extends Component {
                             >
                                 <Container>
                                     <Row>
-                                        <Col sm={8} className="route">
+                                        <Col sm={9} className="route">
                                             <div><h3>Route of train {this.state.train.number}</h3></div>
 
                                             <table className="route-table">
@@ -274,8 +275,16 @@ export default class Train extends Component {
                                                     .sort((a, b) => {
                                                         let dayA = this.weekDaysNumber(a.arrivePeriod.split(',')[0]);
                                                         let dayB = this.weekDaysNumber(b.arrivePeriod.split(',')[0]);
+                                                        let aHour = a.arrivalTime === null ? 0 : a.arrivalTime[0];
+                                                        let aMinute = a.arrivalTime === null ? 0 : a.arrivalTime[1];
+                                                        let bHour = b.arrivalTime === null ? 0 : b.arrivalTime[0];
+                                                        let bMinute = b.arrivalTime === null ? 0 : b.arrivalTime[1];
                                                         if (dayA === dayB) {
-                                                            return a.arrivalTime > b.arrivalTime;
+                                                            if(aHour === bHour){
+                                                                return aMinute > bMinute;
+                                                            } else {
+                                                                return aHour > bHour;
+                                                            }
                                                         } else {
                                                             return dayA > dayB;
                                                         }
@@ -322,7 +331,6 @@ export default class Train extends Component {
                                             </table>
                                         </Col>
 
-                                        <Col sm={1}></Col>
 
                                         <Col sm={3}>
                                             <div className="close-btn">

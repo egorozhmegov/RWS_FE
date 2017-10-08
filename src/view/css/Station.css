@@ -27,6 +27,8 @@
     display: block;
     border: 2px solid gray;
     box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: medium;
 }
 
 .add-station-btn {
