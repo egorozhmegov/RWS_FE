@@ -1,0 +1,55 @@
+.remove-station-btn{
+    background-color: indianred;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width:70px;
+    height: 25px;
+    display: block;
+}
+
+.remove-station-btn:active {
+    background-color: white;
+    color: indianred;
+    transform: translateY(3px);
+}
+
+.remove-station-btn:active {
+    background-color: white;
+    color: indianred;
+    transform: translateY(3px);
+}
+
+.add-station-input {
+    width: 250px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 2px solid gray;
+    box-sizing: border-box;
+}
+
+.add-station-btn {
+    background-color: darkslategray;
+    color: white;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 250px;
+    display: block;
+}
+
+.add-station-btn:active {
+    background-color: white;
+    color: darkslategray;
+    transform: translateY(3px);
+}
+
+.station-error-message{
+    color: red;
+}
+
+.station-success-message{
+    color: gray;
+}

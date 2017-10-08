@@ -13,12 +13,18 @@ export default class EmpMain extends Component {
         return (
             <main>
                 <Switch>
-                    <Route exact path='/rws/employee/train' component={cookie.load('RWS_COOKIE') !== undefined ? TrainContainer : LoginContainer} />
-                    <Route path='/rws/employee/station' component={StationContainer} />
-                    <Route path='/rws/employee/passenger' component={PassengerContainer} />
-                    <Route path='/rws/employee/registration' component={cookie.load('RWS_COOKIE') !== undefined ? TrainContainer : RegistrationContainer} />
-                    <Route path='/rws/employee/login' component={cookie.load('RWS_COOKIE') !== undefined ? TrainContainer : LoginContainer} />
-                    <Route path='/rws/employee/logout' component={LogoutContainer} />
+                    <Route exact path='/rws/employee/train'
+                           component={cookie.load('RWS_COOKIE') !== undefined ? TrainContainer : LoginContainer} />
+                    <Route path='/rws/employee/station'
+                           component={cookie.load('RWS_COOKIE') !== undefined ? StationContainer : LoginContainer} />
+                    <Route path='/rws/employee/passenger'
+                           component={cookie.load('RWS_COOKIE') !== undefined ? PassengerContainer : LoginContainer} />
+                    <Route path='/rws/employee/registration'
+                           component={cookie.load('RWS_COOKIE') !== undefined ? TrainContainer : RegistrationContainer} />
+                    <Route path='/rws/employee/login'
+                           component={cookie.load('RWS_COOKIE') !== undefined ? TrainContainer : LoginContainer} />
+                    <Route path='/rws/employee/logout'
+                           component={LogoutContainer} />
                     <Route component={TrainContainer} />
                 </Switch>
             </main>
