@@ -116,11 +116,15 @@ export function addRoutePoint(routePoint){
     }
 }
 
-export function deleteRoutePoint(id){
+export function deleteRoutePoint(routePoint){
     return () => {
         axios({
-            method: 'DELETE',
-            url: LOCAL_HOST + 'deleteRoutePoint/'+id,
+            method: 'POST',
+            url: LOCAL_HOST + 'deleteRoutePoint',
+            data: routePoint,
+            headers: {
+                'Content-Type': 'application/json'
+            },
             withCredentials: true
         })
             .then((response) => {

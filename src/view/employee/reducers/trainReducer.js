@@ -42,7 +42,7 @@ export default function trainReducer(state = initialState, action) {
         case DELETE_ROUTE_POINT:
             return {
                 ...state,
-                route: state.route.filter(route => route.id !== action.payload)
+                route: state.route.filter(route => route.station.title !== action.payload.station.title)
             };
 
         case DELETE_TRAIN:

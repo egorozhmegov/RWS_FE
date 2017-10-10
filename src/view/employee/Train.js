@@ -106,8 +106,17 @@ export default class Train extends Component {
         this.props.trainActions.deleteTrain(id);
     }
 
-    deleteRoutePoint(id){
-        this.props.trainActions.deleteRoutePoint(id);
+    deleteRoutePoint(trainId, stationTitle) {
+        this.props.trainActions.deleteRoutePoint(
+            {
+                train: {
+                    id: trainId
+                },
+                station: {
+                    title: stationTitle
+                }
+            });
+
     }
 
     getRoute(id, number) {
@@ -239,10 +248,14 @@ export default class Train extends Component {
                                         <td>{train.number}</td>
                                         <td>{train.tariff}</td>
                                         <td>
-                                            <button className="remove-train-btn" onClick={this.deleteTrain.bind(this, train.id)}>Remove</button>
+                                            <button className="remove-train-btn"
+                                                    onClick={this.deleteTrain.bind(this, train.id)}>Remove
+                                            </button>
                                         </td>
                                         <td>
-                                            <button className="get-route-btn" onClick={this.getRoute.bind(this, train.id, train.number)}>Route</button>
+                                            <button className="get-route-btn"
+                                                    onClick={this.getRoute.bind(this, train.id, train.number)}>Route
+                                            </button>
                                         </td>
                                     </tr>
                                 )}
@@ -280,7 +293,7 @@ export default class Train extends Component {
                                                         let bHour = b.arrivalTime === null ? 0 : b.arrivalTime[0];
                                                         let bMinute = b.arrivalTime === null ? 0 : b.arrivalTime[1];
                                                         if (dayA === dayB) {
-                                                            if(aHour === bHour){
+                                                            if (aHour === bHour) {
                                                                 return aMinute > bMinute;
                                                             } else {
                                                                 return aHour > bHour;
@@ -322,7 +335,9 @@ export default class Train extends Component {
                                                                 <td>{depHour} {depHour === '' ? '' : ':'} {depMinute}</td>
                                                                 <td>
                                                                     <button className="remove-route-point-btn"
-                                                                            onClick={this.deleteRoutePoint.bind(this, route.id)}>Remove</button>
+                                                                            onClick={this.deleteRoutePoint.bind(this, route.train.id, route.station.title)}>
+                                                                        Remove
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                         }
@@ -334,7 +349,9 @@ export default class Train extends Component {
 
                                         <Col sm={3}>
                                             <div className="close-btn">
-                                                <button type="button" onClick={this.handleCloseRouteModal.bind(this)}>X</button>
+                                                <button type="button" onClick={this.handleCloseRouteModal.bind(this)}>
+                                                    X
+                                                </button>
                                             </div>
 
                                             <div className="route-point-form">
@@ -342,9 +359,10 @@ export default class Train extends Component {
                                                     <div><h3>New route point</h3></div>
 
                                                     <div>Station</div>
-                                                    <input className="station-input" type="text" placeholder="Station" ref={(input) => {
-                                                        this.stationInput = input
-                                                    }}/>
+                                                    <input className="station-input" type="text" placeholder="Station"
+                                                           ref={(input) => {
+                                                               this.stationInput = input
+                                                           }}/>
 
                                                     <div>Arrival days</div>
                                                     <Select
@@ -385,7 +403,9 @@ export default class Train extends Component {
                                                                 onChange={this.onDepTimeChange.bind(this)}
                                                     />
 
-                                                    <div><button className="route-point-btn" type="submit">Save</button></div>
+                                                    <div>
+                                                        <button className="route-point-btn" type="submit">Save</button>
+                                                    </div>
                                                 </form>
                                                 <h4 className="route-success-message">{this.props.trainReducer.addRoutePointSuccessMessage}</h4>
                                                 <h4 className="route-error-message">{this.props.trainReducer.addRoutePointErrorMessage}</h4>
@@ -421,4 +441,4 @@ export default class Train extends Component {
 
         );
     }
-    }
+}
