@@ -231,7 +231,6 @@ export default class Train extends Component {
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Number</th>
                                     <th>Tariff ($)</th>
                                     <th>
@@ -244,7 +243,6 @@ export default class Train extends Component {
                                 <tbody>
                                 {this.props.trainReducer.trains.map((train, index) =>
                                     <tr key={index}>
-                                        <td>{train.id}</td>
                                         <td>{train.number}</td>
                                         <td>{train.tariff}</td>
                                         <td>
@@ -424,9 +422,11 @@ export default class Train extends Component {
                         <div><h2>New train</h2></div>
 
                         <form className="add-train-form" onSubmit={this.addTrain.bind(this)}>
+                            <div>Number</div>
                             <input className="add-train-input" type="text" placeholder="Number" ref={(input) => {
                                 this.trainNumberInput = input
                             }}/>
+                            <div>Tariff</div>
                             <input className="add-train-input" type="text" placeholder="Tariff" ref={(input) => {
                                 this.tariffInput = input
                             }}/>

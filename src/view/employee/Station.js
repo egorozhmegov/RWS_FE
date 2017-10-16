@@ -25,7 +25,6 @@ export default class Station extends Component {
                     <table>
                         <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Title</th>
                             <th>
                             </th>
@@ -46,7 +45,6 @@ export default class Station extends Component {
                             })
                             .map((station, index) =>
                                 <tr key={index}>
-                                    <td>{station.id}</td>
                                     <td>{station.title}</td>
                                     <td>
                                         <button className="remove-station-btn" onClick={this.deleteStation.bind(this, station.id)}>Remove</button>
@@ -63,6 +61,7 @@ export default class Station extends Component {
                     <div><h2>New station</h2></div>
 
                     <form className="add-station-form" onSubmit={this.addStation.bind(this)}>
+                        <div>Title</div>
                         <input className="add-station-input" type="text" placeholder="Title" ref={(input) => {
                             this.stationTitleInput = input
                         }}/>

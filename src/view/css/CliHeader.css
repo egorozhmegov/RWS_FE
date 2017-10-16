@@ -1,0 +1,51 @@
+.cli-header{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkslategray;
+    font-family: sans-serif;
+}
+
+.cli-header-label{
+    float: left;
+    color: white;
+    font-size: 33px;
+    font-family: Comic Sans Ms;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+
+.cli-header-li{
+    float: left;
+}
+
+.cli-header-link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.cli-header-link:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.train-logo {
+    padding-top: 4px;
+    height: 40px;
+}
+
+.sign-out-btn{
+    float: right;
+    margin-top: 14px;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+.right-link{
+    float: right;
+}
+
