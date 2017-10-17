@@ -55,3 +55,8 @@
 .station-success-message{
     color: gray;
 }
+
+.search-station{
+    width: 120px;
+    margin-left: -185px;
+}

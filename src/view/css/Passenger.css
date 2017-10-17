@@ -1,3 +1,11 @@
 .passenger{
     font-family: sans-serif;
 }
+
+.filter-head{
+    background-color: white;
+}
+
+.search-input{
+    width: 100px;
+}

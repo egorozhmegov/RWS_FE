@@ -89,3 +89,8 @@
 .train-success-message{
     color: gray;
 }
+
+.search-train{
+    width: 100px;
+    margin-left: 115px;
+}

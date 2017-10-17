@@ -1,11 +1,15 @@
-import {GET_STATIONS,
+import {
+    GET_STATIONS,
     DELETE_STATION,
     ADD_STATION,
+    FILTER_STATIONS,
     SET_ADD_STATION_SUCCESS_MESSAGE,
-    SET_ADD_STATION_ERROR_MESSAGE} from '../constants/Station';
+    SET_ADD_STATION_ERROR_MESSAGE
+} from '../constants/Station';
 
 const initialState = {
     stations: [],
+    filterStations: [],
     addStationSuccessMessage: '',
     addStationErrorMessage: '',
 };
@@ -16,7 +20,8 @@ export default function trainReducer(state = initialState, action) {
         case GET_STATIONS:
             return {
                 ...state,
-                stations: action.payload
+                stations: action.payload,
+                filterStations: action.payload
             };
 
         case ADD_STATION:
@@ -44,6 +49,12 @@ export default function trainReducer(state = initialState, action) {
             return {
                 ...state,
                 addStationErrorMessage: action.payload
+            };
+
+        case FILTER_STATIONS:
+            return {
+                ...state,
+                stations: action.payload
             };
 
         default:

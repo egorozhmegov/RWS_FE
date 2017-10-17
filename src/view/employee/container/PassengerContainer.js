@@ -7,14 +7,20 @@ import Passenger from "../Passenger";
 
 class PassengerContainer extends Component {
 
-    componentWillMount() {
+    constructor(){
+        super();
         passengerActions.getListPassengers();
+    }
+
+    componentWillMount() {
+
     }
 
     render() {
         return (
             <Passenger passengerReducer={this.props.passengerReducer}
                      passengerActions={this.props.passengerActions}
+                       passengers = {[1,2,3]}
             />
         );
     }

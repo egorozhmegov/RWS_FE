@@ -230,6 +230,15 @@ export default class Train extends Component {
         }
     }
 
+    onSearchInputChange(event){
+        let updatedList = this.props.trainReducer.filterTrains;
+        updatedList = updatedList.filter(function(item){
+            return (item.number.toLowerCase().search(
+                event.target.value.toLowerCase()) !== -1);
+        });
+        this.props.trainActions.filter(updatedList);
+    }
+
     render() {
         let depDays = days;
         let arrDays = days;
@@ -251,6 +260,7 @@ export default class Train extends Component {
                                         <th>Number</th>
                                         <th>Tariff ($)</th>
                                         <th>
+                                            <input className="search-train" type="text" onChange={this.onSearchInputChange.bind(this)}/>
                                         </th>
                                         <th>
                                         </th>

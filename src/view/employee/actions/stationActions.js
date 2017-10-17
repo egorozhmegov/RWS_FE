@@ -4,6 +4,7 @@ import { push } from 'connected-react-router';
 import {GET_STATIONS,
     DELETE_STATION,
     ADD_STATION,
+    FILTER_STATIONS,
     SET_ADD_STATION_SUCCESS_MESSAGE,
     SET_ADD_STATION_ERROR_MESSAGE} from '../constants/Station';
 import {LOCAL_HOST} from '../constants/Main';
@@ -93,4 +94,13 @@ export function setAddStationErrorMessage(message){
             payload: ''
         });
     }, 4000);
+}
+
+export function filter(listStations){
+    return () => {
+        store.dispatch({
+            type: FILTER_STATIONS,
+            payload: listStations
+        })
+    }
 }

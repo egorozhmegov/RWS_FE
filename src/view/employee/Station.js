@@ -33,8 +33,17 @@ export default class Station extends Component {
         this.stationTitleInput.value = '';
     }
 
-    render() {
+    onSearchInputChange(event){
+        let updatedList = this.props.stationReducer.filterStations;
+        updatedList = updatedList.filter(function(item){
+            return (item.title.toLowerCase().search(
+                    event.target.value.toLowerCase()) !== -1);
+        });
+        this.props.stationActions.filter(updatedList);
+    }
 
+
+    render() {
         const indexOfLastStation = this.state.currentPage * this.state.stationsPerPage;
         const indexOfFirstStation = indexOfLastStation - this.state.stationsPerPage;
         const currentStations = this.props.stationReducer.stations.slice(indexOfFirstStation, indexOfLastStation);
@@ -50,6 +59,7 @@ export default class Station extends Component {
                                 <tr>
                                     <th>Title</th>
                                     <th>
+                                        <input className="search-station" type="text" onChange={this.onSearchInputChange.bind(this)}/>
                                     </th>
                                 </tr>
                                 </thead>

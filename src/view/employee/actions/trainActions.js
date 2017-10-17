@@ -11,7 +11,8 @@ import {GET_TRAINS,
     ADD_ROUTE_POINT,
     SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
     SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
-    DELETE_ROUTE_POINT} from '../constants/Train';
+    DELETE_ROUTE_POINT,
+    FILTER_TRAINS} from '../constants/Train';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListTrains(){
@@ -205,6 +206,15 @@ export function setEmptyTrains(){
         store.dispatch({
             type: GET_TRAIN,
             payload: []
+        })
+    }
+}
+
+export function filter(listTrains){
+    return () => {
+        store.dispatch({
+            type: FILTER_TRAINS,
+            payload: listTrains
         })
     }
 }
