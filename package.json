@@ -6,7 +6,7 @@
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
     "connected-react-router": "latest",
-    "firebase": "^4.5.1",
+    "firebase": "^4.5.2",
     "history": "latest",
     "material-ui": "^0.19.3",
     "moment": "latest",
