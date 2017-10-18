@@ -3,39 +3,48 @@
     width: 50px;
     height: 50px;
     float: left;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .footer{
     text-decoration: none;
-    margin-top: 490px;
+    position:absolute;
+    bottom:0;
+    width: 96%;
     list-style-type: none;
     font-family: sans-serif;
-    border: 1px solid black;
+    border-top: 2px solid darkslategray;
 }
 
 .cli-footer-li{
     float: left;
     margin-left: 10px;
-    margin-top: 22px;
+    margin-top: 27px;
     font-family: sans-serif;
 }
 
-.cli-footer-li-right{
+.cli-footer-li-right-mail{
+    margin-right: 40px;
+    margin-top: 27px;
+    float: right;
+    font-family: sans-serif;
+}
+
+.cli-footer-li-right-phone{
     margin-right: 20px;
-    margin-top: 22px;
+    margin-top: 29px;
     float: right;
     font-family: sans-serif;
 }
 
 .gmail-logo{
     margin-right: 10px;
-    margin-top: 19px;
+    margin-top: 24px;
     float: right;
 }
 
 .phone-logo{
     margin-right: 10px;
-    margin-top: 19px;
+    margin-top: 27px;
     float: right;
 }
