@@ -17,6 +17,7 @@
     "react": "^15.6.1",
     "react-bootstrap": "latest",
     "react-cookies": "latest",
+    "react-datepicker": "^0.56.0",
     "react-dom": "^15.6.1",
     "react-google-button": "^0.3.0",
     "react-google-login": "latest",

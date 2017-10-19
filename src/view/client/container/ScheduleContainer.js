@@ -6,6 +6,11 @@ import * as scheduleActions from '../actions/scheduleActions';
 import Schedule from "../Schedule";
 
 class ScheduleContainer extends Component {
+
+    componentWillMount() {
+        scheduleActions.getListStations();
+    }
+
     render() {
         return (
             <Schedule scheduleReducer={this.props.scheduleReducer}
