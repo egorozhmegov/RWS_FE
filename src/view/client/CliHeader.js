@@ -27,7 +27,9 @@ export default class CliHeader extends Component {
                             <li className="cli-header-li"><img className="train-logo" src={trainLogo} alt="train_logo" /></li>
                             <li className="cli-header-li"><Link className="cli-header-link" to='/rws/client/tickets'>TRAIN TICKETS</Link></li>
                             <li className="cli-header-li"><Link className="cli-header-link" to='/rws/client/schedule'>SCHEDULE</Link></li>
-                            <li className="right-link"><a className="logout-link" href="/rws/client">{<img onClick={this.logout.bind(this)} className="cli-logout-bth" src={logOut} alt="logout_logo" />}</a></li>
+                            <li className="right-link"><a className="logout-link" href="/rws/client">
+                                {<img onClick={this.logout.bind(this)} className="cli-logout-bth" src={logOut} alt="logout_logo" />}</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>

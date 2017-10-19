@@ -4,6 +4,7 @@ import '../css/Schedule.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import '../css/DatePicker.css';
+import Clock from 'react-live-clock';
 
 export default class Schedule extends Component {
     constructor() {
@@ -36,12 +37,13 @@ export default class Schedule extends Component {
         return (
             <div>
                 <Container className="schedule">
+
                     <Row>
                         <Col sm={5}>
                         </Col>
 
                         <Col sm={4}>
-                            <h2>Schedule</h2>
+                            <h1><Clock className="clock" format={'HH:mm:ss'} ticking={true} timezone={'Europe/Moscow'} /></h1>
                         </Col>
 
                         <Col sm={3}>
@@ -54,16 +56,19 @@ export default class Schedule extends Component {
                         </Col>
 
                         <Col sm={4}>
-                            <select>
-                                {this.props.scheduleReducer.stations.map((station, index) => {
-                                    return <option key={index}>{station.title}</option>;
-                                })}
-                            </select>
+                            <form className="schedule-form">
+                                <select className="select-input">
+                                    {this.props.scheduleReducer.stations.map((station, index) => {
+                                        return <option className="select-option" key={index}>{station.title}</option>;
+                                    })}
+                                </select>
 
-                            <DatePicker
-                                selected={this.state.startDate}
-                                onChange={this.handleDateChange.bind(this)}
-                            />
+                                <DatePicker className="date-input"
+                                    selected={this.state.startDate}
+                                    onChange={this.handleDateChange.bind(this)}
+                                    dateFormat="DD.MM.YYYY"
+                                />
+                            </form>
                         </Col>
 
                         <Col sm={4}>

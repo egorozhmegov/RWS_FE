@@ -23,6 +23,7 @@
     "react-google-login": "latest",
     "react-google-login-component": "^0.9.0",
     "react-grid-system": "^2.9.6",
+    "react-live-clock": "^2.0.1",
     "react-modal": "latest",
     "react-native": "latest",
     "react-native-google-sign-in": "0.0.16",
