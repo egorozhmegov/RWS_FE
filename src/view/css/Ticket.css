@@ -1,0 +1,97 @@
+.search-form{
+    margin-left: 10%;
+}
+
+.select-form .Select-control {
+    height: 35px;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.inline-element {
+    height: 35px;
+    width: 18%;
+    padding-left: 1%;
+    padding-top: 5%;
+    display: inline-block;
+}
+
+.select-form .Select-placeholder,
+.Select--single > .Select-control .Select-value {
+    font-family: sans-serif;
+    font-size: 14px;
+    bottom: 0;
+    color: #aaa;
+    left: 0;
+    line-height: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.select-form .Select-menu-outer {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top-color: #e6e6e6;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    margin-top: -1px;
+    max-height: 200px;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.train-date-input {
+    width: 55%;
+    height: 29px;
+    position: relative;
+    top: -5px;
+    border-color: #d9d9d9 #ccc #b3b3b3;
+    border-radius: 0px;
+    border: 2px solid #ccc;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-align: center;
+    text-align-last: center;
+}
+
+.search-btn {
+    position: relative;
+    top: -5px;
+    left: -42%;
+    height: 35px;
+    width: 45%;
+    color: white;
+    background-color: darkslategray;
+    border: none;
+    font-family: sans-serif;
+}
+
+.search-btn:hover {
+    color: black;
+    background-color: gray;
+    cursor:pointer;
+}
+
+.search-btn:active {
+    color: white;
+    background-color: darkslategray;
+    transform: translateY(3px);
+}
+
+
+

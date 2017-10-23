@@ -1,3 +1,18 @@
-/**
- * Created by Ozhmegov on 16.10.2017.
- */
+import store from '../store/configStore';
+import axios from 'axios';
+import {LOCAL_HOST} from '../constants/ClientMain';
+import {GET_STATIONS} from '../constants/Ticket';
+
+export function getListStations(){
+    axios({
+        method: 'GET',
+        url: LOCAL_HOST + 'getStations',
+        withCredentials: true
+    })
+        .then((response) => {
+            store.dispatch({
+                type: GET_STATIONS,
+                payload: response.data
+            })
+        })
+}

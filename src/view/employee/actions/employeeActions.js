@@ -55,8 +55,7 @@ export function registerEmployee(employee){
         })
             .then((response) => {
                 if(response.data === true){
-                    setErrorRegisterMessage('');
-                    setSuccessMessage(employee.firstName + ' ' + employee.lastName + ' successfully registered');
+                    store.dispatch(push('/rws/employee/login'));
                 } else {
                     setSuccessMessage('');
                     setErrorRegisterMessage('Such employee does not exist');
@@ -76,7 +75,7 @@ export function setErrorLoginMessage(message){
             type: SET_ERROR_LOGIN_MESSAGE,
             payload: ''
         });
-    }, 4000);
+    }, 8000);
 }
 
 export function setErrorRegisterMessage(message){
@@ -89,7 +88,7 @@ export function setErrorRegisterMessage(message){
             type: SET_ERROR_REGISTER_MESSAGE,
             payload: ''
         });
-    }, 4000);
+    }, 8000);
 }
 
 export function setSuccessMessage(message) {
@@ -102,5 +101,5 @@ export function setSuccessMessage(message) {
             type: SET_SUCCESS_MESSAGE,
             payload: ''
         });
-    }, 4000);
+    }, 5000);
 }

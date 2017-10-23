@@ -46,6 +46,13 @@ export default class Train extends Component {
                 arrValue: []
             },
 
+            stSelect: {
+                disabled: false,
+                stayOpen: false,
+                stValue: ''
+            },
+
+
             departureTime: {
                 hour: '',
                 minute: ''
@@ -58,10 +65,33 @@ export default class Train extends Component {
             timeArrPicker: null,
             timeDepPicker: null,
             currentPage: 1,
-            trainsPerPage: 8
+            trainsPerPage: 8,
         };
     }
 
+    componentWillMount(){
+        this.setState({
+            departPeriod: '',
+            arrivePeriod: '',
+            arrSelect: {
+                disabled: false,
+                stayOpen: false,
+                arrValue: []
+            },
+            depSelect: {
+                disabled: false,
+                stayOpen: false,
+                arrValue: []
+            },
+            stSelect: {
+                disabled: false,
+                stayOpen: false,
+                stValue: ''
+            },
+            timeArrPicker: null,
+            timeDepPicker: null
+        });
+    }
 
     onPageChange = (page) => {
         this.setState({
@@ -80,7 +110,6 @@ export default class Train extends Component {
     }
 
     handleCloseRouteModal() {
-        this.stationInput.value = '';
         this.setState({
             showRouteModal: false,
             train: {
@@ -98,8 +127,13 @@ export default class Train extends Component {
                 stayOpen: false,
                 arrValue: []
             },
+            stSelect: {
+                disabled: false,
+                stayOpen: false,
+                stValue: ''
+            },
             timeArrPicker: null,
-            timeDepPicker: null
+            timeDepPicker: null,
         });
         this.props.trainReducer.route = [];
     }
@@ -151,26 +185,9 @@ export default class Train extends Component {
             arrivePeriod: this.state.arrivePeriod,
             train: this.state.train,
             station: {
-                title: this.stationInput.value
+                title: this.state.stSelect.stValue
             }
         });
-        this.setState({
-            departPeriod: '',
-            arrivePeriod: '',
-            arrSelect: {
-                disabled: false,
-                stayOpen: false,
-                arrValue: []
-            },
-            depSelect: {
-                disabled: false,
-                stayOpen: false,
-                arrValue: []
-            },
-            timeArrPicker: null,
-            timeDepPicker: null
-        });
-        this.stationInput.value = '';
     }
 
     handleSelectDepartChange(value) {
@@ -239,6 +256,14 @@ export default class Train extends Component {
         this.props.trainActions.filter(updatedList);
     }
 
+    onSelectStationChange(value){
+        this.setState({
+            stSelect: {
+                stValue: value
+            }
+        });
+    }
+
     render() {
         let depDays = days;
         let arrDays = days;
@@ -246,6 +271,7 @@ export default class Train extends Component {
         const indexOfLastTrain = this.state.currentPage * this.state.trainsPerPage;
         const indexOfFirstTrain = indexOfLastTrain - this.state.trainsPerPage;
         const currentTrains = this.props.trainReducer.trains.slice(indexOfFirstTrain, indexOfLastTrain);
+        const totalPage = Math.round(this.props.trainReducer.trains.length / 8);
 
         return (
             <div>
@@ -384,10 +410,17 @@ export default class Train extends Component {
                                                         <div><h3>New route point</h3></div>
 
                                                         <div>Station</div>
-                                                        <input className="station-input" type="text" placeholder="Station"
-                                                               ref={(input) => {
-                                                                   this.stationInput = input
-                                                               }}/>
+                                                        <Select className="select-station"
+                                                                closeOnSelect={!this.state.stSelect.stayOpen}
+                                                                disabled={this.state.stSelect.disabled}
+                                                                onChange={this.onSelectStationChange.bind(this)}
+                                                                options={this.props.trainReducer.stations.map((station, index) => {
+                                                                    return {label: station.title, value: station.title}
+                                                                })}
+                                                                placeholder="Station"
+                                                                simpleValue
+                                                                value={this.state.stSelect.stValue}
+                                                        />
 
                                                         <div>Arrival days</div>
                                                         <Select

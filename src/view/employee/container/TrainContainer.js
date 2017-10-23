@@ -9,6 +9,7 @@ class TrainContainer extends Component {
 
     componentWillMount() {
         trainActions.getListTrains();
+        trainActions.getListStations();
     }
 
     render() {

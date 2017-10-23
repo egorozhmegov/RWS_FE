@@ -10,3 +10,4 @@ export const GET_ROUTE = 'GET_ROUTE';
 export const ADD_ROUTE_POINT = 'ADD_ROUTE_POINT';
 export const DELETE_ROUTE_POINT = 'DELETE_ROUTE_POINT';
 export const FILTER_TRAINS = 'FILTER_TRAINS';
+export const GET_STATIONS = 'GET_STATIONS';

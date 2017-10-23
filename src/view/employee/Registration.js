@@ -4,6 +4,7 @@ import '../css/Login.css';
 import store from './store/configStore';
 import {RegistrationFormError} from './RegistrationFormError';
 import *as employeeActions from './actions/employeeActions';
+import {Container, Row, Col} from 'react-grid-system';
 
 export default class Registration extends Component {
     constructor(props) {
@@ -32,6 +33,15 @@ export default class Registration extends Component {
                 ConfirmPassword: ''
             }
         };
+    }
+
+    componentWillMount(){
+        this.setState({FirstName: ''});
+        this.setState({LastName: ''});
+        this.setState({Email: ''});
+        this.setState({Login: ''});
+        this.setState({Password: ''});
+        this.setState({ConfirmPassword: ''});
     }
 
     handleUserInput (e) {
@@ -111,69 +121,75 @@ export default class Registration extends Component {
             login: this.state.Login,
             password: this.state.Password
         });
-        this.setState({FirstName: ''});
-        this.setState({LastName: ''});
-        this.setState({Email: ''});
-        this.setState({Login: ''});
-        this.setState({Password: ''});
-        this.setState({ConfirmPassword: ''});
     }
 
     render() {
         return (
-            <div className="registerForm">
-                <form onSubmit={this.registerEmployee.bind(this)}>
-                    <h2>Registration</h2>
+            <Container>
+                <Row>
+                    <Col sm={4}>
+                    </Col>
 
-                    <label>First Name</label>
-                    <input type="text" required placeholder="First Name"
-                           className="registerInput"
-                           name="FirstName"
-                           value={this.state.FirstName}
-                           onChange={this.handleUserInput.bind(this)}/>
+                    <Col sm={4}>
+                        <div className="registerForm">
+                            <form onSubmit={this.registerEmployee.bind(this)}>
+                                <h2>Registration</h2>
 
-                    <label>Last Name</label>
-                    <input type="text" required placeholder="Last Name"
-                           className="registerInput"
-                           name="LastName"
-                           value={this.state.LastName}
-                           onChange={this.handleUserInput.bind(this)}/>
+                                <label>First Name</label>
+                                <input type="text" required placeholder="First Name"
+                                       className="registerInput"
+                                       name="FirstName"
+                                       value={this.state.FirstName}
+                                       onChange={this.handleUserInput.bind(this)}/>
 
-                    <label>Email</label>
-                    <input type="email" required placeholder="Email"
-                           className="registerInput"
-                           name="Email"
-                           value={this.state.Email}
-                           onChange={this.handleUserInput.bind(this)}/>
+                                <label>Last Name</label>
+                                <input type="text" required placeholder="Last Name"
+                                       className="registerInput"
+                                       name="LastName"
+                                       value={this.state.LastName}
+                                       onChange={this.handleUserInput.bind(this)}/>
 
-                    <label>Login</label>
-                    <input type="text" required placeholder="Login"
-                           className="registerInput"
-                           name="Login"
-                           value={this.state.Login}
-                           onChange={this.handleUserInput.bind(this)}/>
+                                <label>Email</label>
+                                <input type="email" required placeholder="Email"
+                                       className="registerInput"
+                                       name="Email"
+                                       value={this.state.Email}
+                                       onChange={this.handleUserInput.bind(this)}/>
 
-                    <label>Password</label>
-                    <input type="password" required placeholder="Password"
-                           className="registerInput"
-                           name="Password"
-                           value={this.state.Password}
-                           onChange={this.handleUserInput.bind(this)}/>
+                                <label>Login</label>
+                                <input type="text" required placeholder="Login"
+                                       className="registerInput"
+                                       name="Login"
+                                       value={this.state.Login}
+                                       onChange={this.handleUserInput.bind(this)}/>
 
-                    <label>Confirm Password</label>
-                    <input type="password" required placeholder="Confirm Password"
-                           className="registerInput"
-                           name="ConfirmPassword"
-                           value={this.state.ConfirmPassword}
-                           onChange={this.handleUserInput.bind(this)}/>
+                                <label>Password</label>
+                                <input type="password" required placeholder="Password"
+                                       className="registerInput"
+                                       name="Password"
+                                       value={this.state.Password}
+                                       onChange={this.handleUserInput.bind(this)}/>
 
-                    <button type="submit" className="registerBtn" disabled={!this.state.formValid}>Register</button>
-                </form>
+                                <label>Confirm Password</label>
+                                <input type="password" required placeholder="Confirm Password"
+                                       className="registerInput"
+                                       name="ConfirmPassword"
+                                       value={this.state.ConfirmPassword}
+                                       onChange={this.handleUserInput.bind(this)}/>
 
-                <h4><RegistrationFormError formErrors={this.state.formErrors} /></h4>
-                <h4 className="errorMessage">{store.getState().employeeReducer.errorRegisterMessage}</h4>
-                <h4 className="successMessage">{store.getState().employeeReducer.successMessage}</h4>
-            </div>
+                                <button type="submit" className="registerBtn" disabled={!this.state.formValid}>Register</button>
+                            </form>
+
+                            <h4><RegistrationFormError formErrors={this.state.formErrors} /></h4>
+                            <h4 className="errorMessage">{store.getState().employeeReducer.errorRegisterMessage}</h4>
+                            <h4 className="successMessage">{store.getState().employeeReducer.successMessage}</h4>
+                        </div>
+                    </Col>
+
+                    <Col sm={4}>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }

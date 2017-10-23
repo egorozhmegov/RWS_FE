@@ -47,6 +47,7 @@ export default class Station extends Component {
         const indexOfLastStation = this.state.currentPage * this.state.stationsPerPage;
         const indexOfFirstStation = indexOfLastStation - this.state.stationsPerPage;
         const currentStations = this.props.stationReducer.stations.slice(indexOfFirstStation, indexOfLastStation);
+        const totalPage = Math.round(this.props.stationReducer.stations.length / 8);
 
         return (
             <div>

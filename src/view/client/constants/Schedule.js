@@ -1,1 +1,2 @@
 export const GET_STATIONS = 'GET_STATIONS';
+export const GET_SCHEDULE = 'GET_SCHEDULE';

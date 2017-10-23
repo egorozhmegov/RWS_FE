@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: darkslategray;
+    background-color: black;
     font-family: sans-serif;
 }
 
@@ -50,10 +50,11 @@
 }
 
 .cli-logout-bth{
-    margin-right: 15px;
-    margin-top: 6px;
+    position: relative;
+    top: 8px;
+    right: 15px;
 }
 
-.logout-link:hover{
-
+.cli-logout-bth:hover img {
+    zoom: 0.8;
 }

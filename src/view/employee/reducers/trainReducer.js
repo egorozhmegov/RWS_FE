@@ -10,7 +10,8 @@ import {
     SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
     ADD_ROUTE_POINT,
     DELETE_ROUTE_POINT,
-    FILTER_TRAINS
+    FILTER_TRAINS,
+    GET_STATIONS
 } from '../constants/Train';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
     train: {
         number: ''
     },
+    stations: [],
     addTrainSuccessMessage: '',
     addTrainErrorMessage: '',
     addRoutePointSuccessMessage: '',
@@ -106,6 +108,12 @@ export default function trainReducer(state = initialState, action) {
             return {
                 ...state,
                 trains: action.payload
+            };
+
+        case GET_STATIONS:
+            return {
+                ...state,
+                stations: action.payload,
             };
 
         default:

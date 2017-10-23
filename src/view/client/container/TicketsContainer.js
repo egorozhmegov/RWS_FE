@@ -6,9 +6,14 @@ import * as ticketActions from '../actions/ticketActions';
 import Ticket from "../Ticket";
 
 class TicketsContainer extends Component {
+
+    componentWillMount() {
+        ticketActions.getListStations();
+    }
+
     render() {
         return (
-            <Ticket ticketReducer={this.props.employeeReducer}
+            <Ticket ticketReducer={this.props.ticketReducer}
                    ticketActions={this.props.ticketActions}
             />
         );

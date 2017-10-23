@@ -1,11 +1,10 @@
 .loginForm {
-    padding-top: 12%;
-    width: 300px;
-    margin: 0 auto;
+    padding-top: 45%;
+    padding-left: 7.5%;
 }
 
 .loginInput {
-    width: 250px;
+    width: 90%;
     padding: 10px 20px;
     margin: 8px 0;
     display: block;
@@ -20,7 +19,7 @@
     margin: 10px 0;
     border: none;
     cursor: pointer;
-    width: 250px;
+    width: 90%;
     display: block;
 }
 

@@ -1,10 +1,13 @@
-import {GET_STATIONS} from '../constants/Schedule';
+import {GET_STATIONS,
+    GET_SCHEDULE
+} from '../constants/Schedule';
 
 const initialState = {
-    stations: [
-        {title: 'znamensk'},
-        {title: 'volgograd'}
-    ]
+    stations: [],
+    schedule: {
+        arriveSchedule: [],
+        departSchedule: []
+    }
 };
 
 export default function scheduleReducer(state = initialState, action) {
@@ -13,6 +16,15 @@ export default function scheduleReducer(state = initialState, action) {
             return {
                 ...state,
                 stations: action.payload,
+            };
+
+        case GET_SCHEDULE:
+            return {
+                ...state,
+                schedule:{
+                    arriveSchedule: action.payload.arrivalSchedule,
+                    departSchedule: action.payload.departureSchedule
+                }
             };
 
         default:

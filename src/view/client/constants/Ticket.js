@@ -1,0 +1,1 @@
+export const GET_STATIONS = 'GET_STATIONS';

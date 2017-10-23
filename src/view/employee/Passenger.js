@@ -116,6 +116,7 @@ export default class Passenger extends Component {
         const indexOfLastPassenger = this.state.currentPage * this.state.passengersPerPage;
         const indexOfFirstPassenger = indexOfLastPassenger - this.state.passengersPerPage;
         const currentPassengers = this.props.passengerReducer.filterPassengers.slice(indexOfFirstPassenger, indexOfLastPassenger);
+        const totalPage = Math.round(this.props.passengerReducer.filterPassengers.length / 9);
 
         return (
             <div>
@@ -205,7 +206,7 @@ export default class Passenger extends Component {
                             locale={en_GB}
                             current={this.state.currentPage}
                             pageSize={1}
-                            total={this.props.passengerReducer.passengers.length}/>
+                            total={totalPage}/>
             </div>
         )
     }

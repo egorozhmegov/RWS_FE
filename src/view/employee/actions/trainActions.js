@@ -12,7 +12,8 @@ import {GET_TRAINS,
     SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
     SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
     DELETE_ROUTE_POINT,
-    FILTER_TRAINS} from '../constants/Train';
+    FILTER_TRAINS,
+    GET_STATIONS} from '../constants/Train';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListTrains(){
@@ -217,4 +218,18 @@ export function filter(listTrains){
             payload: listTrains
         })
     }
+}
+
+export function getListStations(){
+    axios({
+        method: 'GET',
+        url: LOCAL_HOST + 'getStations',
+        withCredentials: true
+    })
+        .then((response) => {
+            store.dispatch({
+                type: GET_STATIONS,
+                payload: response.data
+            })
+        })
 }
