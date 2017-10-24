@@ -66,16 +66,11 @@ export function registerEmployee(employee){
 }
 
 export function setErrorLoginMessage(message){
+    console.log('here')
     store.dispatch({
         type: SET_ERROR_LOGIN_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ERROR_LOGIN_MESSAGE,
-            payload: ''
-        });
-    }, 8000);
 }
 
 export function setErrorRegisterMessage(message){
@@ -101,5 +96,5 @@ export function setSuccessMessage(message) {
             type: SET_SUCCESS_MESSAGE,
             payload: ''
         });
-    }, 5000);
+    }, 8000);
 }

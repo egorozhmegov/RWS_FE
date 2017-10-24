@@ -1,53 +1,68 @@
-.empHeaderUl {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: black;
-    font-family: sans-serif;
-
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
-.empHeaderLi {
-    float: left;
+.brand{
+    font-size: 26px;
+    font-family: "Comic Sans MS";
 }
 
-.rightLink {
-    float: right;
+.nav-item{
+    font-size: 16px;
 }
 
-.empHeaderLink {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+/*.empHeaderUl {*/
+    /*list-style-type: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*overflow: hidden;*/
+    /*background-color: black;*/
+    /*font-family: sans-serif;*/
 
-.empHeaderLink:hover {
-    color: gray;
-    text-decoration: none;
-}
+/*}*/
 
-.trainLogo {
-    padding-top: 4px;
-    height: 40px;
-}
+/*.empHeaderLi {*/
+    /*float: left;*/
+/*}*/
 
-.loginLogo {
-    padding-top: 13px;
-}
+/*.rightLink {*/
+    /*float: right;*/
+/*}*/
 
-.registerLogo {
-    padding-top: 11px;
-}
+/*.empHeaderLink {*/
+    /*display: block;*/
+    /*color: white;*/
+    /*text-align: center;*/
+    /*padding: 14px 16px;*/
+    /*text-decoration: none;*/
+/*}*/
 
-.empHeaderLabel {
-    float: left;
-    color: white;
-    font-size: 33px;
-    font-family: Comic Sans Ms;
-    padding-left: 15px;
-    padding-right: 5px;
-}
+/*.empHeaderLink:hover {*/
+    /*color: gray;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*.trainLogo {*/
+    /*padding-top: 4px;*/
+    /*height: 40px;*/
+/*}*/
+
+/*.loginLogo {*/
+    /*padding-top: 13px;*/
+/*}*/
+
+/*.registerLogo {*/
+    /*padding-top: 11px;*/
+/*}*/
+
+/*.empHeaderLabel {*/
+    /*float: left;*/
+    /*color: white;*/
+    /*font-size: 33px;*/
+    /*font-family: Comic Sans Ms;*/
+    /*padding-left: 15px;*/
+    /*padding-right: 5px;*/
+/*}*/
 

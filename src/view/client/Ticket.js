@@ -56,10 +56,9 @@ export default class Ticket extends Component {
             <Container>
 
                 <Row>
-                    <Col sm={2}>
-                    </Col>
 
-                    <Col sm={10}>
+
+                    <Col sm={12}>
                         <div className="search-form">
                             <form onSubmit={this.searchTrain.bind(this)}>
                                 <div className="inline-element">
@@ -107,8 +106,7 @@ export default class Ticket extends Component {
                         </div>
                     </Col>
 
-                    <Col sm={2}>
-                    </Col>
+
                 </Row>
 
             </Container>

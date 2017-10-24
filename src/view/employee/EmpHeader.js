@@ -1,35 +1,83 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../css/EmpHeader.css';
-import trainLogo from '../img/train.svg';
-import loginLogo from '../img/login.svg';
-import logOut from '../img/logout.svg';
-import registerLogo from '../img/register.svg';
+import trainLogo from '../img/train-gr.svg';
 import cookie from 'react-cookies';
+import {Glyphicon, MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
+
 
 export default class EmpHeader extends Component {
 
     render() {
         return (
-            <header>
-                <nav>
-                    <div>
-                        <ul className="empHeaderUl">
-                            <li className="empHeaderLabel">RWS</li>
-                            <li className="empHeaderLi"><img className="trainLogo" src={trainLogo} alt="train_logo" /></li>
-                            <li className="empHeaderLi">{ cookie.load('RWS_COOKIE') !== undefined ? <Link to='/rws/employee/train' className="empHeaderLink">Trains</Link> : null}</li>
-                            <li className="empHeaderLi">{ cookie.load('RWS_COOKIE') !== undefined ? <Link to='/rws/employee/station' className="empHeaderLink">Railway stations</Link> : null}</li>
-                            <li className="empHeaderLi">{ cookie.load('RWS_COOKIE') !== undefined ? <Link to='/rws/employee/passenger' className="empHeaderLink">Passengers</Link> : null}</li>
-                            <li className="rightLink">{ cookie.load('RWS_COOKIE') !== undefined ? <Link to='/rws/employee/logout' className="empHeaderLink">Sign out</Link> : null}</li>
-                            <li className="rightLink">{ cookie.load('RWS_COOKIE') !== undefined ? <img className="loginLogo" src={logOut} alt="logout_logo" /> : null}</li>
-                            <li className="rightLink">{ cookie.load('RWS_COOKIE') !== undefined ? null : <Link to='/rws/employee/login' className="empHeaderLink">Sign in</Link>}</li>
-                            <li className="rightLink">{ cookie.load('RWS_COOKIE') !== undefined ? null : <img className="loginLogo" src={loginLogo} alt="login_logo" />}</li>
-                            <li className="rightLink">{ cookie.load('RWS_COOKIE') !== undefined ? null : <Link to='/rws/employee/registration' className="empHeaderLink">Registration</Link>}</li>
-                            <li className="rightLink">{ cookie.load('RWS_COOKIE') !== undefined ? null : <img className="registerLogo" src={registerLogo} alt="register_logo" />}</li>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
+        <Navbar inverse collapseOnSelect>
+            <Navbar.Header>
+                <Navbar.Brand>
+                    <LinkContainer to="/rws/employee">
+                        <a className="brand">RWS</a>
+                    </LinkContainer>
+                </Navbar.Brand>
+                <span><img className="trainLogo" src={trainLogo} alt="train_logo" /></span>
+                <Navbar.Toggle />
+            </Navbar.Header>
+
+            <Navbar.Collapse>
+                <Nav>
+                    <NavItem>
+                    </NavItem>
+
+                    { cookie.load('RWS_COOKIE') !== undefined ?
+                    <LinkContainer to="/rws/employee/train">
+                        <NavItem className="nav-item">
+                            <span>Trains</span>
+                        </NavItem>
+                    </LinkContainer> : null}
+
+                    { cookie.load('RWS_COOKIE') !== undefined ?
+                        <LinkContainer to="/rws/employee/station">
+                            <NavItem className="nav-item">
+                                <span>  Stations</span>
+                            </NavItem>
+                        </LinkContainer> : null}
+
+                    { cookie.load('RWS_COOKIE') !== undefined ?
+                        <LinkContainer to="/rws/employee/passenger">
+                            <NavItem className="nav-item">
+                                <span>  Passengers</span>
+                            </NavItem>
+                        </LinkContainer> : null}
+                </Nav>
+
+                <Nav pullRight>
+                    {cookie.load('RWS_COOKIE') !== undefined ?
+                        <LinkContainer to="/rws/employee/logout">
+                            <NavItem className="nav-item">
+                                <Glyphicon glyph="log-out" />
+                                <span>  Logout</span>
+                            </NavItem>
+                        </LinkContainer> : null}
+
+
+                    {cookie.load('RWS_COOKIE') === undefined ?
+                        <LinkContainer to="/rws/employee/login">
+                            <NavItem className="nav-item">
+                                <Glyphicon glyph="log-in" />
+                                <span>  Login</span>
+                            </NavItem>
+                        </LinkContainer> : null}
+
+                    {cookie.load('RWS_COOKIE') === undefined ?
+                        <LinkContainer to="/rws/employee/registration">
+                            <NavItem className="nav-item">
+                                <Glyphicon glyph="user" />
+                                <span> Registration</span>
+                            </NavItem>
+                        </LinkContainer> : null}
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+
         );
     }
 }

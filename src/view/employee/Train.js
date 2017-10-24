@@ -271,7 +271,6 @@ export default class Train extends Component {
         const indexOfLastTrain = this.state.currentPage * this.state.trainsPerPage;
         const indexOfFirstTrain = indexOfLastTrain - this.state.trainsPerPage;
         const currentTrains = this.props.trainReducer.trains.slice(indexOfFirstTrain, indexOfLastTrain);
-        const totalPage = Math.round(this.props.trainReducer.trains.length / 8);
 
         return (
             <div>

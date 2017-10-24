@@ -1,45 +1,100 @@
-.loginForm {
-    padding-top: 45%;
-    padding-left: 7.5%;
+.login-top-row {
+    padding-top: 10%
 }
 
-.loginInput {
-    width: 90%;
-    padding: 10px 20px;
-    margin: 8px 0;
-    display: block;
-    border: 2px solid gray;
-    box-sizing: border-box;
+.login-input {
+    border-radius: 0;
 }
 
-.loginBtn {
-    background-color: black;
+.form-group .input-group .form-control {
+    border-radius: 0;
+}
+
+.login-jum {
+    background-color: #FAEBD7;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.login-btn {
+    border-radius: 0;
+    background-color: darkslategrey;
     color: white;
-    padding: 12px 20px;
-    margin: 10px 0;
-    border: none;
-    cursor: pointer;
-    width: 90%;
-    display: block;
 }
 
-.loginBtn:hover {
+.login-btn:hover:focus:visited {
     background-color: gray;
     color: black;
 }
 
-.loginBtn:active {
+.login-btn:active {
     background-color: black;
     color: white;
     transform: translateY(3px);
 }
 
-.errorMessage{
-    color: red;
-    font-family: sans-serif;
+.register-link{
+    color: black;
+    padding-top: 10px;
 }
 
-.successMessage{
+.register-link:hover{
+    text-decoration: none;
     color: gray;
-    font-family: sans-serif;
 }
+
+.login-form{
+    padding-bottom: 10px;
+}
+
+.errorMessage{
+color: red;
+font-family: sans-serif;
+}
+
+
+/*.loginForm {*/
+/*padding-top: 45%;*/
+/*padding-left: 7.5%;*/
+/*}*/
+
+/*.loginInput {*/
+/*width: 90%;*/
+/*padding: 10px 20px;*/
+/*margin: 8px 0;*/
+/*display: block;*/
+/*border: 2px solid gray;*/
+/*box-sizing: border-box;*/
+/*}*/
+
+/*.loginBtn {*/
+/*background-color: black;*/
+/*color: white;*/
+/*padding: 12px 20px;*/
+/*margin: 10px 0;*/
+/*border: none;*/
+/*cursor: pointer;*/
+/*width: 90%;*/
+/*display: block;*/
+/*}*/
+
+/*.loginBtn:hover {*/
+/*background-color: gray;*/
+/*color: black;*/
+/*}*/
+
+/*.loginBtn:active {*/
+/*background-color: black;*/
+/*color: white;*/
+/*transform: translateY(3px);*/
+/*}*/
+
+/*.errorMessage{*/
+/*color: red;*/
+/*font-family: sans-serif;*/
+/*}*/
+
+/*.successMessage{*/
+/*color: gray;*/
+/*font-family: sans-serif;*/
+/*}*/
