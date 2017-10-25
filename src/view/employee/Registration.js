@@ -5,8 +5,6 @@ import *as employeeActions from './actions/employeeActions';
 import {Textfield} from 'react-mdc-web/lib';
 import {Button, Col, FormGroup, Grid, InputGroup, Jumbotron, Row} from "react-bootstrap";
 import note from '../img/note.svg';
-import { Snackbar } from 'react-md';
-
 
 export default class Registration extends Component {
     constructor(props) {
@@ -27,7 +25,7 @@ export default class Registration extends Component {
             confirmPasswordValid: false,
 
 
-            toasts: [], autohide: true
+            snackbar: true
         };
     }
 
@@ -99,36 +97,12 @@ export default class Registration extends Component {
         })
     }
 
-    toastHello = () => {
-        this.addToast('Hello, World!');
-    };
-
-    addToast = (text, action, autohide = true) => {
-        this.setState((state) => {
-            const toasts = state.toasts.slice();
-            toasts.push({ text, action });
-            return { toasts, autohide };
-        });
-    };
-
-
-    dismissToast = () => {
-        const [, ...toasts] = this.state.toasts;
-        this.setState({ toasts });
-    };
 
     render() {
-        const { toasts, autohide } = this.state;
-
         return (
             <Grid>
                 <Row>
                     <Col xs={6} md={12}>
-
-                        <Button onClick={this.toastHello}>
-                            Toast Hello, World!
-                        </Button>
-
                         <Jumbotron className="register-jum">
                             <form onSubmit={this.registerEmployee.bind(this)}>
                                 <Grid>
@@ -268,12 +242,6 @@ export default class Registration extends Component {
                         </Jumbotron>
                     </Col>
                 </Row>
-                <Snackbar
-                    id="example-snackbar"
-                    toasts={toasts}
-                    autohide={autohide}
-                    onDismiss={this.dismissToast}
-                />
             </Grid>
         );
     }

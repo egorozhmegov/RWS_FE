@@ -4,6 +4,7 @@ import '../css/Station.css';
 import '../css/Pagination.css';
 import Pagination from 'rc-pagination';
 import en_GB from "rc-pagination/es/locale/en_GB";
+import MyFancyComponent from "../../MapWithASearchBox";
 
 export default class Station extends Component {
     constructor() {
@@ -43,6 +44,8 @@ export default class Station extends Component {
     }
 
 
+
+
     render() {
         const indexOfLastStation = this.state.currentPage * this.state.stationsPerPage;
         const indexOfFirstStation = indexOfLastStation - this.state.stationsPerPage;
@@ -50,6 +53,9 @@ export default class Station extends Component {
 
         return (
             <div>
+
+                <MyFancyComponent/>
+
                 <Container className="trains">
                     <Row>
                         <Col sm={6}>

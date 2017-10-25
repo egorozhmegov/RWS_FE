@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import '../css/Login.css';
 import *as employeeActions from './actions/employeeActions';
-import {
-    Button, Col, ControlLabel, FormControl, FormGroup, Glyphicon, Grid, InputGroup, Jumbotron,
-    Row
-} from "react-bootstrap";
+import {Button, Col, FormControl, FormGroup, Glyphicon, Grid, InputGroup, Jumbotron, Row} from "react-bootstrap";
 
 export default class Login extends Component {
 
@@ -55,15 +52,6 @@ export default class Login extends Component {
     }
 
     render() {
-        function FieldGroup({id, label, ...props}) {
-            return (
-                <FormGroup controlId={id}>
-                    <ControlLabel>{label}</ControlLabel>
-                    <FormControl {...props} />
-                </FormGroup>
-            );
-        }
-
         return (
             <Grid>
                 <Row className="login-top-row">
@@ -99,7 +87,7 @@ export default class Login extends Component {
 
                                 <Button className="login-btn" type="submit">Login</Button>
                             </form>
-                            <h4 className="errorMessage">{this.props.employeeReducer.errorLoginMessage}</h4>
+                            <h4 className="error-login-message">{this.props.employeeReducer.errorLoginMessage}</h4>
                         </Jumbotron>
                     </Col>
 
