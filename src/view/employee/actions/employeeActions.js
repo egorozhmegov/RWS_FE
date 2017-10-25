@@ -66,7 +66,6 @@ export function registerEmployee(employee){
 }
 
 export function setErrorLoginMessage(message){
-    console.log('here')
     store.dispatch({
         type: SET_ERROR_LOGIN_MESSAGE,
         payload: message

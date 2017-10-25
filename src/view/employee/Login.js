@@ -16,10 +16,6 @@ export default class Login extends Component {
         }
     }
 
-    clearMessage() {
-        this.props.employeeActions.setErrorLoginMessage('');
-    }
-
     componentWillMont(){
         employeeActions.setErrorLoginMessage('');
         this.setState({
@@ -101,7 +97,7 @@ export default class Login extends Component {
                                     </InputGroup>
                                 </FormGroup>
 
-                                <Button className="login-btn" type="submit">Submit</Button>
+                                <Button className="login-btn" type="submit">Login</Button>
                             </form>
                             <h4 className="errorMessage">{this.props.employeeReducer.errorLoginMessage}</h4>
                         </Jumbotron>

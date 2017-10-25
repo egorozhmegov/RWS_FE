@@ -1,45 +1,59 @@
-.registerForm {
-    padding-top: 10%;
-    padding-left: 7.5%;
-    font-family: sans-serif;
-    font-size: 14px;
+.register-input{
+    font-size: 20px;
 }
 
-.registerInput {
-    width: 90%;
-    padding: 7px 20px;
-    margin: 2px 0;
-    display: block;
-    border: 2px solid gray;
-    box-sizing: border-box;
+.register-jum{
+    background-color: #FAEBD7;
+    width: 100%;
 }
 
-.registerBtn {
-    background-color: black;
-    color: white;
-    padding: 10px 20px;
-    margin: 12px 0;
-    border: none;
-    cursor: pointer;
-    width: 90%;
-    display: block;
+.register-label{
+    margin-bottom: 5%;
 }
 
-.registerBtn:hover {
-    background-color: gray;
-    color: black;
-}
 
-.registerBtn:active {
-    background-color: black;
-    color: white;
-    transform: translateY(3px);
-}
+/*.registerForm {*/
+    /*padding-top: 10%;*/
+    /*padding-left: 7.5%;*/
+    /*font-family: sans-serif;*/
+    /*font-size: 14px;*/
+/*}*/
 
-.sss {
-    background-color: yellow;
-}
+/*.registerInput {*/
+    /*width: 90%;*/
+    /*padding: 7px 20px;*/
+    /*margin: 2px 0;*/
+    /*display: block;*/
+    /*border: 2px solid gray;*/
+    /*box-sizing: border-box;*/
+/*}*/
 
-.formErrors{
-    color: red;
-}
+/*.registerBtn {*/
+    /*background-color: black;*/
+    /*color: white;*/
+    /*padding: 10px 20px;*/
+    /*margin: 12px 0;*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+    /*width: 90%;*/
+    /*display: block;*/
+/*}*/
+
+/*.registerBtn:hover {*/
+    /*background-color: gray;*/
+    /*color: black;*/
+/*}*/
+
+/*.registerBtn:active {*/
+    /*background-color: black;*/
+    /*color: white;*/
+    /*transform: translateY(3px);*/
+/*}*/
+
+/*.sss {*/
+    /*background-color: yellow;*/
+/*}*/
+
+/*.formErrors{*/
+    /*color: red;*/
+/*}*/
