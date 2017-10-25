@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../css/EmpHeader.css';
 import trainLogo from '../img/train-gr.svg';
 import cookie from 'react-cookies';
-import {Glyphicon, MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
+import {Glyphicon, Nav, Navbar, NavItem} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 
 

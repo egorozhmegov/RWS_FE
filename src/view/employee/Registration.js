@@ -1,26 +1,24 @@
 import React, {Component} from 'react';
 import '../css/Registration.css';
-import '../css/Login.css';
 import 'material-components-web/dist/material-components-web.min.css';
-import store from './store/configStore';
-import {RegistrationFormError} from './RegistrationFormError';
 import *as employeeActions from './actions/employeeActions';
 import {Textfield} from 'react-mdc-web/lib';
-import {
-    Button, Col, ControlLabel, FormControl, FormGroup, Glyphicon, Grid, InputGroup, Jumbotron,
-    Row
-} from "react-bootstrap";
+import {Button, Col, FormGroup, Grid, InputGroup, Jumbotron, Row} from "react-bootstrap";
+import note from '../img/note.svg';
+import { Snackbar } from 'react-md';
+
 
 export default class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            FirstName: '',
-            LastName: '',
-            Email: '',
-            Login: '',
-            Password: '',
-            ConfirmPassword: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            login: '',
+            password: '',
+            confirmPassword: '',
+
             firstNameValid: false,
             lastNameValid: false,
             emailValid: false,
@@ -28,28 +26,118 @@ export default class Registration extends Component {
             passwordValid: false,
             confirmPasswordValid: false,
 
-            formErrors: {
-                FirstName: '',
-                LastName: '',
-                Email: '',
-                Login: '',
-                Password: '',
-                ConfirmPassword: ''
-            }
+
+            toasts: [], autohide: true
         };
     }
 
+    componentWillMount() {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({firstName: ''});
+        this.setState({lastName: ''});
+        this.setState({email: ''});
+        this.setState({login: ''});
+        this.setState({password: ''});
+        this.setState({confirmPassword: ''});
+    }
+
+    registerEmployee(event) {
+        event.preventDefault();
+        this.props.employeeActions.registerEmployee({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            login: this.state.login,
+            password: this.state.password
+        });
+    }
+
+    onFirstNameChange(event) {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({
+            firstName: event.target.value,
+            firstNameValid: !event.target.value.trim().length > 0
+        })
+    }
+
+    onLastNameChange(event) {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({
+            lastName: event.target.value,
+            lastNameValid: !event.target.value.trim().length > 0
+        })
+    }
+
+    onEmailChange(event) {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({
+            email: event.target.value,
+            emailValid: !event.target.value.trim().match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+        })
+    }
+
+    onLoginChange(event) {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({
+            login: event.target.value,
+            loginValid: !event.target.value.trim().length > 0
+        })
+    }
+
+    onPasswordChange(event) {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({
+            password: event.target.value,
+        })
+    }
+
+    onConfirmPasswordChange(event) {
+        employeeActions.setErrorRegisterMessage('');
+        this.setState({
+            confirmPassword: event.target.value,
+            confirmPasswordValid: event.target.value !== this.state.password
+        })
+    }
+
+    toastHello = () => {
+        this.addToast('Hello, World!');
+    };
+
+    addToast = (text, action, autohide = true) => {
+        this.setState((state) => {
+            const toasts = state.toasts.slice();
+            toasts.push({ text, action });
+            return { toasts, autohide };
+        });
+    };
+
+
+    dismissToast = () => {
+        const [, ...toasts] = this.state.toasts;
+        this.setState({ toasts });
+    };
+
     render() {
+        const { toasts, autohide } = this.state;
+
         return (
             <Grid>
                 <Row>
                     <Col xs={6} md={12}>
+
+                        <Button onClick={this.toastHello}>
+                            Toast Hello, World!
+                        </Button>
+
                         <Jumbotron className="register-jum">
-                            <form>
+                            <form onSubmit={this.registerEmployee.bind(this)}>
                                 <Grid>
                                     <Row>
                                         <Col xs={6} md={12}>
-                                            <h3 className="register-label"><strong>Registration</strong></h3>
+                                            <p>
+                                                <img src={note} alt="note_logo"/>
+                                                <strong className="register-label">Registration</strong>
+                                            </p>
                                         </Col>
                                     </Row>
 
@@ -60,10 +148,13 @@ export default class Registration extends Component {
                                                     <Textfield className="register-input"
                                                                floatingLabel="First Name"
                                                                type="text"
-                                                               value={this.state.FirstName}
+                                                               useInvalidProp
+                                                               invalid={this.state.firstNameValid}
+                                                               value={this.state.firstName}
                                                                required
                                                                helptext="Must not be empty"
                                                                helptextValidation
+                                                               onChange={this.onFirstNameChange.bind(this)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -75,10 +166,13 @@ export default class Registration extends Component {
                                                     <Textfield className="register-input"
                                                                floatingLabel="Last Name"
                                                                type="text"
-                                                               value={this.state.LastName}
+                                                               useInvalidProp
+                                                               invalid={this.state.lastNameValid}
+                                                               value={this.state.lastName}
                                                                required
                                                                helptext="Must not be empty"
                                                                helptextValidation
+                                                               onChange={this.onLastNameChange.bind(this)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -90,10 +184,13 @@ export default class Registration extends Component {
                                                     <Textfield className="register-input"
                                                                floatingLabel="Email"
                                                                type="email"
-                                                               value={this.state.Email}
+                                                               useInvalidProp
+                                                               invalid={this.state.emailValid}
                                                                required
+                                                               value={this.state.email}
                                                                helptext="Email is invalid"
                                                                helptextValidation
+                                                               onChange={this.onEmailChange.bind(this)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -107,10 +204,13 @@ export default class Registration extends Component {
                                                     <Textfield className="register-input"
                                                                floatingLabel="Login"
                                                                type="text"
-                                                               value={this.state.Login}
+                                                               useInvalidProp
+                                                               invalid={this.state.loginValid}
+                                                               value={this.state.login}
                                                                required
                                                                helptext="Must not be empty"
                                                                helptextValidation
+                                                               onChange={this.onLoginChange.bind(this)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -122,10 +222,11 @@ export default class Registration extends Component {
                                                     <Textfield className="register-input"
                                                                floatingLabel="Password"
                                                                type="password"
-                                                               value={this.state.Password}
+                                                               value={this.state.password}
                                                                required minLength={6}
-                                                               helptext="Must be at least 8 characters"
+                                                               helptext="Must be at least 6 characters"
                                                                helptextValidation
+                                                               onChange={this.onPasswordChange.bind(this)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -137,11 +238,13 @@ export default class Registration extends Component {
                                                     <Textfield className="register-input"
                                                                floatingLabel="Confirm password"
                                                                type="password"
-                                                               value={this.state.ConfirmPassword}
+                                                               useInvalidProp
+                                                               invalid={this.state.confirmPasswordValid}
+                                                               value={this.state.confirmPassword}
                                                                required
-                                                               minLength={6}
                                                                helptext="Confirm password doesn't match"
                                                                helptextValidation
+                                                               onChange={this.onConfirmPasswordChange.bind(this)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -149,8 +252,15 @@ export default class Registration extends Component {
                                     </Row>
 
                                     <Row>
-                                        <Col xs={6} md={12}>
-                                            <Button className="login-btn" type="submit">Register</Button>
+                                        <Col xs={6} md={4}>
+                                            <Button className="register-btn" type="submit">Register</Button>
+                                        </Col>
+
+                                        <Col xs={6} md={4}>
+                                            <h3 className="error-register-message">{this.props.employeeReducer.errorRegisterMessage}</h3>
+                                        </Col>
+
+                                        <Col xs={6} md={4}>
                                         </Col>
                                     </Row>
                                 </Grid>
@@ -158,205 +268,13 @@ export default class Registration extends Component {
                         </Jumbotron>
                     </Col>
                 </Row>
+                <Snackbar
+                    id="example-snackbar"
+                    toasts={toasts}
+                    autohide={autohide}
+                    onDismiss={this.dismissToast}
+                />
             </Grid>
         );
     }
 }
-
-
-
-// import React, { Component } from 'react';
-// import '../css/Registration.css';
-// import '../css/Login.css';
-// import store from './store/configStore';
-// import {RegistrationFormError} from './RegistrationFormError';
-// import *as employeeActions from './actions/employeeActions';
-// import {Container, Row, Col} from 'react-grid-system';
-//
-// export default class Registration extends Component {
-//     constructor(props) {
-//         super(props);
-//
-//         this.state = {
-//             FirstName: '',
-//             LastName: '',
-//             Email: '',
-//             Login: '',
-//             Password: '',
-//             ConfirmPassword: '',
-//             firstNameValid : false,
-//             lastNameValid : false,
-//             emailValid : false,
-//             loginValid : false,
-//             passwordValid : false,
-//             confirmPasswordValid : false,
-//
-//             formErrors: {
-//                 FirstName: '',
-//                 LastName: '',
-//                 Email: '',
-//                 Login: '',
-//                 Password: '',
-//                 ConfirmPassword: ''
-//             }
-//         };
-//     }
-//
-//     componentWillMount(){
-//         this.setState({FirstName: ''});
-//         this.setState({LastName: ''});
-//         this.setState({Email: ''});
-//         this.setState({Login: ''});
-//         this.setState({Password: ''});
-//         this.setState({ConfirmPassword: ''});
-//     }
-//
-//     handleUserInput (e) {
-//         employeeActions.setErrorRegisterMessage('');
-//         employeeActions.setSuccessMessage('');
-//
-//         const name = e.target.name;
-//         const value = e.target.value;
-//
-//         this.setState({[name]: value},
-//             () => { this.validateField(name, value) });
-//     }
-//
-//     validateField(fieldName, value) {
-//         let fieldValidationErrors = this.state.formErrors;
-//         let firstNameValid = this.state.firstNameValid;
-//         let lastNameValid = this.state.lastNameValid;
-//         let emailValid = this.state.emailValid;
-//         let loginValid = this.state.loginValid;
-//         let passwordValid = this.state.passwordValid;
-//         let confirmPasswordValid = this.state.confirmPasswordValid;
-//
-//         switch(fieldName) {
-//             case 'FirstName':
-//                 firstNameValid = value.trim().length >= 2;
-//                 fieldValidationErrors.FirstName = firstNameValid ? '' : ' is invalid (less 2 letters)';
-//                 break;
-//             case 'LastName':
-//                 lastNameValid = value.trim().length >= 2;
-//                 fieldValidationErrors.LastName = lastNameValid ? '' : ' is invalid (less 2 letters)';
-//                 break;
-//             case 'Email':
-//                 emailValid = value.trim().match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-//                 fieldValidationErrors.Email = emailValid ? '' : ' is invalid';
-//                 break;
-//             case 'Login':
-//                 loginValid = value.trim().length >= 2;
-//                 fieldValidationErrors.Login = loginValid ? '' : ' is invalid (less 2 letters)';
-//                 break;
-//             case 'Password':
-//                 passwordValid = value.trim().length >= 4;
-//                 fieldValidationErrors.Password = passwordValid ? '': ' is too short';
-//                 break;
-//             case 'ConfirmPassword':
-//                 confirmPasswordValid = value.trim() === this.state.Password;
-//                 fieldValidationErrors.ConfirmPassword = confirmPasswordValid ? '': ' does not match';
-//                 break;
-//             default:
-//                 break;
-//         }
-//         this.setState({formErrors: fieldValidationErrors,
-//             firstNameValid : firstNameValid,
-//             lastNameValid : lastNameValid,
-//             emailValid : emailValid,
-//             loginValid : loginValid,
-//             passwordValid : passwordValid,
-//             confirmPasswordValid : confirmPasswordValid
-//         }, this.validateForm);
-//     }
-//
-//     validateForm() {
-//         this.setState({formValid:
-//         this.state.firstNameValid
-//         && this.state.lastNameValid
-//         && this.state.emailValid
-//         && this.state.loginValid
-//         && this.state.passwordValid
-//         && this.state.confirmPasswordValid});
-//     }
-//
-//     registerEmployee(event){
-//         event.preventDefault();
-//         this.props.employeeActions.registerEmployee({
-//             firstName: this.state.FirstName,
-//             lastName: this.state.LastName,
-//             email: this.state.Email,
-//             login: this.state.Login,
-//             password: this.state.Password
-//         });
-//     }
-//
-//     render() {
-//         return (
-//             <Container>
-//                 <Row>
-//                     <Col sm={4}>
-//                     </Col>
-//
-//                     <Col sm={4}>
-//                         <div className="registerForm">
-//                             <form onSubmit={this.registerEmployee.bind(this)}>
-//                                 <h2>Registration</h2>
-//
-//                                 <label>First Name</label>
-//                                 <input type="text" required placeholder="First Name"
-//                                        className="registerInput"
-//                                        name="FirstName"
-//                                        value={this.state.FirstName}
-//                                        onChange={this.handleUserInput.bind(this)}/>
-//
-//                                 <label>Last Name</label>
-//                                 <input type="text" required placeholder="Last Name"
-//                                        className="registerInput"
-//                                        name="LastName"
-//                                        value={this.state.LastName}
-//                                        onChange={this.handleUserInput.bind(this)}/>
-//
-//                                 <label>Email</label>
-//                                 <input type="email" required placeholder="Email"
-//                                        className="registerInput"
-//                                        name="Email"
-//                                        value={this.state.Email}
-//                                        onChange={this.handleUserInput.bind(this)}/>
-//
-//                                 <label>Login</label>
-//                                 <input type="text" required placeholder="Login"
-//                                        className="registerInput"
-//                                        name="Login"
-//                                        value={this.state.Login}
-//                                        onChange={this.handleUserInput.bind(this)}/>
-//
-//                                 <label>Password</label>
-//                                 <input type="password" required placeholder="Password"
-//                                        className="registerInput"
-//                                        name="Password"
-//                                        value={this.state.Password}
-//                                        onChange={this.handleUserInput.bind(this)}/>
-//
-//                                 <label>Confirm Password</label>
-//                                 <input type="password" required placeholder="Confirm Password"
-//                                        className="registerInput"
-//                                        name="ConfirmPassword"
-//                                        value={this.state.ConfirmPassword}
-//                                        onChange={this.handleUserInput.bind(this)}/>
-//
-//                                 <button type="submit" className="registerBtn" disabled={!this.state.formValid}>Register</button>
-//                             </form>
-//
-//                             <h4><RegistrationFormError formErrors={this.state.formErrors} /></h4>
-//                             <h4 className="errorMessage">{store.getState().employeeReducer.errorRegisterMessage}</h4>
-//                             <h4 className="successMessage">{store.getState().employeeReducer.successMessage}</h4>
-//                         </div>
-//                     </Col>
-//
-//                     <Col sm={4}>
-//                     </Col>
-//                 </Row>
-//             </Container>
-//         );
-//     }
-// }

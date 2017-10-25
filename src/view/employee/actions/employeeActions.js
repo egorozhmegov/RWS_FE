@@ -54,18 +54,33 @@ export function registerEmployee(employee){
             withCredentials: true
         })
             .then((response) => {
-                if(response.data === true){
+                if (response.status === 201) {
                     store.dispatch(push('/rws/employee/login'));
-                } else {
+                } else if (response.status === 204) {
                     setSuccessMessage('');
-                    setErrorRegisterMessage('Such employee does not exist');
+                    setErrorRegisterMessage('This employee does not exist in company');
+                } else  {
+                    setSuccessMessage('Employee successfully registered');
+                    setErrorRegisterMessage('');
                 }
             })
-
+            .catch((error) => {
+                if (error.response.status === 403) {
+                    setSuccessMessage('');
+                    setErrorRegisterMessage('Email is exist already');
+                } else if (error.response.status === 302) {
+                    setSuccessMessage('');
+                    setErrorRegisterMessage('Login is exist already');
+                } else {
+                    setSuccessMessage('');
+                    setErrorRegisterMessage('Invalid register data');
+                }
+            });
     }
 }
 
 export function setErrorLoginMessage(message){
+    console.log(message)
     store.dispatch({
         type: SET_ERROR_LOGIN_MESSAGE,
         payload: message
@@ -77,12 +92,6 @@ export function setErrorRegisterMessage(message){
         type: SET_ERROR_REGISTER_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ERROR_REGISTER_MESSAGE,
-            payload: ''
-        });
-    }, 8000);
 }
 
 export function setSuccessMessage(message) {

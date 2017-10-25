@@ -11,49 +11,30 @@
     margin-bottom: 5%;
 }
 
+.register-btn {
+    border-radius: 0;
+    background-color: darkslategrey;
+    color: white;
+}
 
-/*.registerForm {*/
-    /*padding-top: 10%;*/
-    /*padding-left: 7.5%;*/
-    /*font-family: sans-serif;*/
-    /*font-size: 14px;*/
-/*}*/
+.register-btn:hover:focus:visited {
+    background-color: gray;
+    color: black;
+}
 
-/*.registerInput {*/
-    /*width: 90%;*/
-    /*padding: 7px 20px;*/
-    /*margin: 2px 0;*/
-    /*display: block;*/
-    /*border: 2px solid gray;*/
-    /*box-sizing: border-box;*/
-/*}*/
+.register-btn:active {
+    background-color: black;
+    color: white;
+    transform: translateY(3px);
+}
 
-/*.registerBtn {*/
-    /*background-color: black;*/
-    /*color: white;*/
-    /*padding: 10px 20px;*/
-    /*margin: 12px 0;*/
-    /*border: none;*/
-    /*cursor: pointer;*/
-    /*width: 90%;*/
-    /*display: block;*/
-/*}*/
+.error-register-message {
+    color: red;
+    font-family: sans-serif;
+    margin-top: -5px;
+}
 
-/*.registerBtn:hover {*/
-    /*background-color: gray;*/
-    /*color: black;*/
-/*}*/
-
-/*.registerBtn:active {*/
-    /*background-color: black;*/
-    /*color: white;*/
-    /*transform: translateY(3px);*/
-/*}*/
-
-/*.sss {*/
-    /*background-color: yellow;*/
-/*}*/
-
-/*.formErrors{*/
-    /*color: red;*/
-/*}*/
+.register-label{
+    font-size: 26px;
+    margin-left: 20px;
+}
