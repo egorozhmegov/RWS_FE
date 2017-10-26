@@ -9,9 +9,13 @@ import Select from 'react-select';
 import '../css/Pagination.css';
 import Pagination from 'rc-pagination';
 import en_GB from "rc-pagination/es/locale/en_GB";
-import {Button, Col, FormGroup, Glyphicon, Grid, InputGroup, Jumbotron, Row} from "react-bootstrap";
+import {
+    Button, Col, ControlLabel, FormControl, FormGroup, Glyphicon, Grid, InputGroup, Jumbotron, Modal,
+    Row
+} from "react-bootstrap";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import {Textfield} from 'react-mdc-web/lib';
 
 const days = [
     {label: 'SUN', value: 'sun'},
@@ -23,13 +27,50 @@ const days = [
     {label: 'SAT', value: 'sat'}
 ];
 
-const headers = ['Number', 'Tariff'];
-
 export default class Train extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            showDeleteDialog: false,
+            showAddDialog: false,
+            train: {},
+            number: '',
+            tariff: ''
+        }
+    }
+
+    addTrain(event) {
+        event.preventDefault();
+        this.props.trainActions.addTrain({
+            number: this.state.number,
+            tariff: this.state.tariff,
+        });
+
+        this.setState({
+            number: '',
+            tariff: ' '
+        })
+    }
+
+    deleteTrain(id) {
+        this.props.trainActions.deleteTrain(id);
+        this.setState({showDeleteDialog: false})
+    }
+
+    onNumberChange(event) {
+        this.setState({
+            number: event.target.value
+        })
+    }
+
+    onTariffChange(event) {
+        this.setState({
+            tariff: event.target.value
+        })
+    }
 
     render() {
-
         return (
             <Grid>
                 <Row>
@@ -54,17 +95,37 @@ export default class Train extends Component {
                                                 },
                                                 {
                                                     Header: '',
-                                                    accessor: () =>
-                                                        <Button bsSize="small" className="delete-btn"><Glyphicon glyph="trash"/></Button>,
+                                                    accessor: (train) =>
+                                                        <Button bsSize="small" className="delete-btn" onClick={() => {
+                                                            this.setState({
+                                                                showDeleteDialog: true,
+                                                                train: train
+                                                            })
+                                                        }}>
+                                                            <Glyphicon glyph="trash"/>
+                                                        </Button>,
                                                     id: 'delete-id',
-                                                    filterable: false
+                                                    filterable: false,
+                                                    sortable: false
                                                 },
                                                 {
-                                                    Header: '',
+                                                    Header: () =>
+                                                        <Button className="add-btn" bsSize="xsmall"
+                                                                onClick={() => {
+                                                                    this.setState({
+                                                                        showAddDialog: true,
+                                                                        number: '',
+                                                                        tariff: ''
+                                                                    })
+                                                                }}>
+                                                            <Glyphicon glyph="plus-sign"/>
+                                                        </Button>,
                                                     accessor: () =>
-                                                        <Button bsSize="small" className="route-btn"><Glyphicon glyph="road"/> Route</Button>,
+                                                        <Button bsSize="small" className="route-btn"><Glyphicon
+                                                            glyph="road"/> Route</Button>,
                                                     id: 'route-id',
-                                                    filterable: false
+                                                    filterable: false,
+                                                    sortable: false
                                                 }
                                             ]
                                         }
@@ -77,7 +138,67 @@ export default class Train extends Component {
                         </Jumbotron>
                     </Col>
                 </Row>
+
+                <Modal
+                    bsSize="small"
+                    show={this.state.showDeleteDialog}
+                    onHide={() => this.setState({showDeleteDialog: false})}
+                    container={this}
+                    aria-labelledby="contained-modal-title"
+                >
+                    <Modal.Body>
+                        <div className="dialog-body">
+                            <strong>{'Are yor sure delete the train ' + this.state.train.number + '?'}</strong>
+                            <div>
+                                <Button bsSize="small" className="no-btn"
+                                        onClick={() => this.setState({showDeleteDialog: false})}>No</Button>
+                                <Button bsSize="small" className="yes-btn"
+                                        onClick={this.deleteTrain.bind(this, this.state.train.id)}>Yes</Button>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+
+                <Modal
+                    bsSize="small"
+                    show={this.state.showAddDialog}
+                    onHide={() => this.setState({showAddDialog: false})}
+                    container={this}
+                    aria-labelledby="contained-modal-title"
+                >
+                    <Modal.Header>
+                        <Modal.Title><strong>New train</strong></Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <form className="add-form" onSubmit={this.addTrain.bind(this)}>
+                            <Textfield className="add-input"
+                                       floatingLabel="Number"
+                                       type="text"
+                                       value={this.state.number}
+                                       required
+                                       helptext="Must not be empty"
+                                       helptextValidation
+                                       onChange={this.onNumberChange.bind(this)}
+                            />
+
+                            <Textfield className="add-input"
+                                       floatingLabel="Tariff"
+                                       type="text"
+                                       value={this.state.tariff}
+                                       required
+                                       helptext="Must not be empty"
+                                       helptextValidation
+                                       onChange={this.onTariffChange.bind(this)}
+                            />
+                            <h4 className="route-error-message">{this.props.trainReducer.addRoutePointErrorMessage}</h4>
+                            <Button className="add-submit-btn" type="submit">Add</Button>
+                        </form>
+                    </Modal.Body>
+                </Modal>
             </Grid>
+
+
         )
     }
 }

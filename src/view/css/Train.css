@@ -4,7 +4,7 @@
 }
 
 .tab-header{
-    float: left;
+    margin-right: 100%;
 }
 
 .delete-btn{
@@ -21,6 +21,58 @@
 
 .align-center{
     text-align: center;
+}
+
+.modal-body{
+    border-radius: 2px;
+    background-color: #FAEBD7;
+}
+
+.modal-dialog {
+    position: absolute;
+    border-radius: 0px;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+}
+
+.modal-header {
+    border-radius: 2px;
+    background-color: #FAEBD7;
+}
+
+.yes-btn{
+    background-color: darkslategray;
+    color: white;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+.no-btn{
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.dialog-body{
+    border-radius: 3px;
+    text-align: center;
+}
+
+.add-btn{
+    border-radius: 1px;;
+}
+
+.add-form{
+    margin-left: 13%;
+}
+
+.add-submit-btn{
+    background-color: darkslategray;
+    color: white;
+}
+
+.add-input{
+    font-size: 16px;
 }
 
 

@@ -4,7 +4,7 @@ import '../css/Station.css';
 import '../css/Pagination.css';
 import Pagination from 'rc-pagination';
 import en_GB from "rc-pagination/es/locale/en_GB";
-import MyFancyComponent from "../../MapWithASearchBox";
+import MyFancyComponent from "./MapWithASearchBox";
 
 export default class Station extends Component {
     constructor() {
