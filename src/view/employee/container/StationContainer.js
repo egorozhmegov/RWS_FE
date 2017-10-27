@@ -10,8 +10,19 @@ import StationMarkerMap from "../StationMarkerMap";
 
 class StationContainer extends Component {
 
+    constructor(){
+        super();
+        this.state = {
+            center: { lat: 59.9342802, lng: 30.335098600000038 }
+        }
+    }
+
     componentWillMount() {
         stationActions.getListStations();
+    }
+
+    onCenterChange(center){
+        this.setState({center: center})
     }
 
     render() {
@@ -27,6 +38,8 @@ class StationContainer extends Component {
                                         <Station
                                             stationReducer={this.props.stationReducer}
                                             stationActions={this.props.stationActions}
+                                            center={this.state.center}
+                                            onCenterChange={this.onCenterChange.bind(this)}
                                         />
                                     </div>
                                 </Col>
@@ -35,6 +48,8 @@ class StationContainer extends Component {
                                     <StationMarkerMap
                                         stationReducer={this.props.stationReducer}
                                         stationActions={this.props.stationActions}
+                                        center={this.state.center}
+                                        onCenterChange={this.onCenterChange.bind(this)}
                                     />
                                 </Col>
                             </Row>

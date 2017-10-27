@@ -85,9 +85,11 @@ export default class Login extends Component {
                                     </InputGroup>
                                 </FormGroup>
 
+                                <h4 className="error-login-message">{this.props.employeeReducer.errorLoginMessage}</h4>
+
                                 <Button className="login-btn" type="submit">Login</Button>
                             </form>
-                            <h4 className="error-login-message">{this.props.employeeReducer.errorLoginMessage}</h4>
+
                         </Jumbotron>
                     </Col>
 

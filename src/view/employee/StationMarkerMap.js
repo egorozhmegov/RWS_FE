@@ -23,7 +23,7 @@ const MapWithASearchBox = compose(
 
             this.setState({
                 bounds: null,
-                center: this.props.stationReducer.center,
+                center: this.props.center,
                 markers: [],
                 onMapMounted: ref => {
                     refs.map = ref;
@@ -59,8 +59,13 @@ const MapWithASearchBox = compose(
                     });
                 },
             })
+
+        },
+        componentWillReceiveProps(nextProps) {
+            this.setState({ center: nextProps.center });
         }
     }),
+
     withScriptjs,
     withGoogleMap
 )(props =>

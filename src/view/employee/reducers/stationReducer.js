@@ -13,7 +13,7 @@ const initialState = {
     filterStations: [],
     addStationSuccessMessage: '',
     addStationErrorMessage: '',
-    center: { lat: 41.9, lng: -87.624 }
+    center: { }
 };
 
 export default function trainReducer(state = initialState, action) {
