@@ -19,13 +19,11 @@ const MapWithASearchBox = compose(
     }),
     lifecycle({
         componentWillMount() {
-            const refs = {}
+            const refs = {};
 
             this.setState({
                 bounds: null,
-                center: {
-                    lat: 41.9, lng: -87.624
-                },
+                center: this.props.stationReducer.center,
                 markers: [],
                 onMapMounted: ref => {
                     refs.map = ref;
@@ -59,17 +57,16 @@ const MapWithASearchBox = compose(
                         center: nextCenter,
                         markers: nextMarkers,
                     });
-                    // refs.map.fitBounds(bounds);
                 },
             })
-        },
+        }
     }),
     withScriptjs,
     withGoogleMap
 )(props =>
     <GoogleMap
         ref={props.onMapMounted}
-        defaultZoom={15}
+        defaultZoom={8}
         center={props.center}
         onBoundsChanged={props.onBoundsChanged}
     >
@@ -81,7 +78,7 @@ const MapWithASearchBox = compose(
         >
             <input
                 type="text"
-                placeholder="Customized your placeholder"
+                placeholder="Search"
                 style={{
                     boxSizing: `border-box`,
                     border: `1px solid transparent`,
@@ -100,13 +97,8 @@ const MapWithASearchBox = compose(
         {props.markers.map((marker, index) =>
             <Marker key={index} position={marker.position} />
         )}
+        <Marker position={props.center} />
     </GoogleMap>
 );
 
-export default class MyFancyComponent extends React.PureComponent {
-    render() {
-        return (
-            <MapWithASearchBox />
-        )
-    }
-}
+export default MapWithASearchBox

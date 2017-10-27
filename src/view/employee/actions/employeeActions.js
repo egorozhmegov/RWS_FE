@@ -28,7 +28,6 @@ export function loginEmployee(employee) {
 }
 
 export function logoutEmployee() {
-    console.log('here')
     axios({
         method: 'GET',
         url: LOCAL_HOST + 'logoutEmployee',

@@ -6,7 +6,8 @@ import {GET_STATIONS,
     ADD_STATION,
     FILTER_STATIONS,
     SET_ADD_STATION_SUCCESS_MESSAGE,
-    SET_ADD_STATION_ERROR_MESSAGE} from '../constants/Station';
+    SET_ADD_STATION_ERROR_MESSAGE,
+    SET_CENTER} from '../constants/Station';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListStations(){
@@ -64,7 +65,7 @@ export function addStation(station){
                     });
                     setAddStationSuccessMessage('Station successfully created')
                 } else {
-                    setAddStationErrorMessage('Station exist already or incorrect data')
+                    setAddStationErrorMessage('Station exist already')
                 }
             })
     }
@@ -75,12 +76,6 @@ export function setAddStationSuccessMessage(message){
         type: SET_ADD_STATION_SUCCESS_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ADD_STATION_SUCCESS_MESSAGE,
-            payload: ''
-        });
-    }, 4000);
 }
 
 export function setAddStationErrorMessage(message){
@@ -88,12 +83,6 @@ export function setAddStationErrorMessage(message){
         type: SET_ADD_STATION_ERROR_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ADD_STATION_ERROR_MESSAGE,
-            payload: ''
-        });
-    }, 4000);
 }
 
 export function filter(listStations){
@@ -102,5 +91,14 @@ export function filter(listStations){
             type: FILTER_STATIONS,
             payload: listStations
         })
+    }
+}
+
+export function setMapCenter(center) {
+    return () => {
+        store.dispatch({
+            type: SET_CENTER,
+            payload: center
+        });
     }
 }

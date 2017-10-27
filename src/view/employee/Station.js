@@ -1,127 +1,156 @@
 import React, {Component} from 'react';
-import {Container, Row, Col} from 'react-grid-system';
 import '../css/Station.css';
 import '../css/Pagination.css';
-import Pagination from 'rc-pagination';
-import en_GB from "rc-pagination/es/locale/en_GB";
-import MyFancyComponent from "./MapWithASearchBox";
+import {Button,  Glyphicon, Modal} from "react-bootstrap";
+import ReactTable from "react-table";
+import *as stationActions from './actions/stationActions';
+import {Textfield} from 'react-mdc-web/lib';
 
 export default class Station extends Component {
     constructor() {
         super();
-        this.state = {
-            currentPage: 1,
-            stationsPerPage: 8
-        };
-
+        this.state={
+            showDeleteDialog: false,
+            showAddDialog: false,
+            title: '',
+            validTitle: false,
+            station: {}
+        }
     }
 
-    onPageChange = (page) => {
-        this.setState({
-            currentPage: page,
-        });
-    };
 
-    deleteStation(id) {
-        this.props.stationActions.deleteStation(id);
+    deleteStation(station) {
+        this.props.stationActions.deleteStation(station.id);
+        this.setState({showDeleteDialog: false})
     }
 
     addStation(event) {
         event.preventDefault();
         this.props.stationActions.addStation({
-            title: this.stationTitleInput.value,
+            title: this.state.title,
         });
-        this.stationTitleInput.value = '';
+        this.setState({title: ''})
     }
 
-    onSearchInputChange(event){
-        let updatedList = this.props.stationReducer.filterStations;
-        updatedList = updatedList.filter(function(item){
-            return (item.title.toLowerCase().search(
-                    event.target.value.toLowerCase()) !== -1);
-        });
-        this.props.stationActions.filter(updatedList);
+    onTitleChange(event) {
+        stationActions.setAddStationErrorMessage('');
+        this.setState({
+            title: event.target.value,
+            validTitle: !event.target.value.trim().length > 0
+        })
     }
 
-
-
+    onMapChange(){
+        this.props.stationActions.setMapCenter({ lat: 59.5, lng: 30.2 })
+    }
 
     render() {
-        const indexOfLastStation = this.state.currentPage * this.state.stationsPerPage;
-        const indexOfFirstStation = indexOfLastStation - this.state.stationsPerPage;
-        const currentStations = this.props.stationReducer.stations.slice(indexOfFirstStation, indexOfLastStation);
+            return(
+                <div>
+                    <Button onClick={this.onMapChange.bind(this)}>Map</Button>
+                    <div className="align-center">
+                        <ReactTable
+                            data={this.props.stationReducer.stations}
+                            filterable
+                            columns={[
+                                {
+                                    Header: () => <h3><strong className="tab-header">Stations</strong></h3>,
+                                    columns: [
+                                        {
+                                            Header: () => <strong>Title</strong>,
+                                            accessor: 'title',
 
-        return (
-            <div>
-
-                <MyFancyComponent/>
-
-                <Container className="trains">
-                    <Row>
-                        <Col sm={6}>
-                            <h2>Stations</h2>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>
-                                        <input className="search-station" type="text" onChange={this.onSearchInputChange.bind(this)}/>
-                                    </th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                {currentStations
-                                    .sort((a, b) => {
-                                        if (a.title.toUpperCase() < b.title.toUpperCase()) {
-                                            return -1;
+                                        },
+                                        {
+                                            Header: () =>
+                                                <Button className="add-btn" bsSize="small"
+                                                        onClick={() => {
+                                                            this.setState({
+                                                                showAddDialog: true,
+                                                                title: ''
+                                                            });
+                                                            stationActions.setAddStationErrorMessage('');
+                                                        }}>
+                                                    <Glyphicon glyph="plus-sign"/>
+                                                </Button>,
+                                            accessor: (station) =>
+                                                <Button bsSize="small" className="delete-btn" onClick={() => {
+                                                    this.setState({
+                                                        showDeleteDialog: true,
+                                                        station: station
+                                                    })
+                                                }}>
+                                                    <Glyphicon glyph="trash"/>
+                                                </Button>,
+                                            id: 'delete-id',
+                                            filterable: false,
+                                            sortable: false
                                         }
-                                        if (a.title.toUpperCase() > b.title.toUpperCase()) {
-                                            return 1;
-                                        } else {
-                                            return 0;
-                                        }
-                                    })
-                                    .map((station, index) =>
-                                        <tr key={index}>
-                                            <td>{station.title}</td>
-                                            <td>
-                                                <button className="remove-station-btn"
-                                                        onClick={this.deleteStation.bind(this, station.id)}>Remove
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </Col>
+                                    ]
+                                }
+                            ]}
+                            defaultPageSize={5}
+                            pageSizeOptions={[5, 10, 15, 20, 25]}
+                            className="-striped -highlight"
+                        />
+                    </div>
 
-                        <Col sm={1}></Col>
+                    <Modal
+                        bsSize="small"
+                        show={this.state.showAddDialog}
+                        onHide={() => this.setState({showAddDialog: false})}
+                        container={this}
+                        aria-labelledby="contained-modal-title"
+                    >
+                        <Modal.Header>
+                            <Modal.Title><strong className="add-station-header">New station</strong></Modal.Title>
+                        </Modal.Header>
 
-                        <Col sm={5}>
-                            <div><h2>New station</h2></div>
-
+                        <Modal.Body>
                             <form className="add-station-form" onSubmit={this.addStation.bind(this)}>
-                                <div>Title</div>
-                                <input className="add-station-input" type="text" placeholder="Title" ref={(input) => {
-                                    this.stationTitleInput = input
-                                }}/>
-
-                                <button className="add-station-btn" type="submit">Save</button>
+                                <Textfield className="add-input"
+                                           floatingLabel="Station"
+                                           type="text"
+                                           useInvalidProp
+                                           invalid={this.state.validTitle}
+                                           value={this.state.title}
+                                           required
+                                           helptext="Must not be empty"
+                                           helptextValidation
+                                           onChange={this.onTitleChange.bind(this)}
+                                />
+                                <h4 className="station-error-message">{this.props.stationReducer.addStationErrorMessage}</h4>
+                                <Button className="add-submit-btn" type="submit">Add</Button>
                             </form>
-                            <h4 className="station-success-message">{this.props.stationReducer.addStationSuccessMessage}</h4>
-                            <h4 className="station-error-message">{this.props.stationReducer.addStationErrorMessage}</h4>
-                        </Col>
-                    </Row>
-                </Container>
+                        </Modal.Body>
+                    </Modal>
 
-                <Pagination className="pagination"
-                            onChange={this.onPageChange}
-                            locale={en_GB}
-                            current={this.state.currentPage}
-                            pageSize={8}
-                            total={this.props.stationReducer.stations.length}/>
-            </div>
+                    <Modal
+                        bsSize="small"
+                        show={this.state.showDeleteDialog}
+                        onHide={() => this.setState({
+                            showDeleteDialog: false,
+                            station: {}
+                        })}
+                        container={this}
+                        aria-labelledby="contained-modal-title"
+                    >
+                        <Modal.Body>
+                            <div className="dialog-body">
+                                <strong>{'Are yor sure delete the station ' + this.state.station.title + '?'}</strong>
+                                <div>
+                                    <Button bsSize="small" className="no-btn"
+                                            onClick={() => this.setState({
+                                                showDeleteDialog: false,
+                                                station: {}
+                                            })}>No</Button>
+                                    <Button bsSize="small" className="yes-btn"
+                                            onClick={this.deleteStation.bind(this, this.state.station)}>Yes</Button>
+                                </div>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+                </div>
         )
     }
 }

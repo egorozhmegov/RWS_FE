@@ -4,7 +4,8 @@ import {
     ADD_STATION,
     FILTER_STATIONS,
     SET_ADD_STATION_SUCCESS_MESSAGE,
-    SET_ADD_STATION_ERROR_MESSAGE
+    SET_ADD_STATION_ERROR_MESSAGE,
+    SET_CENTER
 } from '../constants/Station';
 
 const initialState = {
@@ -12,10 +13,17 @@ const initialState = {
     filterStations: [],
     addStationSuccessMessage: '',
     addStationErrorMessage: '',
+    center: { lat: 41.9, lng: -87.624 }
 };
 
 export default function trainReducer(state = initialState, action) {
     switch (action.type) {
+
+        case SET_CENTER:
+            return {
+                ...state,
+                center: action.payload
+            };
 
         case GET_STATIONS:
             return {
