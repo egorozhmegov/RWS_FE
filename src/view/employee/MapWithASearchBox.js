@@ -1,5 +1,5 @@
 /*global google*/
-import React, {Component} from 'react';
+import React from 'react';
 import _ from "lodash";
 import { compose, withProps, lifecycle } from "recompose";
 import {

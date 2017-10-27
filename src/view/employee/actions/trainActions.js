@@ -1,7 +1,8 @@
 import store from '../store/configStore';
 import axios from 'axios';
-import { push } from 'connected-react-router';
-import {GET_TRAINS,
+import {push} from 'connected-react-router';
+import {
+    GET_TRAINS,
     GET_TRAIN,
     DELETE_TRAIN,
     ADD_TRAIN,
@@ -13,10 +14,11 @@ import {GET_TRAINS,
     SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
     DELETE_ROUTE_POINT,
     FILTER_TRAINS,
-    GET_STATIONS} from '../constants/Train';
+    GET_STATIONS
+} from '../constants/Train';
 import {LOCAL_HOST} from '../constants/Main';
 
-export function getListTrains(){
+export function getListTrains() {
     axios({
         method: 'GET',
         url: LOCAL_HOST + 'getTrains',
@@ -33,11 +35,11 @@ export function getListTrains(){
         })
 }
 
-export function deleteTrain(id){
+export function deleteTrain(id) {
     return () => {
         axios({
             method: 'DELETE',
-            url: LOCAL_HOST + 'deleteTrain/'+id,
+            url: LOCAL_HOST + 'deleteTrain/' + id,
             withCredentials: true
         })
             .then((response) => {
@@ -52,7 +54,7 @@ export function deleteTrain(id){
     }
 }
 
-export function addTrain(train){
+export function addTrain(train) {
     return () => {
         axios({
             method: 'POST',
@@ -64,20 +66,18 @@ export function addTrain(train){
             withCredentials: true
         })
             .then((response) => {
-                if(response.status === 201){
-                    store.dispatch({
-                        type: ADD_TRAIN,
-                        payload: response.data
-                    });
-                    setAddTrainSuccessMessage('Train successfully created')
-                } else {
-                    setAddTrainErrorMessage('Train exist already or incorrect data')
-                }
+                store.dispatch({
+                    type: ADD_TRAIN,
+                    payload: response.data
+                });
             })
+            .catch(() => {
+                setAddTrainErrorMessage('Train is exist already');
+            });
     }
 }
 
-export function getRoute(id){
+export function getRoute(id) {
     return () => {
         axios({
             method: 'GET',
@@ -93,7 +93,7 @@ export function getRoute(id){
     };
 }
 
-export function addRoutePoint(routePoint){
+export function addRoutePoint(routePoint) {
     return () => {
         axios({
             method: 'POST',
@@ -105,20 +105,19 @@ export function addRoutePoint(routePoint){
             withCredentials: true
         })
             .then((response) => {
-                if(response.status === 201){
-                    store.dispatch({
-                        type: ADD_ROUTE_POINT,
-                        payload: response.data
-                    });
-                    setAddRoutePointSuccessMessage('Route point successfully created')
-                } else {
-                    setAddRoutePointErrorMessage('Route point exist already or incorrect data')
-                }
+                store.dispatch({
+                    type: ADD_ROUTE_POINT,
+                    payload: response.data
+                });
+                setAddRoutePointSuccessMessage('Route point successfully created')
+            })
+            .catch(() => {
+                setAddRoutePointErrorMessage('Invalid data')
             })
     }
 }
 
-export function deleteRoutePoint(routePoint){
+export function deleteRoutePoint(routePoint) {
     return () => {
         axios({
             method: 'POST',
@@ -141,59 +140,35 @@ export function deleteRoutePoint(routePoint){
     }
 }
 
-export function setAddTrainSuccessMessage(message){
+export function setAddTrainSuccessMessage(message) {
     store.dispatch({
         type: SET_ADD_TRAIN_SUCCESS_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ADD_TRAIN_SUCCESS_MESSAGE,
-            payload: ''
-        });
-    }, 4000);
 }
 
-export function setAddTrainErrorMessage(message){
+export function setAddTrainErrorMessage(message) {
     store.dispatch({
         type: SET_ADD_TRAIN_ERROR_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ADD_TRAIN_ERROR_MESSAGE,
-            payload: ''
-        });
-    }, 4000);
 }
 
-export function setAddRoutePointSuccessMessage(message){
+export function setAddRoutePointSuccessMessage(message) {
     store.dispatch({
         type: SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ADD_ROUTE_POINT_SUCCESS_MESSAGE,
-            payload: ''
-        });
-    }, 4000);
 }
 
-export function setAddRoutePointErrorMessage(message){
+export function setAddRoutePointErrorMessage(message) {
     store.dispatch({
         type: SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
-            payload: ''
-        });
-    }, 4000);
 }
 
-export function getTrain(id){
+export function getTrain(id) {
     return () => {
         store.dispatch({
             type: GET_TRAIN,
@@ -202,7 +177,7 @@ export function getTrain(id){
     }
 }
 
-export function setEmptyTrains(){
+export function setEmptyTrains() {
     return () => {
         store.dispatch({
             type: GET_TRAIN,
@@ -211,7 +186,7 @@ export function setEmptyTrains(){
     }
 }
 
-export function filter(listTrains){
+export function filter(listTrains) {
     return () => {
         store.dispatch({
             type: FILTER_TRAINS,
@@ -220,7 +195,7 @@ export function filter(listTrains){
     }
 }
 
-export function getListStations(){
+export function getListStations() {
     axios({
         method: 'GET',
         url: LOCAL_HOST + 'getStations',

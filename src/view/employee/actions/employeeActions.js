@@ -28,6 +28,7 @@ export function loginEmployee(employee) {
 }
 
 export function logoutEmployee() {
+    console.log('here')
     axios({
         method: 'GET',
         url: LOCAL_HOST + 'logoutEmployee',
@@ -80,7 +81,6 @@ export function registerEmployee(employee){
 }
 
 export function setErrorLoginMessage(message){
-    console.log(message)
     store.dispatch({
         type: SET_ERROR_LOGIN_MESSAGE,
         payload: message
@@ -99,10 +99,4 @@ export function setSuccessMessage(message) {
         type: SET_SUCCESS_MESSAGE,
         payload: message
     });
-    setTimeout(() => {
-        store.dispatch({
-            type: SET_SUCCESS_MESSAGE,
-            payload: ''
-        });
-    }, 8000);
 }
