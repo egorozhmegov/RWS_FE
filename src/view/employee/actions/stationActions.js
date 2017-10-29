@@ -7,7 +7,8 @@ import {GET_STATIONS,
     FILTER_STATIONS,
     SET_ADD_STATION_SUCCESS_MESSAGE,
     SET_ADD_STATION_ERROR_MESSAGE,
-    SET_CENTER} from '../constants/Station';
+    SET_CENTER,
+    OPEN_SNACKBAR} from '../constants/Station';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListStations(){
@@ -40,6 +41,7 @@ export function deleteStation(id){
                     payload: response.data
                 })
             })
+            .then(openSnackbar({open:true, message: 'Station successfully deleted'}))
             .catch(() => {
                 store.dispatch(push('/rws/employee/train'));
             })
@@ -68,6 +70,7 @@ export function addStation(station){
                     setAddStationErrorMessage('Station exist already')
                 }
             })
+            .then(openSnackbar({open:true, message: 'Station successfully created'}))
     }
 }
 
@@ -100,5 +103,14 @@ export function setMapCenter(center) {
             type: SET_CENTER,
             payload: center
         });
+    }
+}
+
+export function openSnackbar(snackbar) {
+    return () => {
+        store.dispatch({
+            type: OPEN_SNACKBAR,
+            payload: snackbar
+        })
     }
 }

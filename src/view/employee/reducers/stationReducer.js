@@ -5,7 +5,8 @@ import {
     FILTER_STATIONS,
     SET_ADD_STATION_SUCCESS_MESSAGE,
     SET_ADD_STATION_ERROR_MESSAGE,
-    SET_CENTER
+    SET_CENTER,
+    OPEN_SNACKBAR
 } from '../constants/Station';
 
 const initialState = {
@@ -13,7 +14,11 @@ const initialState = {
     filterStations: [],
     addStationSuccessMessage: '',
     addStationErrorMessage: '',
-    center: { }
+    center: { },
+    snackbar: {
+        open:false,
+        massage: ''
+    }
 };
 
 export default function trainReducer(state = initialState, action) {
@@ -63,6 +68,12 @@ export default function trainReducer(state = initialState, action) {
             return {
                 ...state,
                 stations: action.payload
+            };
+
+        case OPEN_SNACKBAR:
+            return {
+                ...state,
+                snackbar: action.payload
             };
 
         default:

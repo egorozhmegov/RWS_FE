@@ -1,3 +1,11 @@
+.client-link{
+    float: right;
+}
+
+.client-header{
+    margin-top: 15%;
+}
+
 .headerLink {
     font-size: x-large;
     font-family: sans-serif;

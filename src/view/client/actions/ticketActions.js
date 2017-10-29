@@ -4,15 +4,17 @@ import {LOCAL_HOST} from '../constants/ClientMain';
 import {GET_STATIONS} from '../constants/Ticket';
 
 export function getListStations(){
-    axios({
-        method: 'GET',
-        url: LOCAL_HOST + 'getStations',
-        withCredentials: true
-    })
-        .then((response) => {
-            store.dispatch({
-                type: GET_STATIONS,
-                payload: response.data
-            })
+    return () => {
+        axios({
+            method: 'GET',
+            url: LOCAL_HOST + 'getStations',
+            withCredentials: true
         })
+            .then((response) => {
+                store.dispatch({
+                    type: GET_STATIONS,
+                    payload: response.data
+                })
+            })
+    }
 }

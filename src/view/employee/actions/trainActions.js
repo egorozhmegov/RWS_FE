@@ -14,7 +14,8 @@ import {
     SET_ADD_ROUTE_POINT_ERROR_MESSAGE,
     DELETE_ROUTE_POINT,
     FILTER_TRAINS,
-    GET_STATIONS
+    GET_STATIONS,
+    OPEN_SNACKBAR
 } from '../constants/Train';
 import {LOCAL_HOST} from '../constants/Main';
 
@@ -48,6 +49,7 @@ export function deleteTrain(id) {
                     payload: response.data
                 })
             })
+            .then(openSnackbar({open:true, message: 'Train successfully deleted'}))
             .catch(() => {
                 store.dispatch(push('/rws/employee/train'));
             })
@@ -67,10 +69,11 @@ export function addTrain(train) {
         })
             .then((response) => {
                 store.dispatch({
-                    type: ADD_TRAIN,
-                    payload: response.data
-                });
+                        type: ADD_TRAIN,
+                        payload: response.data
+                    });
             })
+            .then(openSnackbar({open:true, message: 'Train successfully created'}))
             .catch(() => {
                 setAddTrainErrorMessage('Train is exist already');
             });
@@ -111,6 +114,7 @@ export function addRoutePoint(routePoint) {
                 });
                 setAddRoutePointSuccessMessage('Route point successfully created')
             })
+            .then(openSnackbar({open:true, message: 'Route point successfully created'}))
             .catch(() => {
                 setAddRoutePointErrorMessage('Invalid data')
             })
@@ -134,6 +138,7 @@ export function deleteRoutePoint(routePoint) {
                     payload: response.data
                 })
             })
+            .then(openSnackbar({open:true, message: 'Route point successfully deleted'}))
             .catch(() => {
                 store.dispatch(push('/rws/employee/train'));
             })
@@ -207,4 +212,13 @@ export function getListStations() {
                 payload: response.data
             })
         })
+}
+
+export function openSnackbar(snackbar) {
+    return () => {
+        store.dispatch({
+            type: OPEN_SNACKBAR,
+            payload: snackbar
+        })
+    }
 }

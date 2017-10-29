@@ -1,11 +1,12 @@
-.passenger{
-    font-family: sans-serif;
+.passenger-jum{
+    background-color: #FAEBD7;
+    width: 100%;
 }
 
-.filter-head{
-    background-color: white;
+.align-center{
+    text-align: center;
 }
 
-.search-input{
-    width: 100px;
+.tab-header{
+    margin-right: 100%;
 }

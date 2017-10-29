@@ -4,6 +4,7 @@ import GoogleButton from 'react-google-button';
 import ClientApp from "./ClientApp";
 import {Container, Row, Col} from 'react-grid-system';
 import '../css/ClientAuth.css';
+import * as ticketActions from './actions/ticketActions';
 
 export default class ClientAuth extends Component {
     constructor() {
@@ -29,7 +30,8 @@ export default class ClientAuth extends Component {
                 this.setState({
                     user
                 });
-            });
+            })
+            .then(ticketActions.getListStations());
     }
 
 
@@ -53,7 +55,6 @@ export default class ClientAuth extends Component {
                                     <Col sm={4}></Col>
                                 </Row>
                             </Container>
-
                         }
                     </div>
                 </header>

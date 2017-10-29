@@ -14,7 +14,7 @@ const MapWithASearchBox = compose(
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA40PgMGt365xsEIBwDCYNKU8DNMSs-ke4&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: '100%' }} />,
-        containerElement: <div style={{ height: '400px' }} />,
+        containerElement: <div style={{ height: '446px' }} />,
         mapElement: <div style={{ height: '100%' }} />,
     }),
     lifecycle({
@@ -88,10 +88,10 @@ const MapWithASearchBox = compose(
                     boxSizing: `border-box`,
                     border: `1px solid transparent`,
                     width: `240px`,
-                    height: `32px`,
-                    marginTop: `27px`,
+                    height: `29px`,
+                    marginTop: `10px`,
                     padding: `0 12px`,
-                    borderRadius: `3px`,
+                    borderRadius: `1px`,
                     boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
                     fontSize: `14px`,
                     outline: `none`,

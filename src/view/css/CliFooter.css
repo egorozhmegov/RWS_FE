@@ -4,16 +4,18 @@
     height: 50px;
     float: left;
     margin-top: 10px;
+    margin-left: 6%;
 }
 
 .footer{
     text-decoration: none;
-    position:absolute;
+    position:relative;
     bottom:0;
-    width: 96%;
+    width: 100%;
     list-style-type: none;
     font-family: sans-serif;
     border-top: 2px solid darkslategray;
+    height: 80px;
 }
 
 .cli-footer-li{
@@ -24,7 +26,7 @@
 }
 
 .cli-footer-li-right-mail{
-    margin-right: 40px;
+    margin-right: 125px;
     margin-top: 27px;
     float: right;
     font-family: sans-serif;

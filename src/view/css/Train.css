@@ -78,3 +78,7 @@
 }
 
 th {text-align:center}
+
+.snackbar-message{
+    font-size: 12px;
+}

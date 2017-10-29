@@ -6,7 +6,6 @@ import cookie from 'react-cookies';
 import {Glyphicon, Nav, Navbar, NavItem} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 
-
 export default class EmpHeader extends Component {
 
     render() {

@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Container, Row, Col} from 'react-grid-system';
 import '../css/Schedule.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import '../css/DatePicker.css';
-import Clock from 'react-live-clock';
-import showLogo from '../img/loupe.svg';
 import Select from 'react-select';
+import {Button, Col, Form, FormGroup, Grid, Jumbotron, Row} from "react-bootstrap";
+import ReactTable from "react-table";
 
 export default class Schedule extends Component {
     constructor() {
@@ -48,124 +47,135 @@ export default class Schedule extends Component {
 
     render() {
         return (
-            <Container className="schedule">
-
+            <Grid>
                 <Row>
-                    <Col sm={5}>
-                    </Col>
+                    <Col xs={6} md={12}>
+                        <Jumbotron className="schedule-jum">
+                            <Row>
+                                <Col xs={6} md={12}>
+                                    <Form inline onSubmit={this.getSchedule.bind(this)}>
+                                        <FormGroup>
+                                            {' '}
+                                            <Select className="schedule-st"
+                                                    closeOnSelect={!this.state.stSelect.stayOpen}
+                                                    disabled={this.state.stSelect.disabled}
+                                                    onChange={this.handleSelectStationChange.bind(this)}
+                                                    options={this.props.scheduleReducer.stations.map((station, index) => {
+                                                        return {label: station.title, value: station.title}
+                                                    })}
+                                                    placeholder="Station"
+                                                    simpleValue
+                                                    value={this.state.stSelect.value}
+                                            />
+                                        </FormGroup>
+                                        {' '}
+                                        <FormGroup>
+                                            {' '}
+                                            <DatePicker className="date-input"
+                                                        selected={this.state.startDate}
+                                                        onChange={this.handleDateChange.bind(this)}
+                                                        dateFormat="DD.MM.YYYY"
+                                            />
+                                        </FormGroup>
+                                        {' '}
+                                        <Button className="submit-btn" type="submit">
+                                            Show
+                                        </Button>
+                                    </Form>
+                                </Col>
+                            </Row>
 
-                    <Col sm={4}>
-                        <h1><Clock className="clock" format={'HH:mm:ss'} ticking={true} timezone={'Europe/Moscow'}/>
-                        </h1>
-                    </Col>
+                            <Row>
+                                <Col xs={6} md={6}>
+                                    <div className="align-center">
+                                        <ReactTable
+                                            data={this.props.scheduleReducer.schedule.arriveSchedule}
+                                            filterable={false}
+                                            sortarable={false}
+                                            columns={[
+                                                {
+                                                    Header: () => <h4><strong className="tab-header">Arrival</strong></h4>,
+                                                    columns: [
+                                                        {
+                                                            Header: () => <strong>Train</strong>,
+                                                            accessor: 'train.number'
 
-                    <Col sm={3}>
+                                                        },
+                                                        {
+                                                            Header: () => <strong>Arrival time</strong>,
+                                                            accessor: (schedule) => {
+                                                                let arrHour;
+                                                                let arrMinute;
+                                                                if (schedule.arrivalTime === null) {
+                                                                    arrHour = '';
+                                                                    arrMinute = '';
+                                                                } else {
+                                                                    arrHour = schedule.arrivalTime[0];
+                                                                    arrMinute = schedule.arrivalTime[1];
+                                                                }
+                                                                if (arrHour.toString().length === 1) arrHour = '0' + arrHour;
+                                                                if (arrMinute.toString().length === 1) arrMinute = '0' + arrMinute;
+
+                                                                return <div>{arrHour} {arrHour === '' ? '' : ':'} {arrMinute}</div>
+
+                                                            },
+                                                            id: 'id'
+                                                        }
+                                                    ]
+                                                }
+                                            ]}
+                                            pageSize={this.props.scheduleReducer.schedule.arriveSchedule.length}
+                                            showPagination={false}
+                                        />
+                                    </div>
+                                </Col>
+
+                                <Col xs={6} md={6}>
+                                    <div className="align-center">
+                                        <ReactTable
+                                            data={this.props.scheduleReducer.schedule.departSchedule}
+                                            filterable={false}
+                                            sortarable={false}
+                                            columns={[
+                                                {
+                                                    Header: () => <h4><strong className="tab-header">Departure</strong></h4>,
+                                                    columns: [
+                                                        {
+                                                            Header: () => <strong>Train</strong>,
+                                                            accessor: 'train.number'
+                                                        },
+                                                        {
+                                                            Header: () => <strong>Departure time</strong>,
+                                                            accessor: (schedule) => {
+                                                                let depHour;
+                                                                let depMinute;
+                                                                if (schedule.departureTime === null) {
+                                                                    depHour = '';
+                                                                    depMinute = '';
+                                                                } else {
+                                                                    depHour = schedule.departureTime[0];
+                                                                    depMinute = schedule.departureTime[1];
+                                                                }
+                                                                if (depHour.toString().length === 1) depHour = '0' + depHour;
+                                                                if (depMinute.toString().length === 1) depMinute = '0' + depMinute;
+
+                                                                return <div>{depHour} {depHour === '' ? '' : ':'} {depMinute}</div>
+                                                            },
+                                                            id: 'id'
+                                                        }
+                                                    ]
+                                                }
+                                            ]}
+                                            pageSize={this.props.scheduleReducer.schedule.departSchedule.length}
+                                            showPagination={false}
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Jumbotron>
                     </Col>
                 </Row>
-
-                <Row>
-                    <Col sm={4}>
-                        <h3>Arrival</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Train</th>
-                                <th>Arrival time</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            {this.props.scheduleReducer.schedule.arriveSchedule
-                                .map((schedule, index) => {
-                                        let arrHour;
-                                        let arrMinute;
-                                        if (schedule.arrivalTime === null) {
-                                            arrHour = '';
-                                            arrMinute = '';
-                                        } else {
-                                            arrHour = schedule.arrivalTime[0];
-                                            arrMinute = schedule.arrivalTime[1];
-                                        }
-                                        if (arrHour.toString().length === 1) arrHour = '0' + arrHour;
-                                        if (arrMinute.toString().length === 1) arrMinute = '0' + arrMinute;
-
-                                        return <tr key={index}>
-                                            <td>{schedule.train.number}</td>
-                                            <td>{arrHour} {arrHour === '' ? '' : ':'} {arrMinute}</td>
-                                        </tr>
-                                    }
-                                )}
-                            </tbody>
-                        </table>
-                    </Col>
-
-                    <Col sm={4}>
-                        <form className="schedule-form" onSubmit={this.getSchedule.bind(this)}>
-
-                            <Select className="schedule-st"
-                                    closeOnSelect={!this.state.stSelect.stayOpen}
-                                    disabled={this.state.stSelect.disabled}
-                                    onChange={this.handleSelectStationChange.bind(this)}
-                                    options={this.props.scheduleReducer.stations.map((station, index) => {
-                                        return {label: station.title, value: station.title}
-                                    })}
-                                    placeholder="Station"
-                                    simpleValue
-                                    value={this.state.stSelect.value}
-                            />
-
-
-                            <DatePicker className="date-input"
-                                        selected={this.state.startDate}
-                                        onChange={this.handleDateChange.bind(this)}
-                                        dateFormat="DD.MM.YYYY"
-                            />
-
-
-                            <a className="show-logo" href="/rws/client">
-                                <img src={showLogo} alt="show_logo"
-                                     onClick={this.getSchedule.bind(this)}/>
-                            </a>
-
-                        </form>
-                    </Col>
-
-                    <Col sm={4}>
-                        <h3>Departure</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Train</th>
-                                <th>Departure time</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            {this.props.scheduleReducer.schedule.departSchedule
-                                .map((schedule, index) => {
-                                        let depHour;
-                                        let depMinute;
-                                        if (schedule.departureTime === null) {
-                                            depHour = '';
-                                            depMinute = '';
-                                        } else {
-                                            depHour = schedule.departureTime[0];
-                                            depMinute = schedule.departureTime[1];
-                                        }
-                                        if (depHour.toString().length === 1) depHour = '0' + depHour;
-                                        if (depMinute.toString().length === 1) depMinute = '0' + depMinute;
-
-                                        return <tr key={index}>
-                                            <td>{schedule.train.number}</td>
-                                            <td>{depHour} {depHour === '' ? '' : ':'} {depMinute}</td>
-                                        </tr>
-                                    }
-                                )}
-                            </tbody>
-                        </table>
-                    </Col>
-                </Row>
-            </Container>
+            </Grid>
         );
     }
 }

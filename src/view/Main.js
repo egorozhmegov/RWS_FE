@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router';
 import EmployeeApp from './employee/EmployeeApp';
-import ClientAuth from "./client/ClientAuth";
 import Header from "./Header";
+import ClientAuth from "./client/ClientAuth";
 
 export default class Main extends Component {
     render() {
@@ -12,7 +12,6 @@ export default class Main extends Component {
                     <Route exact path='/' component={Header} />
                     <Route path='/rws/client' component={ClientAuth} />
                     <Route path='/rws/employee' component={EmployeeApp} />
-                    <Route component={Header} />
                 </Switch>
             </main>
         );

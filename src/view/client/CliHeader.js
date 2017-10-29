@@ -1,39 +1,60 @@
 import React, {Component} from 'react';
-import trainLogo from '../img/train.svg';
-import { Link } from 'react-router-dom';
+import trainLogo from '../img/train-gr.svg';
 import '../css/CliHeader.css';
-import { auth } from './constants/firebase';
+import {auth} from './constants/firebase';
 import store from './store/configStore';
 import {push} from 'connected-react-router';
-import logOut from '../img/cli-logout.svg';
+import {Glyphicon, Nav, Navbar, NavItem} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap";
 
 export default class CliHeader extends Component {
 
-    logout() {
-        auth.signOut()
-            .then(() => {
-                store.dispatch(push('/rws/client'));
-                window.location.reload();
-            });
-    }
-
     render() {
         return (
-            <header>
-                <nav>
-                    <div>
-                        <ul className="cli-header">
-                            <li className="cli-header-label">RWS</li>
-                            <li className="cli-header-li"><img className="train-logo" src={trainLogo} alt="train_logo" /></li>
-                            <li className="cli-header-li"><Link className="cli-header-link" to='/rws/client/tickets'>TRAIN TICKETS</Link></li>
-                            <li className="cli-header-li"><Link className="cli-header-link" to='/rws/client/schedule'>SCHEDULE</Link></li>
-                            <li className="right-link"><a className="cli-logout-bth" href="/rws/client">
-                                {<img onClick={this.logout.bind(this)}  src={logOut} alt="logout_logo" />}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
+            <Navbar inverse collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <LinkContainer to="/rws/client">
+                            <a className="brand">RWS</a>
+                        </LinkContainer>
+                    </Navbar.Brand>
+                    <span><img className="trainLogo" src={trainLogo} alt="train_logo"/></span>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem>
+                        </NavItem>
+
+                        <LinkContainer to="/rws/client/tickets">
+                            <NavItem className="nav-item">
+                                <span>Tickets</span>
+                            </NavItem>
+                        </LinkContainer>
+
+                        <LinkContainer to="/rws/client/schedule">
+                            <NavItem className="nav-item">
+                                <span>Schedule</span>
+                            </NavItem>
+                        </LinkContainer>
+
+                    </Nav>
+
+                    <Nav pullRight>
+                        <LinkContainer to="#" onClick={() => auth.signOut()
+                            .then(() => {
+                                store.dispatch(push('/rws/client'));
+                                window.location.reload();
+                            })}>
+                            <NavItem className="nav-item">
+                                <Glyphicon glyph="log-out"/>
+                                <span> Logout</span>
+                            </NavItem>
+                        </LinkContainer>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         );
     }
 }

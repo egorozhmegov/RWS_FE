@@ -7,10 +7,6 @@ import Ticket from "../Ticket";
 
 class TicketsContainer extends Component {
 
-    componentWillMount() {
-        ticketActions.getListStations();
-    }
-
     render() {
         return (
             <Ticket ticketReducer={this.props.ticketReducer}

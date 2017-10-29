@@ -14,8 +14,9 @@
 }
 
 .align-center{
-    text-align: center;
-}
+     text-align: center;
+ }
+
 .add-submit-btn{
     background-color: darkslategray;
     color: white;
@@ -31,4 +32,8 @@
 
 .station-error-message {
     color: red;
+}
+
+.station-table{
+    cursor: pointer
 }

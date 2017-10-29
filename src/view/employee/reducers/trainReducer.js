@@ -11,7 +11,8 @@ import {
     ADD_ROUTE_POINT,
     DELETE_ROUTE_POINT,
     FILTER_TRAINS,
-    GET_STATIONS
+    GET_STATIONS,
+    OPEN_SNACKBAR
 } from '../constants/Train';
 
 const initialState = {
@@ -25,7 +26,11 @@ const initialState = {
     addTrainSuccessMessage: '',
     addTrainErrorMessage: '',
     addRoutePointSuccessMessage: '',
-    addRoutePointErrorMessage: ''
+    addRoutePointErrorMessage: '',
+    snackbar: {
+        open:false,
+        massage: ''
+    }
 };
 
 export default function trainReducer(state = initialState, action) {
@@ -114,6 +119,12 @@ export default function trainReducer(state = initialState, action) {
             return {
                 ...state,
                 stations: action.payload,
+            };
+
+        case OPEN_SNACKBAR:
+            return {
+                ...state,
+                snackbar: action.payload
             };
 
         default:

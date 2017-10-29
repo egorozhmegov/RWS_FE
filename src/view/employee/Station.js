@@ -6,6 +6,7 @@ import ReactTable from "react-table";
 import *as stationActions from './actions/stationActions';
 import {Textfield} from 'react-mdc-web/lib';
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete'
+import {Snackbar} from 'react-mdc-web/lib';
 
 export default class Station extends Component {
     constructor() {
@@ -42,71 +43,81 @@ export default class Station extends Component {
         })
     }
 
-    onTest() {
-        geocodeByAddress('St.Petersburg')
+    onMapChange(title) {
+        geocodeByAddress(title)
             .then(results => getLatLng(results[0]))
-            .then(({lat, lng}) => console.log('Successfully got latitude and longitude', {lat, lng}))
+            .then(({lat, lng}) => {
+                this.setState({
+                    address: {lat, lng}
+                })
+            });
     }
 
     render() {
         return (
             <div>
                 <div className="align-center">
-                    <ReactTable
-                        data={this.props.stationReducer.stations}
-                        filterable
-                        columns={[
-                            {
-                                Header: () => <h3><strong className="tab-header">Stations</strong></h3>,
-                                columns: [
-                                    {
-                                        Header: () => <strong>Title</strong>,
-                                        accessor: 'title',
-                                    }
-                                    ,
-                                    {
-                                        Header: () =>
-                                            <Button className="add-btn" bsSize="small"
-                                                    onClick={() => {
-                                                        this.setState({
-                                                            showAddDialog: true,
-                                                            title: ''
-                                                        });
-                                                        stationActions.setAddStationErrorMessage('');
-                                                    }}>
-                                                <Glyphicon glyph="plus-sign"/>
-                                            </Button>,
-                                        accessor: (station) =>
-                                            <Button bsSize="small" className="delete-btn" onClick={() => {
-                                                this.setState({
-                                                    showDeleteDialog: true,
-                                                    station: station
-                                                })
-                                            }}>
-                                                <Glyphicon glyph="trash"/>
-                                            </Button>,
-                                        id: 'delete-id',
-                                        filterable: false,
-                                        sortable: false
-                                    }
-                                ]
-                            }
-                        ]}
-                        getTdProps={(rowInfo,instance) => {
-                            return {
-                                onClick: (e, handleOriginal) => {
-                                    console.log('row:', instance.original);
+                    <div className="station-table">
+                        <ReactTable
+                            data={this.props.stationReducer.stations}
+                            filterable
+                            columns={[
+                                {
+                                    Header: () => <h3><strong className="tab-header">Stations</strong></h3>,
+                                    columns: [
+                                        {
+                                            Header: () => <strong>Title</strong>,
+                                            accessor: 'title',
+                                        }
+                                        ,
+                                        {
+                                            Header: () =>
+                                                <Button className="add-btn" bsSize="small"
+                                                        onClick={() => {
+                                                            this.setState({
+                                                                showAddDialog: true,
+                                                                title: ''
+                                                            });
+                                                            stationActions.setAddStationErrorMessage('');
+                                                        }}>
+                                                    <Glyphicon glyph="plus-sign"/>
+                                                </Button>,
+                                            accessor: (station) =>
+                                                <Button bsSize="small" className="delete-btn" onClick={() => {
+                                                    this.setState({
+                                                        showDeleteDialog: true,
+                                                        station: station
+                                                    })
+                                                }}>
+                                                    <Glyphicon glyph="trash"/>
+                                                </Button>,
+                                            id: 'delete-id',
+                                            filterable: false,
+                                            sortable: false
+                                        }
+                                    ]
+                                }
+                            ]}
+                            getTdProps={(rowInfo,instance) => {
+                                return {
+                                    onClick: (e, handleOriginal) => {
+                                        geocodeByAddress(instance.original.title)
+                                            .then(results => getLatLng(results[0]))
+                                            .then(({lat, lng}) => {
+                                                this.props.onCenterChange({lat, lng})
+                                            });
 
-                                    if (handleOriginal) {
-                                        handleOriginal()
+                                        if (handleOriginal) {
+                                            handleOriginal()
+                                        }
                                     }
                                 }
-                            }
-                        }}
-                        defaultPageSize={5}
-                        pageSizeOptions={[5, 10, 15, 20, 25]}
-                        className="-striped -highlight"
-                    />
+                            }}
+                            defaultPageSize={5}
+                            pageSizeOptions={[5, 10, 15, 20, 25]}
+                            className="-striped -highlight"
+                        />
+                    </div>
                 </div>
 
                 <Modal
@@ -164,6 +175,16 @@ export default class Station extends Component {
                         </div>
                     </Modal.Body>
                 </Modal>
+
+                <Snackbar
+                    onTimeout={() => {this.props.stationActions.openSnackbar({
+                        open: false,
+                        message: ''
+                    })}}
+                    open={this.props.stationReducer.snackbar.open}
+                >
+                    <div className="snackbar-message">{this.props.stationReducer.snackbar.message}</div>
+                </Snackbar>
             </div>
         )
     }

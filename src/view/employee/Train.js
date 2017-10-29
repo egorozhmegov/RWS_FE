@@ -11,6 +11,7 @@ import {Button, Col, Glyphicon, Grid, Jumbotron, Modal, Row} from "react-bootstr
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import {Textfield} from 'react-mdc-web/lib';
+import {Snackbar} from 'react-mdc-web/lib';
 
 const days = [
     {label: 'SUN', value: 'sun'},
@@ -67,8 +68,7 @@ export default class Train extends Component {
                 minute: ''
             },
             timeArrPicker: null,
-            timeDepPicker: null,
-            station:''
+            timeDepPicker: null
         }
     }
 
@@ -105,7 +105,7 @@ export default class Train extends Component {
 
         this.setState({
             number: '',
-            tariff: ' '
+            tariff: ''
         })
     }
 
@@ -615,6 +615,16 @@ export default class Train extends Component {
                         </div>
                     </Modal.Body>
                 </Modal>
+
+                <Snackbar
+                    onTimeout={() => {this.props.trainActions.openSnackbar({
+                        open: false,
+                        message: ''
+                    })}}
+                    open={this.props.trainReducer.snackbar.open}
+                >
+                    <div className="snackbar-message">{this.props.trainReducer.snackbar.message}</div>
+                </Snackbar>
             </Grid>
 
 
