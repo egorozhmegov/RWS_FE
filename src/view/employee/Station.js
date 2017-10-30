@@ -68,8 +68,7 @@ export default class Station extends Component {
                                         {
                                             Header: () => <strong>Title</strong>,
                                             accessor: 'title',
-                                        }
-                                        ,
+                                        },
                                         {
                                             Header: () =>
                                                 <Button className="add-btn" bsSize="small"

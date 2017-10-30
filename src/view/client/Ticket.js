@@ -4,8 +4,6 @@ import DatePicker from 'react-datepicker';
 import '../css/DatePicker.css';
 import '../css/Ticket.css';
 import moment from 'moment';
-import store from './store/configStore';
-import {push} from 'connected-react-router';
 import {Button, Col, Form, FormGroup, Grid, Jumbotron, Row} from "react-bootstrap";
 
 export default class Ticket extends Component {
@@ -65,7 +63,7 @@ export default class Ticket extends Component {
                 this.state.startDate._d.getDate()
             ]
         });
-        store.dispatch(push('/rws/client/tickets/trains'))
+        this.props.ticketActions.setErrorMessage('');
     }
 
     render() {
@@ -74,7 +72,6 @@ export default class Ticket extends Component {
                 <Row>
                     <Col xs={6} md={12}>
                         <Jumbotron className="ticket-jum">
-
                             <Row>
                                 <Col xs={6} md={1}>
                                 </Col>
@@ -126,6 +123,9 @@ export default class Ticket extends Component {
                                                 <Button className="search-submit-btn" type="submit">
                                                     Search
                                                 </Button>
+                                                <h4 className="error-message">
+                                                    <strong>{this.props.ticketReducer.errorMessage}</strong>
+                                                </h4>
                                             </Form>
                                         </div>
                                     </Jumbotron>

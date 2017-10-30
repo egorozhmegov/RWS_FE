@@ -1,7 +1,19 @@
-import {GET_STATIONS} from '../constants/Ticket';
+import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, GET_TRAIN} from '../constants/Ticket';
 
 const initialState = {
-    stations: []
+    stations: [],
+    trains: [],
+    train: {},
+    trainInfo: {
+        stationFrom: {
+            title: ''
+        },
+        stationTo: {
+            title: ''
+        },
+        departDate: []
+    },
+    errorMessage: ''
 };
 
 export default function ticketReducer(state = initialState, action) {
@@ -11,6 +23,30 @@ export default function ticketReducer(state = initialState, action) {
             return {
                 ...state,
                 stations: action.payload,
+            };
+
+        case GET_TRAINS:
+            return {
+                ...state,
+                trains: action.payload,
+            };
+
+        case GET_TRAIN:
+            return {
+                ...state,
+                train: action.payload,
+            };
+
+        case GET_TRAIN_INFO:
+            return {
+                ...state,
+                trainInfo: action.payload,
+            };
+
+        case SET_ERROR_MESSAGE:
+            return {
+                ...state,
+                errorMessage: action.payload,
             };
 
         default:
