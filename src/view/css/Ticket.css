@@ -78,8 +78,9 @@
     background-image: url("../img/train.jpg");
 }
 
-.submit-btn{
-    background-color: blue;
+.search-submit-btn{
+    background-color: black;
+    border-color: black;
     color: white;
     border-radius: 1px;
 }

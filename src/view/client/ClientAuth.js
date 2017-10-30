@@ -5,6 +5,8 @@ import ClientApp from "./ClientApp";
 import {Container, Row, Col} from 'react-grid-system';
 import '../css/ClientAuth.css';
 import * as ticketActions from './actions/ticketActions';
+import store from './store/configStore';
+import {push} from 'connected-react-router';
 
 export default class ClientAuth extends Component {
     constructor() {
@@ -31,7 +33,10 @@ export default class ClientAuth extends Component {
                     user
                 });
             })
-            .then(ticketActions.getListStations());
+            .then(ticketActions.getListStations())
+            .then(() => {
+                store.dispatch(push('/rws/client/tickets'));
+            })
     }
 
 

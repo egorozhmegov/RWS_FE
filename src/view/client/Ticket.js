@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import '../css/DatePicker.css';
 import '../css/Ticket.css';
 import moment from 'moment';
+import store from './store/configStore';
+import {push} from 'connected-react-router';
 import {Button, Col, Form, FormGroup, Grid, Jumbotron, Row} from "react-bootstrap";
 
 export default class Ticket extends Component {
@@ -48,8 +50,22 @@ export default class Ticket extends Component {
         });
     }
 
-    searchTrain() {
-
+    searchTrain(event) {
+        event.preventDefault();
+        this.props.ticketActions.searchTrains({
+            stationFrom: {
+                title: this.state.fromSelect.value
+            },
+            stationTo: {
+                title: this.state.toSelect.value
+            },
+            departDate: [
+                this.state.startDate._d.getFullYear(),
+                this.state.startDate._d.getMonth() + 1,
+                this.state.startDate._d.getDate()
+            ]
+        });
+        store.dispatch(push('/rws/client/tickets/trains'))
     }
 
     render() {
@@ -107,7 +123,7 @@ export default class Ticket extends Component {
                                                     />
                                                 </FormGroup>
                                                 {' '}
-                                                <Button className="submit-btn" type="submit">
+                                                <Button className="search-submit-btn" type="submit">
                                                     Search
                                                 </Button>
                                             </Form>

@@ -4,14 +4,6 @@ import {Col, Grid, Jumbotron, Row} from "react-bootstrap";
 import ReactTable from "react-table";
 
 export default class Passenger extends Component {
-
-    constructor(){
-        super();
-       this.state = {
-           snackbar: false
-       }
-    }
-
     render() {
         return (
             <Grid>
@@ -96,15 +88,10 @@ export default class Passenger extends Component {
                                     className="-striped -highlight"
                                 />
                             </div>
-                            <button onClick={this.test.bind(this)}>snack</button>
                         </Jumbotron>
                     </Col>
                 </Row>
             </Grid>
         )
-    }
-
-    test(){
-        this.setState({snackbar: true})
     }
 }

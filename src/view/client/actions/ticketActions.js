@@ -18,3 +18,20 @@ export function getListStations(){
             })
     }
 }
+
+export function searchTrains(request){
+    return () => {
+        axios({
+            method: 'POST',
+            url: LOCAL_HOST + 'searchTrains',
+            data: request,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
+        })
+            .then((response) => {
+                console.log(response.data)
+            })
+    }
+}
