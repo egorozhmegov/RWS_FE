@@ -3,8 +3,10 @@ import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import '../css/DatePicker.css';
 import '../css/Ticket.css';
+import * as ticketActions from './actions/ticketActions';
 import moment from 'moment';
 import {Button, Col, Form, FormGroup, Grid, Jumbotron, Row} from "react-bootstrap";
+import RouteMap from "./RouteMap";
 
 export default class Ticket extends Component {
     constructor() {
@@ -24,7 +26,6 @@ export default class Ticket extends Component {
             }
         }
     }
-
 
     handleSelectFromChange(value) {
         this.setState({

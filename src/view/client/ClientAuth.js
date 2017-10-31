@@ -39,8 +39,6 @@ export default class ClientAuth extends Component {
             })
     }
 
-
-
     render() {
         return (
             <div>

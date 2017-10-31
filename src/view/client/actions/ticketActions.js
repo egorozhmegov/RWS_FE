@@ -1,23 +1,21 @@
 import store from '../store/configStore';
 import axios from 'axios';
 import {LOCAL_HOST} from '../constants/ClientMain';
-import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, GET_TRAIN} from '../constants/Ticket';
+import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, SET_TRAIN, GET_WAIPOINTS} from '../constants/Ticket';
 import {push} from 'connected-react-router';
 
 export function getListStations(){
-    return () => {
-        axios({
-            method: 'GET',
-            url: LOCAL_HOST + 'getStations',
-            withCredentials: true
-        })
-            .then((response) => {
-                store.dispatch({
-                    type: GET_STATIONS,
-                    payload: response.data
-                })
+    return axios({
+        method: 'GET',
+        url: LOCAL_HOST + 'getStations',
+        withCredentials: true
+    })
+        .then((response) => {
+            store.dispatch({
+                type: GET_STATIONS,
+                payload: response.data
             })
-    }
+        })
 }
 
 export function searchTrains(request){
@@ -41,10 +39,30 @@ export function searchTrains(request){
                 store.dispatch({
                     type: GET_TRAIN_INFO,
                     payload: request
-                })
+                });
+                store.dispatch(push('/rws/client/tickets/trains'))
             })
-            .then(store.dispatch(push('/rws/client/tickets/trains')))
-            .catch(setErrorMessage('Trains not found'))
+            .catch(() => {
+                setErrorMessage('Trains not found')
+            })
+    }
+}
+
+export function setTrain(train){
+    return store.dispatch({
+        type: SET_TRAIN,
+        payload: train
+    })
+}
+
+export function setWaypoint(route){
+    return () => {
+        route.map((point) => {
+            store.dispatch({
+                type: GET_WAIPOINTS,
+                payload: {location: point.station.title}
+            })
+        })
     }
 }
 

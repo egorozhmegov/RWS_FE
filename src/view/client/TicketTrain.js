@@ -7,8 +7,9 @@ import store from './store/configStore';
 
 export default class TicketTrain extends Component {
 
-    trainInfo(){
-        console.log('info')
+    trainInfo(train){
+        this.props.ticketActions.setTrain(train);
+        this.props.ticketActions.setWaypoint(train.route);
         store.dispatch(push('/rws/client/tickets/trains/info'));
     }
 
@@ -78,7 +79,7 @@ export default class TicketTrain extends Component {
                                                     Header: '',
                                                     accessor: (train) =>
                                                         <Button bsSize="xsmall" className="buy-btn"
-                                                            onClick={this.trainInfo.bind(this)}
+                                                            onClick={this.trainInfo.bind(this, train)}
                                                         >
                                                             <Glyphicon glyph="usd"/> Buy
                                                         </Button>,

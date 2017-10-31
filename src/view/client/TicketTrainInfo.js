@@ -6,15 +6,7 @@ export default class TicketTrainInfo extends Component {
 
     render() {
         return (
-            <Grid>
-                <Row>
-                    <Col xs={6} md={12}>
-                        <Jumbotron className="ticket-train-jum">
-
-                        </Jumbotron>
-                    </Col>
-                </Row>
-            </Grid>
+            <div>info</div>
         )
     }
 }

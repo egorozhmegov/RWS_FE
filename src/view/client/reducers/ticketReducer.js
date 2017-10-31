@@ -1,7 +1,8 @@
-import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, GET_TRAIN} from '../constants/Ticket';
+import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, SET_TRAIN, GET_WAIPOINTS} from '../constants/Ticket';
+import * as ticketActions from '../actions/ticketActions';
 
 const initialState = {
-    stations: [],
+    stations:  ticketActions.getListStations(),
     trains: [],
     train: {},
     trainInfo: {
@@ -13,7 +14,8 @@ const initialState = {
         },
         departDate: []
     },
-    errorMessage: ''
+    errorMessage: '',
+    waypoints: [{location: 'Bologoye'}]
 };
 
 export default function ticketReducer(state = initialState, action) {
@@ -31,7 +33,7 @@ export default function ticketReducer(state = initialState, action) {
                 trains: action.payload,
             };
 
-        case GET_TRAIN:
+        case SET_TRAIN:
             return {
                 ...state,
                 train: action.payload,
@@ -41,6 +43,15 @@ export default function ticketReducer(state = initialState, action) {
             return {
                 ...state,
                 trainInfo: action.payload,
+            };
+
+        case GET_WAIPOINTS:
+            return {
+                ...state,
+                waypoints: [
+                    ...state.waypoints,
+                    action.payload
+                ]
             };
 
         case SET_ERROR_MESSAGE:
