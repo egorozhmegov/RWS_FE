@@ -3,10 +3,8 @@ import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import '../css/DatePicker.css';
 import '../css/Ticket.css';
-import * as ticketActions from './actions/ticketActions';
 import moment from 'moment';
 import {Button, Col, Form, FormGroup, Grid, Jumbotron, Row} from "react-bootstrap";
-import RouteMap from "./RouteMap";
 
 export default class Ticket extends Component {
     constructor() {
@@ -83,32 +81,36 @@ export default class Ticket extends Component {
                                             <Form inline onSubmit={this.searchTrain.bind(this)}>
                                                 <FormGroup>
                                                     {' '}
-                                                    <Select className="select-form"
-                                                            closeOnSelect={!this.state.fromSelect.stayOpen}
-                                                            disabled={this.state.fromSelect.disabled}
-                                                            onChange={this.handleSelectFromChange.bind(this)}
-                                                            options={this.props.ticketReducer.stations.map((station, index) => {
-                                                                return {label: station.title, value: station.title}
-                                                            })}
-                                                            placeholder="From"
-                                                            simpleValue
-                                                            value={this.state.fromSelect.value}
-                                                    />
+                                                    <div className="select-station">
+                                                        <Select className="select-form"
+                                                                closeOnSelect={!this.state.fromSelect.stayOpen}
+                                                                disabled={this.state.fromSelect.disabled}
+                                                                onChange={this.handleSelectFromChange.bind(this)}
+                                                                options={this.props.ticketReducer.stations.map((station, index) => {
+                                                                    return {label: station.title, value: station.title}
+                                                                })}
+                                                                placeholder="From"
+                                                                simpleValue
+                                                                value={this.state.fromSelect.value}
+                                                        />
+                                                    </div>
                                                 </FormGroup>
                                                 {' '}
                                                 <FormGroup>
                                                     {' '}
-                                                    <Select className="select-form"
-                                                            closeOnSelect={!this.state.toSelect.stayOpen}
-                                                            disabled={this.state.toSelect.disabled}
-                                                            onChange={this.handleSelectToChange.bind(this)}
-                                                            options={this.props.ticketReducer.stations.map((station, index) => {
-                                                                return {label: station.title, value: station.title}
-                                                            })}
-                                                            placeholder="To"
-                                                            simpleValue
-                                                            value={this.state.toSelect.value}
-                                                    />
+                                                    <div className="select-station">
+                                                        <Select className="select-form"
+                                                                closeOnSelect={!this.state.toSelect.stayOpen}
+                                                                disabled={this.state.toSelect.disabled}
+                                                                onChange={this.handleSelectToChange.bind(this)}
+                                                                options={this.props.ticketReducer.stations.map((station, index) => {
+                                                                    return {label: station.title, value: station.title}
+                                                                })}
+                                                                placeholder="To"
+                                                                simpleValue
+                                                                value={this.state.toSelect.value}
+                                                        />
+                                                    </div>
                                                 </FormGroup>
                                                 {' '}
                                                 <FormGroup>

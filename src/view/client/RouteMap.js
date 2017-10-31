@@ -22,8 +22,8 @@ const RouteMap = compose(
             const DirectionsService = new google.maps.DirectionsService();
 
             DirectionsService.route({
-                origin: new google.maps.LatLng(59.9342802, 30.3350986),
-                destination: new google.maps.LatLng(59.132333, 37.909181),
+                origin: this.props.ticketReducer.trainInfo.stationFrom.title,
+                destination: this.props.ticketReducer.trainInfo.stationTo.title,
                 waypoints: this.props.ticketReducer.waypoints,
                 travelMode: google.maps.TravelMode.DRIVING,
                 avoidTolls: true
@@ -41,7 +41,7 @@ const RouteMap = compose(
 )(props =>
     <GoogleMap
         defaultZoom={7}
-        defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
+        defaultCenter={new google.maps.LatLng(59.9342802, 30.3350986)}
     >
         {props.directions && <DirectionsRenderer directions={props.directions} />}
     </GoogleMap>

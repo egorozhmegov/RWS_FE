@@ -1,7 +1,7 @@
 import store from '../store/configStore';
 import axios from 'axios';
 import {LOCAL_HOST} from '../constants/ClientMain';
-import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, SET_TRAIN, GET_WAIPOINTS} from '../constants/Ticket';
+import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, SET_TRAIN, GET_WAIPOINTS, SET_WAIPOINTS} from '../constants/Ticket';
 import {push} from 'connected-react-router';
 
 export function getListStations(){
@@ -55,7 +55,7 @@ export function setTrain(train){
     })
 }
 
-export function setWaypoint(route){
+export function getWaypoint(route){
     return () => {
         route.map((point) => {
             store.dispatch({
@@ -64,6 +64,13 @@ export function setWaypoint(route){
             })
         })
     }
+}
+
+export function setWaypoint(route){
+    return store.dispatch({
+        type: SET_WAIPOINTS,
+        payload: route
+    })
 }
 
 export function setErrorMessage(message){
