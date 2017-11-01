@@ -4,7 +4,6 @@ import GoogleButton from 'react-google-button';
 import ClientApp from "./ClientApp";
 import {Container, Row, Col} from 'react-grid-system';
 import '../css/ClientAuth.css';
-import * as ticketActions from './actions/ticketActions';
 import store from './store/configStore';
 import {push} from 'connected-react-router';
 
@@ -12,7 +11,8 @@ export default class ClientAuth extends Component {
     constructor() {
         super();
         this.state = {
-            user: null
+            user: null,
+            loading: false
         };
         this.login = this.login.bind(this);
     }
@@ -20,7 +20,9 @@ export default class ClientAuth extends Component {
     componentDidMount() {
         auth.onAuthStateChanged((user) => {
             if (user) {
-                this.setState({user});
+                this.setState({
+                    user
+                });
             }
         });
     }
@@ -33,7 +35,6 @@ export default class ClientAuth extends Component {
                     user
                 });
             })
-            .then(ticketActions.getListStations())
             .then(() => {
                 store.dispatch(push('/rws/client/tickets'));
             })
@@ -49,13 +50,15 @@ export default class ClientAuth extends Component {
                             :
                             <Container>
                                 <Row>
-                                    <Col sm={4}></Col>
+                                    <Col sm={4}>
+                                    </Col>
 
                                     <Col sm={4}>
                                         <GoogleButton className="google-btn" onClick={this.login}/>
                                     </Col>
 
-                                    <Col sm={4}></Col>
+                                    <Col sm={4}>
+                                    </Col>
                                 </Row>
                             </Container>
                         }

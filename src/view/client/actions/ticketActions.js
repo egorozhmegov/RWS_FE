@@ -40,10 +40,11 @@ export function searchTrains(request){
                     type: GET_TRAIN_INFO,
                     payload: request
                 });
-                store.dispatch(push('/rws/client/tickets/trains'))
+                store.dispatch(push('/rws/client/tickets/trains'));
             })
             .catch(() => {
-                setErrorMessage('Trains not found')
+                setErrorMessage('Trains not found');
+                store.dispatch(push('/rws/client/tickets'));
             })
     }
 }
@@ -58,7 +59,7 @@ export function setTrain(train){
 export function getWaypoint(route){
     return () => {
         route.map((point) => {
-            store.dispatch({
+            return store.dispatch({
                 type: GET_WAIPOINTS,
                 payload: {location: point.station.title}
             })
@@ -66,10 +67,10 @@ export function getWaypoint(route){
     }
 }
 
-export function setWaypoint(route){
+export function setWaypoint(point){
     return store.dispatch({
         type: SET_WAIPOINTS,
-        payload: route
+        payload: point
     })
 }
 

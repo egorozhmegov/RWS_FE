@@ -9,7 +9,10 @@ export default class TicketTrain extends Component {
 
     trainInfo(train){
         this.props.ticketActions.setTrain(train);
-        this.props.ticketActions.getWaypoint(train.route);
+        this.props.ticketActions.setWaypoint([]);
+        if(train.route.length > 2){
+            this.props.ticketActions.getWaypoint(train.route);
+        }
         store.dispatch(push('/rws/client/tickets/trains/info'));
     }
 

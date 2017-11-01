@@ -5,6 +5,7 @@ const initialState = {
     stations:  ticketActions.getListStations(),
     trains: [],
     train: {},
+    trainNumber: '',
     trainInfo: {
         stationFrom: {
             title: ''
@@ -37,6 +38,7 @@ export default function ticketReducer(state = initialState, action) {
             return {
                 ...state,
                 train: action.payload,
+                trainNumber: action.payload.train.number
             };
 
         case GET_TRAIN_INFO:
@@ -46,21 +48,18 @@ export default function ticketReducer(state = initialState, action) {
             };
 
         case GET_WAIPOINTS:
-            if(action.payload !== state.trainInfo.stationFrom.title){
-
-                return {
-                    ...state,
-                    waypoints: [
-                        ...state.waypoints,
-                        action.payload
-                    ]
-                };
-            }
+            return {
+                ...state,
+                waypoints: [
+                    ...state.waypoints,
+                    action.payload
+                ]
+            };
 
         case SET_WAIPOINTS:
             return {
                 ...state,
-                waypoints: action.payload,
+                waypoints: action.payload
             };
 
         case SET_ERROR_MESSAGE:

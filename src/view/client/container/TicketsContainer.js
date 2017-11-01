@@ -11,9 +11,6 @@ import {Col, Grid, Jumbotron, Row} from "react-bootstrap";
 import RouteMap from "../RouteMap";
 
 class TicketsContainer extends Component {
-
-
-
     render() {
         return (
             <div>
@@ -26,14 +23,14 @@ class TicketsContainer extends Component {
                         <Route exact path='/rws/client/tickets/trains'
                                component={() => this.props.ticketReducer.trains.length !== 0 ?
                                    <TicketTrain ticketReducer={this.props.ticketReducer}
-                                                ticketActions={this.props.ticketActions}/> :
-
+                                                ticketActions={this.props.ticketActions}/>
+                                   :
                                    <Ticket ticketReducer={this.props.ticketReducer}
                                            ticketActions={this.props.ticketActions}/>
                                }/>
 
                         <Route exact path='/rws/client/tickets/trains/info'
-                               component={() =>
+                               component={() => this.props.ticketReducer.trainInfo.stationFrom.title !== '' ?
                                    <Grid>
                                        <Row>
                                            <Col xs={6} md={12}>
@@ -58,7 +55,11 @@ class TicketsContainer extends Component {
                                            </Col>
                                        </Row>
                                    </Grid>
-                               }/>
+                                   :
+                                   <Ticket ticketReducer={this.props.ticketReducer}
+                                           ticketActions={this.props.ticketActions}/>
+                               }
+                        />
 
                         <Route component={() => <Ticket ticketReducer={this.props.ticketReducer}
                                                         ticketActions={this.props.ticketActions}/>}/>
