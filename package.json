@@ -20,6 +20,8 @@
     "react": "^15.6.1",
     "react-bootstrap": "latest",
     "react-cookies": "latest",
+    "react-credit-card": "^0.20.0",
+    "react-credit-cards": "^0.6.0",
     "react-datepicker": "^0.56.0",
     "react-dom": "^15.6.1",
     "react-google-button": "^0.3.0",
@@ -46,12 +48,14 @@
     "react-transition-group": "^2.2.0",
     "recompose": "latest",
     "redux": "latest",
-    "redux-devtools-extension": "latest"
+    "redux-devtools-extension": "latest",
+    "payment": "latest"
   },
   "devDependencies": {
-    "react-scripts": "1.0.10",
+    "native-base": "latest",
+    "react-credit-card-thing": "0.0.1",
     "react-router": "latest",
-    "native-base": "latest"
+    "react-scripts": "1.0.10"
   },
   "scripts": {
     "start": "react-scripts start",

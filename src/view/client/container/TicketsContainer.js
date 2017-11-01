@@ -9,6 +9,7 @@ import TicketTrain from "../TicketTrain";
 import TicketTrainInfo from "../TicketTrainInfo";
 import {Col, Grid, Jumbotron, Row} from "react-bootstrap";
 import RouteMap from "../RouteMap";
+import '../../css/TicketContainer.css'
 
 class TicketsContainer extends Component {
     render() {
