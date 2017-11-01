@@ -57,8 +57,17 @@ export function setTrain(train){
 }
 
 export function getWaypoint(route){
+    let waypoints;
+
+    if(route.length > 3){
+        waypoints = route.slice(1, route.length - 2);
+    } else {
+        waypoints = [route[1]];
+    }
+
+
     return () => {
-        route.map((point) => {
+        waypoints.map((point) => {
             return store.dispatch({
                 type: GET_WAIPOINTS,
                 payload: {location: point.station.title}

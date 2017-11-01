@@ -37,7 +37,7 @@ export default class TicketTrainInfo extends Component {
                 </div>
 
                 <div className="info">
-                    Departure time: {depHour} {depHour === '' ? '' : ':'} {depMinute}
+                    Departure time: {depHour}{depHour === '' ? '' : ':'}{depMinute}
                 </div>
 
                 <div className="info">
