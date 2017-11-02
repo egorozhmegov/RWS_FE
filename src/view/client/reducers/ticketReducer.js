@@ -13,7 +13,8 @@ const initialState = {
         stationTo: {
             title: ''
         },
-        departDate: []
+        departDate: [],
+        arriveDate: []
     },
     errorMessage: '',
     waypoints: []

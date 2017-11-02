@@ -89,3 +89,20 @@ export function setErrorMessage(message){
             payload: message
         })
 }
+
+export function buyTicket(ticketData){
+    return () => {
+        axios({
+            method: 'POST',
+            url: LOCAL_HOST + 'payment',
+            data: ticketData,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
+        })
+            .then((response) => {
+                console.log(response.data)
+            })
+    }
+}

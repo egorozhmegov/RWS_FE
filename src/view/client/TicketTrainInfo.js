@@ -21,7 +21,7 @@ export default class TicketTrainInfo extends Component {
             showPayModal: false,
             number: '',
             name: '',
-            exp: '',
+            expiry: '',
             cvc: '',
             focused: ''
         }
@@ -50,9 +50,23 @@ export default class TicketTrainInfo extends Component {
         this.setState({showPayModal: true})
     }
 
-    pay(event){
+    pay(event) {
         event.preventDefault();
-        console.log("pay")
+        this.props.ticketActions.buyTicket({
+            passenger: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                birthday: [1991, 2, 12]
+            },
+            creditCard: {
+                number: '2222',
+                name: 'OZH',
+                expiry: '1021',
+                cvc: '812',
+            },
+            trainWrapper: this.props.ticketReducer.train,
+            userEmail: 'egor9533413273@gmail.com'
+        })
     }
 
     handleInputFocus = (event) => {
@@ -67,21 +81,21 @@ export default class TicketTrainInfo extends Component {
         const target = event.target;
 
         if (target.name === 'number') {
-            if(target.value.length <= 16){
+            if (target.value.length <= 16) {
                 this.setState({
                     [target.name]: target.value.replace(/ /g, ''),
                 });
             }
         }
         if (target.name === 'cvc') {
-            if(target.value.length <= 3){
+            if (target.value.length <= 3) {
                 this.setState({
                     [target.name]: target.value.replace(/ /g, ''),
                 });
             }
         }
         else if (target.name === 'expiry') {
-            if(target.value.length <= 4){
+            if (target.value.length <= 4) {
                 this.setState({
                     [target.name]: target.value.replace(/ |\//g, ''),
                 });
@@ -95,10 +109,15 @@ export default class TicketTrainInfo extends Component {
     };
 
     render() {
-        let day = this.props.ticketReducer.trainInfo.departDate[2];
-        let month = this.props.ticketReducer.trainInfo.departDate[1];
-        if (day < 10) day = '0' + day;
-        if (month < 10) month = '0' + month;
+        let depDay = this.props.ticketReducer.train.departDate[2];
+        let depMonth = this.props.ticketReducer.train.departDate[1];
+        if (depDay < 10) depDay = '0' + depDay;
+        if (depMonth < 10) depMonth = '0' + depMonth;
+
+        let arrDay = this.props.ticketReducer.train.arriveDate[2];
+        let arrMonth = this.props.ticketReducer.train.arriveDate[1];
+        if (arrDay < 10) arrDay = '0' + arrDay;
+        if (arrMonth < 10) arrMonth = '0' + arrMonth;
 
         let depHour;
         let depMinute;
@@ -111,6 +130,18 @@ export default class TicketTrainInfo extends Component {
         }
         if (depHour.toString().length === 1) depHour = '0' + depHour;
         if (depMinute.toString().length === 1) depMinute = '0' + depMinute;
+
+        let arrHour;
+        let arrMinute;
+        if (this.props.ticketReducer.train.arriveTime === null) {
+            arrHour = '';
+            arrMinute = '';
+        } else {
+            arrHour = this.props.ticketReducer.train.arriveTime[0];
+            arrMinute = this.props.ticketReducer.train.arriveTime[1];
+        }
+        if (arrHour.toString().length === 1) arrHour = '0' + arrHour;
+        if (arrMinute.toString().length === 1) arrMinute = '0' + arrMinute;
 
         const {name, number, expiry, cvc, focused} = this.state;
 
@@ -127,11 +158,19 @@ export default class TicketTrainInfo extends Component {
                     </div>
 
                     <div className="info">
-                        Departure date: {day}{'.'}{month}{'.'}{this.props.ticketReducer.trainInfo.departDate[0]}
+                        Departure date: {depDay}{'.'}{depMonth}{'.'}{this.props.ticketReducer.train.departDate[0]}
                     </div>
 
                     <div className="info">
                         Departure time: {depHour}{depHour === '' ? '' : ':'}{depMinute}
+                    </div>
+
+                    <div className="info">
+                        Arrival date: {arrDay}{'.'}{arrMonth}{'.'}{this.props.ticketReducer.train.arriveDate[0]}
+                    </div>
+
+                    <div className="info">
+                        Arrival time: {arrHour}{arrHour === '' ? '' : ':'}{arrMinute}
                     </div>
 
                     <div className="info">
