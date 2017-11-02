@@ -1,0 +1,78 @@
+.pay-form {
+    display: block;
+    position: relative;
+}
+
+.card{
+
+}
+
+.card-form{
+    text-align: center;
+}
+
+.card-number {
+    width: 290px;;
+    height: 35px;
+    border-color: #d9d9d9 #ccc #b3b3b3;
+    border-radius: 1px;
+    border: 3px solid #ccc;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-align: left;
+    text-align-last: left;
+    padding: 10px 10px;
+    margin-top: 5px;
+}
+
+.card-name {
+    width: 290px;;
+    height: 35px;
+    border-color: #d9d9d9 #ccc #b3b3b3;
+    border-radius: 1px;
+    border: 3px solid #ccc;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-align: left;
+    text-align-last: left;
+    padding: 10px 10px;
+    margin-top: 5px;
+}
+
+.card-expiry {
+    width: 100px;;
+    height: 35px;
+    border-color: #d9d9d9 #ccc #b3b3b3;
+    border-radius: 1px;
+    border: 3px solid #ccc;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-align: left;
+    text-align-last: left;
+    padding: 10px 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card-cvc {
+    width: 60px;;
+    height: 35px;
+    border-color: #d9d9d9 #ccc #b3b3b3;
+    border-radius: 1px;
+    border: 3px solid #ccc;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-align: left;
+    text-align-last: left;
+    padding: 10px 10px;
+    margin-left: 130px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.pay-btn{
+    width: 290px;;
+    border-radius: 1px;
+    background-color: darkslategray;
+    color: white;
+}

@@ -5,10 +5,10 @@ import DatePicker from 'react-datepicker';
 import '../css/DatePicker.css';
 import moment from 'moment';
 import Cards from 'react-credit-cards';
-import 'react-credit-cards/lib/styles-compiled.css'
-import 'react-credit-cards/lib/styles.scss'
-import 'react-credit-cards/src/styles.scss'
-import Payment from 'payment';
+import 'react-credit-cards/lib/styles-compiled.css';
+import 'react-credit-cards/lib/styles.scss';
+import 'react-credit-cards/src/styles.scss';
+import '../css/CreditCard.css';
 
 export default class TicketTrainInfo extends Component {
 
@@ -25,10 +25,6 @@ export default class TicketTrainInfo extends Component {
             cvc: '',
             focused: ''
         }
-    }
-
-    componentDidMount() {
-       
     }
 
     onFirstNameChange(event) {
@@ -54,26 +50,42 @@ export default class TicketTrainInfo extends Component {
         this.setState({showPayModal: true})
     }
 
-    handleInputFocus = (e) => {
-        const target = e.target;
+    pay(event){
+        event.preventDefault();
+        console.log("pay")
+    }
+
+    handleInputFocus = (event) => {
+        const target = event.target;
 
         this.setState({
             focused: target.name,
         });
     };
 
-    handleInputChange = (e) => {
-        const target = e.target;
+    onCardInputChange = (event) => {
+        const target = event.target;
 
         if (target.name === 'number') {
-            this.setState({
-                [target.name]: target.value.replace(/ /g, ''),
-            });
+            if(target.value.length <= 16){
+                this.setState({
+                    [target.name]: target.value.replace(/ /g, ''),
+                });
+            }
+        }
+        if (target.name === 'cvc') {
+            if(target.value.length <= 3){
+                this.setState({
+                    [target.name]: target.value.replace(/ /g, ''),
+                });
+            }
         }
         else if (target.name === 'expiry') {
-            this.setState({
-                [target.name]: target.value.replace(/ |\//g, ''),
-            });
+            if(target.value.length <= 4){
+                this.setState({
+                    [target.name]: target.value.replace(/ |\//g, ''),
+                });
+            }
         }
         else {
             this.setState({
@@ -81,10 +93,6 @@ export default class TicketTrainInfo extends Component {
             });
         }
     };
-
-    handleCallback(type, isValid) {
-        console.log(type, isValid); //eslint-disable-line no-console
-    }
 
     render() {
         let day = this.props.ticketReducer.trainInfo.departDate[2];
@@ -104,7 +112,7 @@ export default class TicketTrainInfo extends Component {
         if (depHour.toString().length === 1) depHour = '0' + depHour;
         if (depMinute.toString().length === 1) depMinute = '0' + depMinute;
 
-        const { name, number, expiry, cvc, focused } = this.state;
+        const {name, number, expiry, cvc, focused} = this.state;
 
         return (
             <div className="pay-info">
@@ -157,58 +165,70 @@ export default class TicketTrainInfo extends Component {
                 </div>
 
                 <Modal
-                    bsSize="lg"
                     show={this.state.showPayModal}
                     onHide={() => this.setState({showPayModal: false})}
                     container={this}
                     aria-labelledby="contained-modal-title"
                 >
                     <Modal.Body>
-                        <Cards
-                            number={number}
-                            name={name}
-                            expiry={expiry}
-                            cvc={cvc}
-                            focused={focused}
-                            callback={this.handleCallback}
-                        />
-                        <form>
-                            <div>
-                                <input
-                                    type="tel"
-                                    name="number"
-                                    placeholder="Card Number"
-                                    onKeyUp={this.handleInputChange}
-                                    onFocus={this.handleInputFocus}
-                                />
-                                <div>E.g.: 49..., 51..., 36..., 37...</div>
-                            </div>
-                            <div>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="Name"
-                                    onKeyUp={this.handleInputChange}
-                                    onFocus={this.handleInputFocus}
+                        <div className="pay-form">
+                            <div className="card">
+                                <Cards
+                                    number={number}
+                                    name={name}
+                                    expiry={expiry}
+                                    cvc={cvc}
+                                    focused={focused}
                                 />
                             </div>
-                            <div>
-                                <input
-                                    type="tel"
-                                    name="expiry"
-                                    placeholder="Valid Thru"
-                                    onKeyUp={this.handleInputChange}
-                                    onFocus={this.handleInputFocus}
-                                />
-                                <input
-                                    type="tel"
-                                    name="cvc"
-                                    placeholder="CVC"
-                                    onKeyUp={this.handleInputChange}
-                                    onFocus={this.handleInputFocus}
-                                />
+
+                            <div className="card-form">
+                                <form>
+                                    <div>
+                                        <input
+                                            className="card-number"
+                                            type="tel"
+                                            name="number"
+                                            placeholder="Card Number"
+                                            onKeyUp={this.onCardInputChange}
+                                            onFocus={this.handleInputFocus}
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            className="card-name"
+                                            type="text"
+                                            name="name"
+                                            placeholder="Name"
+                                            onKeyUp={this.onCardInputChange}
+                                            onFocus={this.handleInputFocus}
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            className="card-expiry"
+                                            type="tel"
+                                            name="expiry"
+                                            placeholder="Valid Thru"
+                                            onKeyUp={this.onCardInputChange}
+                                            onFocus={this.handleInputFocus}
+                                        />
+                                        <input
+                                            className="card-cvc"
+                                            type="tel"
+                                            name="cvc"
+                                            placeholder="CVC"
+                                            onKeyUp={this.onCardInputChange}
+                                            onFocus={this.handleInputFocus}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <Button className="pay-btn" onClick={this.pay.bind(this)}>Pay</Button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </Modal.Body>
                 </Modal>
             </div>

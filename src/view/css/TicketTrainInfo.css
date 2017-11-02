@@ -11,21 +11,21 @@
 }
 
 .pas-form{
-    display: block;
-    text-align: left;
+
 }
 
 .pas-data-input{
-    width: 200px;;
+    width: 250px;;
     height: 35px;
     border-color: #d9d9d9 #ccc #b3b3b3;
     border-radius: 0px;
     border: 2px solid #ccc;
     font-size: 14px;
     font-family: sans-serif;
-    text-align: center;
+    text-align: left;
     text-align-last: left;
     padding: 10px 10px;
+    float: left;
 }
 
 .payment-btn{
