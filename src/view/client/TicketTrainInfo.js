@@ -9,6 +9,7 @@ import 'react-credit-cards/lib/styles-compiled.css';
 import 'react-credit-cards/lib/styles.scss';
 import 'react-credit-cards/src/styles.scss';
 import '../css/CreditCard.css';
+import { auth } from './constants/firebase';
 
 export default class TicketTrainInfo extends Component {
 
@@ -56,16 +57,20 @@ export default class TicketTrainInfo extends Component {
             passenger: {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
-                birthday: [1991, 2, 12]
+                birthday: [
+                    this.state.birthday._d.getFullYear(),
+                    this.state.birthday._d.getMonth() + 1,
+                    this.state.birthday._d.getDate()
+                ]
             },
             creditCard: {
-                number: '2222',
-                name: 'OZH',
-                expiry: '1021',
-                cvc: '812',
+                number: this.state.number,
+                name: this.state.name,
+                expiry: this.state.expiry,
+                cvc: this.state.cvc,
             },
             trainWrapper: this.props.ticketReducer.train,
-            userEmail: 'egor9533413273@gmail.com'
+            userEmail: auth.currentUser.email
         })
     }
 
@@ -159,17 +164,11 @@ export default class TicketTrainInfo extends Component {
 
                     <div className="info">
                         Departure date: {depDay}{'.'}{depMonth}{'.'}{this.props.ticketReducer.train.departDate[0]}
-                    </div>
-
-                    <div className="info">
-                        Departure time: {depHour}{depHour === '' ? '' : ':'}{depMinute}
-                    </div>
-
-                    <div className="info">
                         Arrival date: {arrDay}{'.'}{arrMonth}{'.'}{this.props.ticketReducer.train.arriveDate[0]}
                     </div>
 
                     <div className="info">
+                        Departure time: {depHour}{depHour === '' ? '' : ':'}{depMinute}
                         Arrival time: {arrHour}{arrHour === '' ? '' : ':'}{arrMinute}
                     </div>
 

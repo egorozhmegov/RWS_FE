@@ -7,6 +7,8 @@
     "bootstrap": "^3.3.7",
     "connected-react-router": "latest",
     "firebase": "^4.5.2",
+    "google-distance": "^1.0.1",
+    "google-distance-matrix": "^1.0.0",
     "history": "latest",
     "install": "^0.10.1",
     "lodash": "latest",
@@ -15,6 +17,7 @@
     "native-base": "^2.3.1",
     "npm": "^5.5.1",
     "nprogress": "^0.2.0",
+    "payment": "latest",
     "rc-pagination": "^1.12.10",
     "rc-time-picker": "^2.4.1",
     "react": "^15.6.1",
@@ -48,8 +51,7 @@
     "react-transition-group": "^2.2.0",
     "recompose": "latest",
     "redux": "latest",
-    "redux-devtools-extension": "latest",
-    "payment": "latest"
+    "redux-devtools-extension": "latest"
   },
   "devDependencies": {
     "native-base": "latest",

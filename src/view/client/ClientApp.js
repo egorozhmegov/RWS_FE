@@ -16,7 +16,7 @@ export default class ClientApp extends Component {
             <ConnectedRouter history={history}>
                 <div>
                     <CliHeader />
-                    <CliMain />
+                    <CliMain user = {this.props.user}/>
                     <CliFooter user = {this.props.user}/>
                 </div>
             </ConnectedRouter>

@@ -11,7 +11,9 @@ import {Col, Grid, Jumbotron, Row} from "react-bootstrap";
 import RouteMap from "../RouteMap";
 import '../../css/TicketContainer.css'
 
+
 class TicketsContainer extends Component {
+
     render() {
         return (
             <div>
@@ -42,7 +44,8 @@ class TicketsContainer extends Component {
                                                                <div>
                                                                    <TicketTrainInfo
                                                                        ticketReducer={this.props.ticketReducer}
-                                                                       ticketActions={this.props.ticketActions}/>
+                                                                       ticketActions={this.props.ticketActions}
+                                                                       user = {this.props.user}/>
                                                                </div>
                                                            </Col>
 
