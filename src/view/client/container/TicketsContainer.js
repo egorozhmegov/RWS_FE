@@ -9,10 +9,18 @@ import TicketTrain from "../TicketTrain";
 import TicketTrainInfo from "../TicketTrainInfo";
 import {Col, Grid, Jumbotron, Row} from "react-bootstrap";
 import RouteMap from "../RouteMap";
-import '../../css/TicketContainer.css'
+import '../../css/TicketContainer.css';
+import store from '../store/configStore';
+import {push} from 'connected-react-router';
+import Payment from "../Payment";
 
 
 class TicketsContainer extends Component {
+
+    componentWillMount(){
+        ticketActions.getListStations();
+        store.dispatch(push('/rws/client/tickets'));
+    }
 
     render() {
         return (
@@ -64,6 +72,15 @@ class TicketsContainer extends Component {
                                            ticketActions={this.props.ticketActions}/>
                                }
                         />
+
+                        <Route exact path='/rws/client/tickets/trains/info/payment'
+                               component={() => this.props.ticketReducer.trains.length !== 0 ?
+                                   <Payment ticketReducer={this.props.ticketReducer}
+                                                ticketActions={this.props.ticketActions}/>
+                                   :
+                                   <Ticket ticketReducer={this.props.ticketReducer}
+                                           ticketActions={this.props.ticketActions}/>
+                               }/>
 
                         <Route component={() => <Ticket ticketReducer={this.props.ticketReducer}
                                                         ticketActions={this.props.ticketActions}/>}/>

@@ -1,8 +1,19 @@
-import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, SET_TRAIN, GET_WAIPOINTS, SET_WAIPOINTS} from '../constants/Ticket';
-import * as ticketActions from '../actions/ticketActions';
+import {
+    GET_STATIONS,
+    GET_TRAINS,
+    GET_TRAIN_INFO,
+    SET_ERROR_MESSAGE,
+    SET_TRAIN,
+    GET_WAIPOINTS,
+    SET_WAIPOINTS,
+    OPEN_SNACKBAR,
+    SET_PASSENGER,
+    ERROR_PAY_MESSAGE,
+    SUCCESS_PAY_MESSAGE
+} from '../constants/Ticket';
 
 const initialState = {
-    stations:  ticketActions.getListStations(),
+    stations: [],
     trains: [],
     train: {},
     trainNumber: '',
@@ -17,7 +28,10 @@ const initialState = {
         arriveDate: []
     },
     errorMessage: '',
-    waypoints: []
+    errorPayMessage: '',
+    successPayMessage: '',
+    waypoints: [],
+    passenger: {}
 };
 
 export default function ticketReducer(state = initialState, action) {
@@ -67,6 +81,30 @@ export default function ticketReducer(state = initialState, action) {
             return {
                 ...state,
                 errorMessage: action.payload,
+            };
+
+        case ERROR_PAY_MESSAGE:
+        return {
+            ...state,
+            errorPayMessage: action.payload,
+        };
+
+        case SUCCESS_PAY_MESSAGE:
+            return {
+                ...state,
+                successPayMessage: action.payload,
+            };
+
+        case OPEN_SNACKBAR:
+            return {
+                ...state,
+                snackbar: action.payload
+            };
+
+        case SET_PASSENGER:
+            return {
+                ...state,
+                passenger: action.payload,
             };
 
         default:

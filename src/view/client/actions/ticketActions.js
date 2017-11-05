@@ -1,11 +1,21 @@
 import store from '../store/configStore';
+import {push} from 'connected-react-router';
 import axios from 'axios';
 import {LOCAL_HOST} from '../constants/ClientMain';
-import {GET_STATIONS, GET_TRAINS, GET_TRAIN_INFO, SET_ERROR_MESSAGE, SET_TRAIN, GET_WAIPOINTS, SET_WAIPOINTS} from '../constants/Ticket';
-import {push} from 'connected-react-router';
+import {
+    GET_STATIONS,
+    GET_TRAINS,
+    GET_TRAIN_INFO,
+    SET_ERROR_MESSAGE,
+    SET_TRAIN, GET_WAIPOINTS,
+    SET_WAIPOINTS,
+    OPEN_SNACKBAR,
+    SET_PASSENGER,
+    ERROR_PAY_MESSAGE,
+    SUCCESS_PAY_MESSAGE} from '../constants/Ticket';
 
 export function getListStations(){
-    return axios({
+    axios({
         method: 'GET',
         url: LOCAL_HOST + 'getStations',
         withCredentials: true
@@ -90,6 +100,36 @@ export function setErrorMessage(message){
         })
 }
 
+export function setErrorPayMessage(message){
+    return store.dispatch({
+        type: ERROR_PAY_MESSAGE,
+        payload: message
+    })
+}
+
+export function setSuccessPayMessage(message){
+    return store.dispatch({
+        type: SUCCESS_PAY_MESSAGE,
+        payload: message
+    })
+}
+
+export function setPassenger(passenger){
+    return store.dispatch({
+        type: SET_PASSENGER,
+        payload: passenger
+    })
+}
+
+export function openSnackbar(snackbar) {
+    return () => {
+        store.dispatch({
+            type: OPEN_SNACKBAR,
+            payload: snackbar
+        })
+    }
+}
+
 export function buyTicket(ticketData){
     return () => {
         axios({
@@ -101,8 +141,24 @@ export function buyTicket(ticketData){
             },
             withCredentials: true
         })
-            .then((response) => {
-                console.log(response.data)
+            .then(() => {
+                setSuccessPayMessage('Successfully payment. Ticket send on email: '
+                    + ticketData.userEmail)
+            })
+            .catch((error) => {
+                if(error.response.status === 400){
+                    setErrorPayMessage('Invalid payment data')
+                } else if(error.response.status === 403){
+                    setErrorPayMessage('Train departed already')
+                } else if(error.response.status === 302){
+                    setErrorPayMessage('Passenger ' +
+                        ticketData.passenger.firstName + ' ' +
+                        ticketData.passenger.lastName + ' ' +
+                        'registered already'
+                    )
+                } else {
+                    console.log(error);
+                }
             })
     }
 }

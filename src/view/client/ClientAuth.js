@@ -35,9 +35,7 @@ export default class ClientAuth extends Component {
                     user
                 });
             })
-            .then(() => {
-                store.dispatch(push('/rws/client/tickets'));
-            })
+            .then(() => {store.dispatch(push('/rws/client/tickets'))})
     }
 
     render() {

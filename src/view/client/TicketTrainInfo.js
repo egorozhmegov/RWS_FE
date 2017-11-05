@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import '../css/TicketTrainInfo.css';
-import {Button, Modal} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import DatePicker from 'react-datepicker';
 import '../css/DatePicker.css';
 import moment from 'moment';
-import Cards from 'react-credit-cards';
-import 'react-credit-cards/lib/styles-compiled.css';
-import 'react-credit-cards/lib/styles.scss';
-import 'react-credit-cards/src/styles.scss';
-import '../css/CreditCard.css';
-import { auth } from './constants/firebase';
+import store from './store/configStore';
+import {push} from 'connected-react-router';
 
 export default class TicketTrainInfo extends Component {
 
@@ -18,13 +14,7 @@ export default class TicketTrainInfo extends Component {
         this.state = {
             birthday: moment(),
             firstName: '',
-            lastName: '',
-            showPayModal: false,
-            number: '',
-            name: '',
-            expiry: '',
-            cvc: '',
-            focused: ''
+            lastName: ''
         }
     }
 
@@ -48,13 +38,7 @@ export default class TicketTrainInfo extends Component {
 
     payment(event) {
         event.preventDefault();
-        this.setState({showPayModal: true})
-    }
-
-    pay(event) {
-        event.preventDefault();
-        this.props.ticketActions.buyTicket({
-            passenger: {
+        this.props.ticketActions.setPassenger({
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 birthday: [
@@ -62,56 +46,11 @@ export default class TicketTrainInfo extends Component {
                     this.state.birthday._d.getMonth() + 1,
                     this.state.birthday._d.getDate()
                 ]
-            },
-            creditCard: {
-                number: this.state.number,
-                name: this.state.name,
-                expiry: this.state.expiry,
-                cvc: this.state.cvc,
-            },
-            trainWrapper: this.props.ticketReducer.train,
-            userEmail: auth.currentUser.email
-        })
-    }
-
-    handleInputFocus = (event) => {
-        const target = event.target;
-
-        this.setState({
-            focused: target.name,
-        });
-    };
-
-    onCardInputChange = (event) => {
-        const target = event.target;
-
-        if (target.name === 'number') {
-            if (target.value.length <= 16) {
-                this.setState({
-                    [target.name]: target.value.replace(/ /g, ''),
-                });
-            }
-        }
-        if (target.name === 'cvc') {
-            if (target.value.length <= 3) {
-                this.setState({
-                    [target.name]: target.value.replace(/ /g, ''),
-                });
-            }
-        }
-        else if (target.name === 'expiry') {
-            if (target.value.length <= 4) {
-                this.setState({
-                    [target.name]: target.value.replace(/ |\//g, ''),
-                });
-            }
-        }
-        else {
-            this.setState({
-                [target.name]: target.value,
             });
-        }
-    };
+        this.props.ticketActions.setErrorPayMessage('');
+        this.props.ticketActions.setSuccessPayMessage('');
+        store.dispatch(push('/rws/client/tickets/trains/info/payment'));
+    }
 
     render() {
         let depDay = this.props.ticketReducer.train.departDate[2];
@@ -148,8 +87,6 @@ export default class TicketTrainInfo extends Component {
         if (arrHour.toString().length === 1) arrHour = '0' + arrHour;
         if (arrMinute.toString().length === 1) arrMinute = '0' + arrMinute;
 
-        const {name, number, expiry, cvc, focused} = this.state;
-
         return (
             <div className="pay-info">
                 <strong>
@@ -163,13 +100,13 @@ export default class TicketTrainInfo extends Component {
                     </div>
 
                     <div className="info">
-                        Departure date: {depDay}{'.'}{depMonth}{'.'}{this.props.ticketReducer.train.departDate[0]}
-                        Arrival date: {arrDay}{'.'}{arrMonth}{'.'}{this.props.ticketReducer.train.arriveDate[0]}
+                        Departure: {depDay}{'.'}{depMonth}{'.'}{this.props.ticketReducer.train.departDate[0]}{'  '}
+                        {depHour}{depHour === '' ? '' : ':'}{depMinute}
                     </div>
 
                     <div className="info">
-                        Departure time: {depHour}{depHour === '' ? '' : ':'}{depMinute}
-                        Arrival time: {arrHour}{arrHour === '' ? '' : ':'}{arrMinute}
+                        Arrival: {arrDay}{'.'}{arrMonth}{'.'}{this.props.ticketReducer.train.arriveDate[0]}{'  '}
+                        {arrHour}{arrHour === '' ? '' : ':'}{arrMinute}
                     </div>
 
                     <div className="info">
@@ -181,12 +118,12 @@ export default class TicketTrainInfo extends Component {
                     <form onSubmit={this.payment.bind(this)}>
                         <label>First Name</label>
                         <input className="pas-data-input" type="text" placeholder="First Name"
-                               onChange={this.onFirstNameChange.bind(this)}/>
+                               onChange={this.onFirstNameChange.bind(this)} required/>
 
 
                         <label>Last Name</label>
                         <input className="pas-data-input" type="text" placeholder="Last Name"
-                               onChange={this.onLastNameChange.bind(this)}/>
+                               onChange={this.onLastNameChange.bind(this)} required/>
 
                         <label>Birthday</label>
                         <DatePicker className="pas-data-input"
@@ -201,74 +138,6 @@ export default class TicketTrainInfo extends Component {
                         <Button className="payment-btn" type="submit">Payment</Button>
                     </form>
                 </div>
-
-                <Modal
-                    show={this.state.showPayModal}
-                    onHide={() => this.setState({showPayModal: false})}
-                    container={this}
-                    aria-labelledby="contained-modal-title"
-                >
-                    <Modal.Body>
-                        <div className="pay-form">
-                            <div className="card">
-                                <Cards
-                                    number={number}
-                                    name={name}
-                                    expiry={expiry}
-                                    cvc={cvc}
-                                    focused={focused}
-                                />
-                            </div>
-
-                            <div className="card-form">
-                                <form>
-                                    <div>
-                                        <input
-                                            className="card-number"
-                                            type="tel"
-                                            name="number"
-                                            placeholder="Card Number"
-                                            onKeyUp={this.onCardInputChange}
-                                            onFocus={this.handleInputFocus}
-                                        />
-                                    </div>
-                                    <div>
-                                        <input
-                                            className="card-name"
-                                            type="text"
-                                            name="name"
-                                            placeholder="Name"
-                                            onKeyUp={this.onCardInputChange}
-                                            onFocus={this.handleInputFocus}
-                                        />
-                                    </div>
-                                    <div>
-                                        <input
-                                            className="card-expiry"
-                                            type="tel"
-                                            name="expiry"
-                                            placeholder="Valid Thru"
-                                            onKeyUp={this.onCardInputChange}
-                                            onFocus={this.handleInputFocus}
-                                        />
-                                        <input
-                                            className="card-cvc"
-                                            type="tel"
-                                            name="cvc"
-                                            placeholder="CVC"
-                                            onKeyUp={this.onCardInputChange}
-                                            onFocus={this.handleInputFocus}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <Button className="pay-btn" onClick={this.pay.bind(this)}>Pay</Button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </Modal.Body>
-                </Modal>
             </div>
         )
     }
