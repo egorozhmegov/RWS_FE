@@ -46,6 +46,13 @@ export default class EmpHeader extends Component {
                                 <span>  Passengers</span>
                             </NavItem>
                         </LinkContainer> : null}
+
+                    { cookie.load('RWS_COOKIE') !== undefined ?
+                        <LinkContainer to="/rws/employee/timetable">
+                            <NavItem className="nav-item">
+                                <span>  Timetable</span>
+                            </NavItem>
+                        </LinkContainer> : null}
                 </Nav>
 
                 <Nav pullRight>
