@@ -115,7 +115,7 @@ export default class Ticket extends Component {
                                                 {' '}
                                                 <FormGroup>
                                                     {' '}
-                                                    <DatePicker className="date-input"
+                                                    <DatePicker className="train-date-input"
                                                                 selected={this.state.startDate}
                                                                 onChange={this.handleDateChange.bind(this)}
                                                                 dateFormat="DD.MM.YYYY"

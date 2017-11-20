@@ -47,9 +47,24 @@ export function sendTimetableMessage(message){
             withCredentials: true
         })
             .then(() => {
+                let currentdate = new Date();
+                let date = currentdate.getDate();
+                if(date.toString().length === 1){date = '0' + date;}
+                let month = currentdate.getMonth()+1;
+                if(month.toString().length === 1) {month = '0' + month;}
+                let year = currentdate.getFullYear();
+                let hour = currentdate.getHours();
+                if(hour.toString().length === 1) {hour = '0' + hour;}
+                let min = currentdate.getMinutes();
+                if(min.toString().length === 1) {min = '0' + min;}
+                let resultDate = date+"."+month+"."+year+", "+hour+":"+min;
+                let notice = resultDate + ' -  NOTICE: station: ' + message.station
+                    + ', train: ' + message.train + ', status: ' + message.status +
+                    ', message: ' + message.message;
+
                 store.dispatch({
                     type: ADD_MESSAGE,
-                    payload: message
+                    payload: notice
                 })
             })
             .catch((error) => {

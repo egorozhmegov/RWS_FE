@@ -32,7 +32,7 @@ export default class TicketTrainInfo extends Component {
 
     onBirthdayChange(date) {
         this.setState({
-            birthday: date
+            birthday: date.isBefore(moment()) ? date : moment()
         });
     }
 

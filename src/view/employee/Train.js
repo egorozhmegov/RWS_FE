@@ -243,9 +243,34 @@ export default class Train extends Component {
 
     handleOpenRouteModal(train) {
         this.setState({
+            departPeriod: '',
+            arrivePeriod: '',
+            depSelect: {
+                disabled: false,
+                stayOpen: false,
+                depValue: []
+            },
+            arrSelect: {
+                disabled: false,
+                stayOpen: false,
+                arrValue: []
+            },
+            stSelect: {
+                disabled: false,
+                stayOpen: false,
+                stValue: ''
+            },
+            departureTime: {
+                hour: '',
+                minute: ''
+            },
+            arrivalTime: {
+                hour: '',
+                minute: ''
+            },
             showRouteModal: true,
-            train: train
-        });
+            train: train,
+        })
     }
 
     handleCloseRouteModal() {
@@ -320,7 +345,7 @@ export default class Train extends Component {
                                                 },
                                                 {
                                                     Header: () =>
-                                                        <Button className="add-btn" bsSize="xsmall"
+                                                        <Button className="add-btn" bsSize="small"
                                                                 onClick={() => {
                                                                     this.setState({
                                                                         showAddDialog: true,
@@ -531,7 +556,8 @@ export default class Train extends Component {
                     <Modal.Body>
                         <div>
                             <form onSubmit={this.addRoutePoint.bind(this)}>
-                                <Select className="select-station"
+                                <h5>Station</h5>
+                                <Select className="select-route-point"
                                         closeOnSelect={!this.state.stSelect.stayOpen}
                                         disabled={this.state.stSelect.disabled}
                                         onChange={this.onSelectStationChange.bind(this)}
@@ -543,8 +569,8 @@ export default class Train extends Component {
                                         value={this.state.stSelect.stValue}
                                 />
 
-                                <div>Arrival days</div>
-                                <Select
+                                <h5>Arrival days</h5>
+                                <Select className="select-route-point"
                                     closeOnSelect={!this.state.arrSelect.stayOpen}
                                     disabled={this.state.arrSelect.disabled}
                                     multi
@@ -555,7 +581,7 @@ export default class Train extends Component {
                                     value={this.state.arrSelect.arrValue}
                                 />
 
-                                <div>Arrival time</div>
+                                <h5>Arrival time</h5>
                                 <TimePicker
                                     style={{width: 50}}
                                     defaultValue={this.state.timeArrPicker}
@@ -563,8 +589,8 @@ export default class Train extends Component {
                                     onChange={this.onArrTimeChange.bind(this)}
                                 />
 
-                                <div>Departure days</div>
-                                <Select
+                                <h5>Departure days</h5>
+                                <Select className="select-route-point"
                                     closeOnSelect={!this.state.depSelect.stayOpen}
                                     disabled={this.state.depSelect.disabled}
                                     multi
@@ -575,7 +601,7 @@ export default class Train extends Component {
                                     value={this.state.depSelect.depValue}
                                 />
 
-                                <div>Departure time</div>
+                                <h5>Departure time</h5>
                                 <TimePicker style={{width: 50}}
                                             defaultValue={this.state.timeDepPicker}
                                             showSecond={false}
@@ -585,7 +611,7 @@ export default class Train extends Component {
                                 <h4 className="route-error-message">{this.props.trainReducer.addRoutePointErrorMessage}</h4>
 
                                 <div>
-                                    <Button bsSize="small" className="add-submit-btn" type="submit">Save</Button>
+                                    <Button bsSize="small" className="route-point-btn" type="submit">Save</Button>
                                 </div>
                             </form>
                         </div>

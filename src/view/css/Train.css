@@ -1,10 +1,11 @@
 .route-point-dialog .modal-dialog{
-    margin-top: 30%;
+    margin-top: 30%;border-radius: 0px;
 }
 
 .train-jum{
     background-color: #FAEBD7;
     width: 100%;
+    height: 550px;
 }
 
 .tab-header{
@@ -15,12 +16,14 @@
     float: inherit;
     background-color: #FA8072;
     color: #FFFFFF;
+    border-radius: 1px;
 }
 
 .route-btn{
     align-content: center;
     background-color: #2F4F4F;
     color: #FFFFFF;
+    border-radius: 1px;
 }
 
 .align-center{
@@ -28,29 +31,29 @@
 }
 
 .modal-body{
-    border-radius: 2px;
+    border-radius: 1px;
     background-color: #FAEBD7;
 }
 
 .modal-header {
-    border-radius: 2px;
+    border-radius: 1px;
     background-color: #FAEBD7;
 }
 
 .yes-btn{
     background-color: darkslategray;
     color: white;
-    border-radius: 3px;
+    border-radius: 1px;
     margin-left: 5px;
 }
 
 .no-btn{
-    border-radius: 3px;
+    border-radius: 1px;
     margin-right: 5px;
 }
 
 .dialog-body{
-    border-radius: 3px;
+    border-radius: 1px;
     text-align: center;
 }
 
@@ -75,6 +78,13 @@
     background-color: darkslategray;
     color: white;
     border-radius: 1px;
+}
+
+.add-submit-btn{
+    background-color: darkslategray;
+    color: white;
+    border-radius: 1px;
+    width: 40%;
 }
 
 th {text-align:center}
