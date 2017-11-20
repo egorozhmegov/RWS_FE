@@ -1,7 +1,7 @@
 import store from '../store/configStore';
 import axios from 'axios';
 import { push } from 'connected-react-router';
-import { GET_STATIONS, GET_TRAINS } from '../constants/Timetable';
+import { GET_STATIONS, GET_TRAINS, ADD_MESSAGE } from '../constants/Timetable';
 import {LOCAL_HOST} from '../constants/Main';
 
 export function getListStations(){
@@ -46,6 +46,12 @@ export function sendTimetableMessage(message){
             },
             withCredentials: true
         })
+            .then(() => {
+                store.dispatch({
+                    type: ADD_MESSAGE,
+                    payload: message
+                })
+            })
             .catch((error) => {
                 console.log(error)
             })

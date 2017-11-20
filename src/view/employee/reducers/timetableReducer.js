@@ -1,8 +1,9 @@
-import { GET_STATIONS, GET_TRAINS } from '../constants/Timetable';
+import {GET_STATIONS, GET_TRAINS, ADD_MESSAGE} from '../constants/Timetable';
 
 const initialState = {
     stations: [],
-    trains: []
+    trains: [],
+    messages: []
 };
 
 export default function timetableReducer(state = initialState, action) {
@@ -17,6 +18,15 @@ export default function timetableReducer(state = initialState, action) {
             return {
                 ...state,
                 trains: action.payload
+            };
+
+        case ADD_MESSAGE:
+            return {
+                ...state,
+                messages: [
+                    ...state.messages,
+                    action.payload
+                ]
             };
 
         default:
