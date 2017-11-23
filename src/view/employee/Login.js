@@ -25,8 +25,8 @@ export default class Login extends Component {
         event.preventDefault();
         this.props.employeeActions.loginEmployee({
             id: '',
-            firstName: '',
-            lastName: '',
+            userFirstName: '',
+            userLastName: '',
             email: '',
             login: this.state.login,
             password: this.state.password

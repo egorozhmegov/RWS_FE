@@ -20,12 +20,12 @@ export default class Passenger extends Component {
                                             columns: [
                                                 {
                                                     Header: () => <strong>First Name</strong>,
-                                                    accessor: 'firstName',
+                                                    accessor: 'passengerFirstName',
 
                                                 },
                                                 {
                                                     Header: () => <strong>Last Name</strong>,
-                                                    accessor: 'lastName'
+                                                    accessor: 'passengerLastName'
                                                 },
                                                 {
                                                     Header: () => <strong>Birthday</strong>,

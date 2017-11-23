@@ -175,9 +175,6 @@ export default class Timetable extends Component {
                                     </Col>
                                 </Row>
                             </Grid>
-
-
-
                         </Jumbotron>
                     </Col>
                 </Row>

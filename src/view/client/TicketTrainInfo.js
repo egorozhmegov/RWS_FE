@@ -39,8 +39,8 @@ export default class TicketTrainInfo extends Component {
     payment(event) {
         event.preventDefault();
         this.props.ticketActions.setPassenger({
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
+                passengerFirstName: this.state.firstName,
+                passengerLastName: this.state.lastName,
                 birthday: [
                     this.state.birthday._d.getFullYear(),
                     this.state.birthday._d.getMonth() + 1,

@@ -42,8 +42,8 @@ export default class Registration extends Component {
     registerEmployee(event) {
         event.preventDefault();
         this.props.employeeActions.registerEmployee({
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
+            userFirstName: this.state.firstName,
+            userLastName: this.state.lastName,
             email: this.state.email,
             login: this.state.login,
             password: this.state.password
