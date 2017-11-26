@@ -34,6 +34,7 @@ export default class Payment extends Component {
             trainWrapper: this.props.ticketReducer.train,
             userEmail: auth.currentUser.email
         });
+        this.props.ticketActions.setSuccessPayMessage('Loading ...');
     }
 
     handleInputFocus = (event) => {
