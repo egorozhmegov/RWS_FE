@@ -108,12 +108,10 @@ export function setErrorPayMessage(message){
 }
 
 export function setSuccessPayMessage(message){
-    return () => {
-        store.dispatch({
-            type: SUCCESS_PAY_MESSAGE,
-            payload: message
-        })
-    }
+    return store.dispatch({
+        type: SUCCESS_PAY_MESSAGE,
+        payload: message
+    })
 }
 
 export function setPassenger(passenger){
@@ -143,19 +141,21 @@ export function buyTicket(ticketData){
             },
             withCredentials: true
         })
-            .then(setSuccessPayMessage('Successfully payment. Ticket send on email: '
-                + ticketData.userEmail))
+            .then(() => {
+                setSuccessPayMessage('Successfully payment. Ticket send on email: '
+                    + ticketData.userEmail)
+            })
             .catch((error) => {
                 if(error.response.status === 400){
                     setErrorPayMessage('Invalid payment data')
                 } else if(error.response.status === 403){
                     setErrorPayMessage('Train departed already')
                 } else if(error.response.status === 302){
+                    setSuccessPayMessage('');
                     setErrorPayMessage('Passenger ' +
                         ticketData.passenger.passengerFirstName + ' ' +
                         ticketData.passenger.passengerLastName + ' ' +
-                        'registered already'
-                    );
+                        'registered already');
                 } else {
                     console.log(error);
             }
